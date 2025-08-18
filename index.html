@@ -1,0 +1,632 @@
+<!----Domain : SmartBuy.best ---Spaceship.com--->
+
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SmartBuy.com — Creative Product Review Hub</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&display=swap" rel="stylesheet">
+
+  
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --accent: #7c3aed;
+      --accent-2: #06b6d4;
+      --glass: rgba(255, 255, 255, 0.04);
+      --muted: #9aa6b2;
+      --success: #16a34a;
+    }
+
+    
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124, 58, 237, 0.12), transparent),
+        radial-gradient(900px 400px at 90% 90%, rgba(6, 182, 212, 0.06), transparent),
+        var(--bg);
+      color: #e6eef6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 36px auto;
+      padding: 20px
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+      font-size: 18px;
+      box-shadow: 0 6px 24px rgba(7, 12, 20, 0.6);
+    }
+
+    .brand-title {
+      font-family: 'Monoton', cursive;
+      font-size: 38px;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    p.lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search {
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 8px 12px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search input {
+      background: transparent;
+      border: 0;
+      color: inherit;
+      outline: none;
+      width: 210px;
+    }
+
+    .filter,
+    .btn {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 8px 12px;
+      border-radius: 10px;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+
+    .btn.primary {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.08);
+      border: none;
+      color: white;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border-radius: 14px;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      transition: transform .18s ease, box-shadow .18s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.6);
+    }
+
+    .thumb {
+      width: 120px;
+      height: 90px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      background-size: cover;
+      background-position: center;
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .meta {
+      flex: 1;
+    }
+
+    .meta h3 {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--accent-2);
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      font-size: 13px;
+      cursor: pointer;
+      user-select: none;
+      background: transparent;
+      color: var(--accent-2);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .pill:hover {
+      background: var(--accent-2);
+      color: white;
+      border-color: var(--accent-2);
+    }
+
+    aside {
+      position: sticky;
+      top: 24px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .summary {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .big-num {
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .reviews {
+      margin-top: 12px;
+    }
+
+    .review {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .review .meta {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(2, 6, 23, 0.6), rgba(2, 6, 23, 0.85));
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal {
+      background: linear-gradient(180deg, #071021, #071829);
+      padding: 18px;
+      border-radius: 12px;
+      max-width: 720px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+    }
+
+    label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    input[type='text'],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: transparent;
+      color: inherit;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 100px;
+    }
+
+    .stars {
+      display: flex;
+      gap: 6px;
+    }
+
+    .star {
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    footer {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search input {
+        width: 120px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+
+      <div class="brand">
+        <div class="logo">
+          <img src="Images/generated-image.png" style="background-color: gray; width:125%; height:125%; object-fit:contain; border-radius:20px;">
+        </div>
+        <div>
+          <h1 class="brand-title">Smart Buy</h1>
+          <p class="lead">Your feedback shapes better choices — curated for shoppers</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" style="color:#9aa6b2; flex-shrink:0;">
+            <circle cx="11" cy="11" r="8" stroke-width="2" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2" />
+          </svg>
+          <input id="search" placeholder=" Search products or reviews...">
+        </div>
+
+        <div class="filter" id="sortDropdown" style="user-select:none; cursor:pointer; position:relative;">
+          Filters ▾
+          <div id="sortOptions" style="
+            display: none;
+            position: absolute;
+            top: 28px;
+            right: 0;
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 0;
+            min-width: 140px;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+          ">
+            <div class="sort-option" data-sort="top" style="padding:8px 12px; cursor:pointer; color: var(--muted);">Top Rated</div>
+            <div class="sort-option" data-sort="priceLow" style="padding:8px 12px; cursor:pointer; color: var(--muted);">Price Low → High</div>
+            <div class="sort-option" data-sort="priceHigh" style="padding:8px 12px; cursor:pointer; color: var(--muted);">Price High → Low</div>
+            <div class="sort-option" data-sort="amazonShop" style="padding:8px 12px; cursor:pointer; color: var(--muted); border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 4px;"> <button id="Amazon" onclick="window.location.href='/amazon/amazonproducts.html'">Amazon</button>
+ 
+          </div>
+        </div>
+
+        <button class="btn primary" id="openReview">Write a Review</button>        
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
+          <h2 style="margin:0">Top Products</h2>
+          <div style="color:var(--muted); font-size:13px">Showing <span id="count">0</span> items</div>
+        </div>
+        <div class="grid" id="productGrid"></div>
+      </section>
+
+      <aside>
+        <div class="summary">
+          <div>
+            <div class="big-num" id="avgRating">0.0</div>
+            <div class="small">Average Rating</div>
+          </div>
+          <div style="margin-left:auto; text-align:right">
+            <div class="small">Total Reviews</div>
+            <div id="totalReviews" style="font-weight:700">0</div>
+          </div>
+        </div>
+        <div class="reviews" id="recentReviews"></div>
+      </aside>
+    </main>
+
+    <footer>Made with — Smart♥Buy. Try writing a review to see it live!</footer>
+  </div>
+
+  <div class="modal-backdrop" id="modal">
+    <div class="modal">
+      <h3 id="modalTitle">Write a Review</h3>
+      <div style="display:flex; gap:12px; margin-top:8px">
+        <div style="flex:1">
+          <label>Product</label>
+          <select id="productSelect"></select>
+        </div>
+        <div style="width:120px">
+          <label>Rating</label>
+          <div class="stars" id="starPicker">
+            <span class="star" data-value="1">☆</span>
+            <span class="star" data-value="2">☆</span>
+            <span class="star" data-value="3">☆</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <label>Your Name</label>
+        <input id="reviewer" placeholder="e.g. Mira" type="text">
+      </div>
+      <div style="margin-top:10px">
+        <label>Review</label>
+        <textarea id="reviewText" placeholder="Share your experience..."></textarea>
+      </div>
+      <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px">
+        <button class="btn" id="closeModal">Cancel</button>
+        <button class="btn primary" id="saveReview">Submit Review</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      { id: 1, name: 'Adidas Runner', price: 25000, image: 'Images/adidas runner.avif' },
+      { id: 2, name: 'Skechers Sprint', price: 10000, image: 'Images/skechers.webp' },
+      { id: 3, name: 'Nike Flex', price: 15000, image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=60' },
+      { id: 4, name: 'Casual Canvas', price: 12000, image: 'Images/casual canvas.avif' },
+    ];
+
+    const STORAGE_KEY = 'pulse_reviews_v1';
+    let reviews = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+    const el = s => document.querySelector(s);
+    const elAll = s => Array.from(document.querySelectorAll(s));
+
+    function saveReviews() { localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews)); }
+
+    function calcSummary() {
+      const total = reviews.length;
+      const avg = total ? (reviews.reduce((s, r) => s + r.rating, 0) / total) : 0;
+      el('#avgRating').textContent = avg ? avg.toFixed(1) : '0.0';
+      el('#totalReviews').textContent = total;
+    }
+
+    function starString(r) {
+      let s = '';
+      for (let i = 1; i <= 5; i++) s += i <= r ? '★' : '☆';
+      return s;
+    }
+
+    let currentFilter = '';
+    let isAmazonFilterOn = false;
+
+    function renderProducts(filter = '') {
+      const grid = el('#productGrid');
+      grid.innerHTML = '';
+
+      let filtered = products.filter(p =>
+        p.name.toLowerCase().includes(filter.toLowerCase())
+      );
+
+      if (isAmazonFilterOn) {
+        filtered = filtered.filter(p => p.isAmazonShop);
+        el('#count').textContent = `${filtered.length} (Amazon Shop)`;
+      } else {
+        el('#count').textContent = filtered.length;
+      }
+
+      filtered.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="thumb" style="background-image:url('${p.image}')"></div>
+          <div class="meta"><h3>${p.name}</h3>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+              <div>
+                <div class="price">₹${p.price}</div>
+                <div class="rating">${starString(avgRatingForProduct(p.id))} <span style="margin-left:8px;color:var(--muted)">${reviewsForProductCount(p.id)} reviews</span></div>
+              </div>
+              <div class="actions"><div class="pill">Buy</div>
+                <div class="pill" onclick="openQuickReview(${p.id})">Review</div></div>
+            </div>
+          </div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    function avgRatingForProduct(id) {
+      const r = reviews.filter(x => x.productId === id);
+      if (!r.length) return 0;
+      return Math.round((r.reduce((s, a) => s + a.rating, 0) / r.length) * 10) / 10;
+    }
+
+    function reviewsForProductCount(id) { return reviews.filter(x => x.productId === id).length; }
+
+    function renderRecentReviews() {
+      const box = el('#recentReviews');
+      box.innerHTML = '';
+      const recent = [...reviews].slice(-6).reverse();
+      if (!recent.length) {
+        box.innerHTML = '<div class="small">No reviews yet — be the first!</div>';
+        return;
+      }
+      recent.forEach(r => {
+        const d = document.createElement('div'); d.className = 'review';
+        const prod = products.find(p => p.id === r.productId) || { name: 'Unknown' };
+        d.innerHTML = `<div style="font-weight:700">${r.name} <span style="float:right;color:var(--muted)">${starString(r.rating)}</span></div>
+          <div class="meta"><div>${prod.name}</div><div>${new Date(r.when).toLocaleString()}</div></div>
+          <div style="margin-top:6px">${r.text}</div>`;
+        box.appendChild(d);
+      });
+    }
+
+    const modal = el('#modal');
+
+    el('#openReview').addEventListener('click', () => openModal());
+    el('#closeModal').addEventListener('click', () => closeModal());
+
+    function openModal() {
+      const sel = el('#productSelect');
+      sel.innerHTML = products.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+      modal.style.display = 'flex';
+      el('#reviewer').value = ''; el('#reviewText').value = ''; setStarPicker(5);
+    }
+
+    function closeModal() { modal.style.display = 'none'; }
+
+    let chosenStar = 5;
+
+    function setStarPicker(n) {
+      chosenStar = n;
+      elAll('#starPicker .star').forEach(s => {
+        s.textContent = s.dataset.value <= n ? '★' : '☆';
+      });
+    }
+
+    elAll('#starPicker .star').forEach(s => s.addEventListener('click', () => setStarPicker(parseInt(s.dataset.value))));
+
+    el('#saveReview').addEventListener('click', () => {
+      const name = el('#reviewer').value.trim() || 'Anonymous';
+      const text = el('#reviewText').value.trim() || '—';
+      const pid = parseInt(el('#productSelect').value, 10);
+      const r = { productId: pid, name, text, rating: chosenStar, when: Date.now() };
+      reviews.push(r); saveReviews(); renderAll(); closeModal();
+    });
+
+    function openQuickReview(id) { openModal(); el('#productSelect').value = id; }
+
+    el('#search').addEventListener('input', e => {
+      currentFilter = e.target.value;
+      renderProducts(currentFilter);
+    });
+
+    const sortDropdown = el('div#sortDropdown');
+    const sortOptions = el('div#sortOptions');
+
+    sortDropdown.addEventListener('click', () => {
+      sortOptions.style.display = sortOptions.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sortDropdown.contains(e.target)) {
+        sortOptions.style.display = 'none';
+      }
+    });
+
+    elAll('.sort-option').forEach(option => {
+      option.addEventListener('click', () => {
+        const sortCriteria = option.dataset.sort;
+        if (sortCriteria !== 'amazonShop') {
+          isAmazonFilterOn = false;
+        }
+
+        if (sortCriteria === 'top') {
+          products.sort((a, b) => avgRatingForProduct(b.id) - avgRatingForProduct(a.id));
+        } else if (sortCriteria === 'priceLow') {
+          products.sort((a, b) => a.price - b.price);
+        } else if (sortCriteria === 'priceHigh') {
+          products.sort((a, b) => b.price - a.price);
+        } else if (sortCriteria === 'amazonShop') {
+          isAmazonFilterOn = !isAmazonFilterOn;
+        }
+
+        renderProducts(currentFilter);
+        sortOptions.style.display = 'none';
+      });
+    });
+
+    function renderAll() {
+      renderProducts(currentFilter);
+      renderRecentReviews();
+      calcSummary();
+    }
+
+    renderAll();
+
+    modal.addEventListener('click', ev => { if (ev.target === modal) closeModal(); });
+  </script>
+</body>
+
+</html>
+

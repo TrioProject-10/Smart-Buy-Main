@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Amazon Products - Smart Buy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --accent: #7c3aed;
+      --accent-2: #06b6d4;
+      --glass: rgba(255, 255, 255, 0.04);
+      --muted: #9aa6b2;
+      --success: #16a34a;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124, 58, 237, 0.12), transparent),
+        radial-gradient(900px 400px at 90% 90%, rgba(6, 182, 212, 0.06), transparent),
+        var(--bg);
+      color: #e6eef6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 36px auto;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+      font-size: 18px;
+      box-shadow: 0 6px 24px rgba(7, 12, 20, 0.6);
+    }
+
+    .brand-title {
+      font-family: 'Monoton', cursive;
+      font-size: 38px;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    p.lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      font-size: 13px;
+      color: var(--accent-2);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      user-select: none;
+    }
+
+    .pill:hover {
+      background: var(--accent-2);
+      color: white;
+      border-color: var(--accent-2);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border-radius: 14px;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      transition: transform 0.18s ease, box-shadow 0.18s;
+      margin-bottom: 14px;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.6);
+    }
+
+    .thumb {
+      width: 120px;
+      height: 90px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      background-size: cover;
+      background-position: center;
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .meta {
+      flex: 1;
+    }
+
+    .meta h3 {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--accent-2);
+    }
+
+    .actions {
+      margin-top: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <img src="/Images/generated-image.png" alt="Smart Buy Logo" style="background-color: gray; width:125%; height:125%; object-fit:contain; border-radius:20px;">
+        </div>
+        <div>
+          <h1 class="brand-title">Smart Buy</h1>
+          <p class="lead">Your feedback shapes better choices — curated for shoppers</p>
+        </div>
+      </div>
+      <div class="pill" style="margin-top:12px;">
+        <a href="/index.html" style="color:inherit; text-decoration:none;">← Back to Home</a>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h2 style="margin:0;">Amazon Top Products</h2>
+          <div style="color:var(--muted); font-size:13px;">Showing <span id="count">0</span> items</div>
+        </div>
+        <div class="grid" id="productGrid"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const amazonProducts = [
+      {
+        id: 101,
+        name: "Apple MacBook Air ",
+        price: 120000,
+        image: "/Images/macbook-air.jpg",
+        url: "https://www.amazon.in/Apple-MacBook-13-inch-10-core-Unified/dp/B0DZDDV7GC/ref=sr_1_3?crid=1E387CR0Y9HVN&dib=eyJ2IjoiMSJ9.asb3l5WT-2IvI1DgvMjmGuOziaPa2QX4GjA9ZUtHMc0T0DzglHEA19yGY1dngXs8bpUjM_GxM0h97oy31G5HWa1PQFcKJlVZ5HGyBLZ4sS1k-b2EXbb0DH8MEQG15lZLwq4WSMfafYAoSeSEXHHATCfbMyBxJUX59nrnnCsOT5L2s-x4__9w4Bj7uIFW9FyhWqdHL3V8-j3gwkWcSuD84bpK3Sm5cZ9Knxqkfi_mPUE.7jG9l1WzwgUx0jUFzqDRZIhzehKT4m4HtWKJjpU53Xg&dib_tag=se&keywords=apple%2Bmacbook%2Bair&nsdOptOutParam=true&qid=1755359250&sprefix=apple%2Bmacbook%2Bair%2Caps%2C277&sr=8-3&th=1"
+      },
+      {
+        id: 102,
+        name: "Apple iPhone 16 Pro Max",
+        price: 140000,
+        image: "/Images/iphone-16.jpg",
+        url: "https://www.amazon.in/iPhone-16-Pro-Max-512/dp/B0DGJ8SYS6/ref=sr_1_1?crid=1P8608F2TBBH9&dib=eyJ2IjoiMSJ9._q5YP0qOWLtro-PC815Fm4sCzBCNMiJISSF_smC-eehEzzX5Un--CGPcSusupVkaPm8FrnZC95fZsZ7mgH5aeDdPHwkfSbp5S6awKvmAbrxwS0Rrq-wlky1JxkuSvb-oWZ2jCSDNuTbbwg3YHwivMDIuYpOUrqAtilrYoc7Crjr2Q6kGgZJOSlzvuY74pLgeZeTilrXeTyeI9A9BikGgWExTjTBZHlH0TQ1hGmSelDc.m_rbQ0Y2J9XmPZRdJsZ2hCaPa8okUvPLOZ_gVlzlbwU&dib_tag=se&keywords=apple%2Biphone%2B16%2Bpromax&nsdOptOutParam=true&qid=1755359333&sprefix=apple%2Biphone%2B16%2Bpromax%2Caps%2C258&sr=8-1&th=1"
+      },
+      {
+        id: 103,
+        name: "Amazon Fire Stick 4K",
+        price: 3500,
+        image: "/Images/firestick-4k.jpg",
+        url: "https://www.amazon.in/All-new-Amazon-streaming-ultra-cinematic-supports/dp/B0CJLMSPXH/ref=sr_1_1?crid=8283QNP9892O&dib=eyJ2IjoiMSJ9.5iNdqPnMz_M-IPiCvXpS5OOGVNRSpfasMpza55zcUQ3DZHzq35SHQSgOuxviyKGbXI_KuGbMatpZBeIwiy2PSBdvAbYDgaU-2VvNka-8JIIKxypAGLPryAe8VUMYAhNHNaVBMObYYrXAXWyDP8FuXM--Sv4VSvRI5YKcGjLqwC3arfV_NXzNxAZbg2XjG7Qx9eQtOM4mGWWIY7Ia_vmL2MroOlC8LaW4I1aCMaZixQM.tWpcMcU8U000zmu9M8mBfPSmDsjfN1SZY7JtpmnNtvw&dib_tag=se&keywords=Amazon+Fire+Stick+4K&nsdOptOutParam=true&qid=1755359363&sprefix=amazon+fire+stick+4k%2Caps%2C374&sr=8-1"
+      },
+      {
+        id: 104,
+        name: "Apple AirPods Pro (2nd Gen)",
+        price: 24000,
+        image: "/Images/airpods-pro.jpg",
+        url: "https://www.amazon.in/Apple-AirPods-Pro-2nd-Generation/dp/B0BDKD8DVD?th=1"
+      },
+      {
+        id: 105,
+        name: "Apple Watch Series 9",
+        price: 44000,
+        image: "/Images/apple-watch.webp",
+        url: "https://www.amazon.in/Apple-Cellular-Smartwatch-Aluminum-Resistant/dp/B0CHY2C8X5/ref=sr_1_1_sspa?crid=3MYJNQXPD0W8V&dib=eyJ2IjoiMSJ9.-HnGtGOOmm58j1IC-BgpZyLjpHT376hXsBo7JkkpOxIGc5efyJ4UEfxYISA0JWXbf-hoj7eBS6ApWYmfyFJ8s0vVN3J0MVIoE6M3WNJTb6mEP3K81UM3kHf8lYnsgHxx3-5djcOsKAqL9rzUMaeSS9gs2yQVRCbfordHsmQBy9PQk7IF8tGIREFyhZZE86pfwEVE5u2f2MnGGsw1k6VZoghlx-TsPFVcGFkKrTwaE-A.wAsgW3x2um1sfjEKZGb7-nVIhaHvM0JYEoK7pe24yPc&dib_tag=se&keywords=Apple%2BWatch%2BSeries%2B9&nsdOptOutParam=true&qid=1755359498&sprefix=apple%2Bwatch%2Bseries%2B9%2Caps%2C392&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1"
+      },
+      {
+        id: 106,
+        name: "Fitbit Versa 4",
+        price: 18000,
+        image: "/Images/fitbit-watch.jpg",
+        url: "https://www.amazon.in/Fitbit-Fitness-Graphite-Aluminium-Membership/dp/B0B75TVZZZ/ref=sr_1_3?crid=1V3BIHZ9HRM46&dib=eyJ2IjoiMSJ9.zhpzxVnrZtvwj3E4FuVhfz4M3IpkEAbHq8oOrYKlrGhc0WARs3dqL4VOUbJ160_pVw-n7HAe6Bqo0LqKUujX0b_otiX7q_7QsvsF5OCQMg0plhWz2s8Taz9mWDXTyiQaSSrrPKhiqgAULCrzDu9LsF1MBFVb3OXcj8al6D4etKrXuPK0Q-r6BuJCkPbOOXR0j4rUV1NMgAb4hNYnIHvuZoXnv-UdWAAjOsqDGg-Ux_k.mrOHRlr17zQwtjkSRAOMI7htCcCnFv4m_kseYggTSDc&dib_tag=se&keywords=Fitbit+Versa+4&nsdOptOutParam=true&qid=1755359545&sprefix=fitbit+versa+4%2Caps%2C304&sr=8-3"
+      },
+      {
+        id: 107,
+        name: "Chromebook (HP 14)",
+        price: 24000,
+        image: "/Images/Chromebook.jpg",
+        url: "https://www.amazon.in/HP-Chromebook-Processor-ChromeOS-Graphics/dp/B0D62HXLWP/ref=sr_1_2?crid=2I0U2WIZJX07U&dib=eyJ2IjoiMSJ9.Qxh272DKs8ESXOO-3p0x3WIHm8-jZzK0eMjui6ikbTHLY1R7ELjZiwquTAktCTciD3TKxkZrkwYHSfyphLlVle-_fZKpImIJJ5dVJYcFfEltO1nacjJ-GUhc0K2FBv8bcyji4UiVZNlcqZZNEwYpW0c9mZCCSKts6TX4hYHUX03GBfCvUj1U_NbvUB5n2Mkl24CwP1xMUmp2dciRWr-nDNqXjkir4JRcXrLgFs7xSnk.pBB5tzHLNSKod7tGCgXMT6vU5YISLorPcNILJQCCijs&dib_tag=se&keywords=Chromebook+%28HP+14%29&nsdOptOutParam=true&qid=1755359587&sprefix=chromebook+hp+14+%2Caps%2C267&sr=8-2"
+      }
+    ];
+
+    const el = s => document.querySelector(s);
+
+    function renderProducts(filter = '') {
+      const grid = el('#productGrid');
+      grid.innerHTML = '';
+
+      const filtered = amazonProducts.filter(p =>
+        p.name.toLowerCase().includes(filter.toLowerCase())
+      );
+
+      el('#count').textContent = filtered.length;
+
+     filtered.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="thumb">
+      <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;border-radius:10px;object-fit:cover;">
+    </div>
+    <div class="meta">
+      <h3>${p.name}</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+        <div>
+          <div class="price">₹${p.price}</div>
+          <div class="actions">
+            <a class="pill" href="${p.url}" target="_blank" rel="noopener sponsored nofollow">Buy on Amazon</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+    }
+
+    renderProducts();
+  </script>
+</body>
+
+</html>
