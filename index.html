@@ -528,7 +528,7 @@
       box.innerHTML = '';
       const recent = [...reviews].slice(-6).reverse();
       if (!recent.length) {
-        box.innerHTML = '<div class="small">No reviews yet — be the first!</div>';
+        box.innerHTML = '<div class="small">No reviews yet ? — be the first!</div>';
         return;
       }
       recent.forEach(r => {
