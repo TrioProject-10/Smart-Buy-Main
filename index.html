@@ -15,7 +15,7 @@
   
   <style>
     :root {
-      --bg: #0f1724;
+      --bg: #101a29;
       --card: #0b1220;
       --accent: #7c3aed;
       --accent-2: #06b6d4;
@@ -35,17 +35,21 @@
       height: 100%;
       margin: 0;
       font-family: Inter, system-ui, Arial;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       background: radial-gradient(1200px 600px at 10% 10%, rgba(124, 58, 237, 0.12), transparent),
         radial-gradient(900px 400px at 90% 90%, rgba(6, 182, 212, 0.06), transparent),
         var(--bg);
       color: #e6eef6;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 36px auto;
-      padding: 20px
-    }
+   .container {
+ max-width: 1200px;
+ margin: 36px auto;
+ padding: 20px;
+ flex-grow: 1;
+}
 
     header {
       display: flex;
@@ -313,13 +317,23 @@
       cursor: pointer;
       font-size: 20px;
     }
+     footer {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  box-sizing: border-box;
+  margin-top: 180px;
+  text-align: center;
+  padding: 12px 0;
+  color: var(--muted);
+  font-size: 13px;
+  background: var(--card);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
 
-    footer {
-      margin-top: 28px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px;
-    }
 
     @media (max-width: 900px) {
       main {
@@ -412,9 +426,11 @@
       </aside>
     </main>
 
-    <footer>Made with — Smart♥Buy. Try writing a review to see it live!</footer>
-  </div>
-
+   <footer>
+    Made with — Smart♥Buy. Try writing a review to see it live!<br><br>
+    &copy; 2023 Smart Buy. All rights reserved.
+  </footer>
+  
   <div class="modal-backdrop" id="modal">
     <div class="modal">
       <h3 id="modalTitle">Write a Review</h3>
