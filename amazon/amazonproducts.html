@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Amazon Products - Smart Buy</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #121d2e;
@@ -100,6 +101,10 @@
       position: relative;
       min-width: 140px;
     }
+    .filter:hover {
+  background: rgba(255, 255, 255, 0.1); /* subtle hover background */
+  color: #fff; /* optional: makes text brighter on hover */
+}
     #sortOptions {
       display: none;
       position: absolute;
@@ -136,13 +141,7 @@
       color: white;
       border-color: var(--accent-2);
     }
-    .pill.primary {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      color: white;
-      border: none;
-      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.08);
-    }
-    .pill.primary:hover {
+    .btn.primary:hover {
       background: linear-gradient(90deg, var(--accent-2), var(--accent));
     }
     .grid {
@@ -174,12 +173,66 @@
       background-position: center;
       box-shadow: inset 0 0 40px rgba(0,0,0,0.25);
     }
+
+    .btn.primary {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.08);
+      border: none; 
+      color: white;
+    }
+    .btn.primary:hover {
+      box-shadow: 0 12px 40px rgba(6, 182, 212, 0.2);
+      transform: translateY(-2px);
+    }
     .meta { flex: 1; }
     .meta h3 { font-size: 16px; margin: 0; }
     .actions { display: flex; gap: 8px; margin-top: 8px; }
     .stars { color: gold; font-size: 15px; margin-right: 5px; user-select: none; }
-    .reviews { margin-top: 10px; }
-    .review { background: rgba(255,255,255,0.03); padding: 7px 11px; border-radius: 8px; margin: 4px 0; font-size: 13px; color: var(--muted); }
+    .review-btn {
+  background: linear-gradient(90deg, #8a2be2, #00c6ff); /* purple → blue gradient */
+  color: #fff;
+  border: none;
+  border-radius: 10px;       /* pill shape */
+  padding: 10px 22px;         /* proper spacing inside */
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;       /* ensures perfect vertical + horizontal alignment */
+  align-items: center;        /* centers text vertically */
+  justify-content: center;    /* centers text horizontally */
+  text-align: center;
+  line-height: 1;             /* fixes vertical alignment issues */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect */
+.review-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Active (click) effect */
+.review-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+ .review-btn:hover {
+      box-shadow: 0 12px 40px rgba(6, 182, 212, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .back-link {
+  font-family: 'Poppins', sans-serif; /* custom font */
+  font-weight: 600;
+  color: inherit;          /* keeps the parent text color */
+  text-decoration: none;   /* removes underline */
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: #0d171a; /* optional: highlight in blue on hover */
+}
+
     @media (max-width:900px){
       .grid { grid-template-columns: 1fr; }
       header { flex-direction: column; }
@@ -229,7 +282,7 @@
         </div>
       </div>
         <div class="pill" style="margin-top:10px;">
-        <a href="/index.html" style="color:inherit; text-decoration:none;">← Back to Home</a>
+        <a href="/index.html" class="back-link">← Back to Home</a>
       </div>
     </header>
 
@@ -251,7 +304,7 @@
             <div class="sort-option" data-sort="priceHigh">Price High → Low</div>
           </div>
         </div>
-        <button class="pill primary" id="openReview">Write a Review</button>
+        <button class="review-btn" id="openReview">Write a Review</button>
       </div>
     </header>
     <main>

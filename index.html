@@ -117,7 +117,7 @@
 
     .filter,
     .btn {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(49, 11, 11, 0.04));
       border: 1px solid rgba(255, 255, 255, 0.04);
       padding: 8px 12px;
       border-radius: 10px;
@@ -127,13 +127,32 @@
       position: relative;
     }
 
+    .filter:hover {
+  background: rgba(255, 255, 255, 0.1); /* subtle hover background */
+  color: #fff; /* optional: makes text brighter on hover */
+}
+
     .btn.primary {
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
       box-shadow: 0 6px 20px rgba(6, 182, 212, 0.08);
       border: none;
       color: white;
     }
+    .btn.primary:hover {
+      box-shadow: 0 12px 40px rgba(6, 182, 212, 0.2);
+      transform: translateY(-2px);
+    }
+  .sort-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: var(--muted); /* normal gray text */
+  transition: background 0.2s ease, color 0.2s ease;
+}
 
+.sort-option:hover {
+  background: rgba(255, 255, 255, 0.1); /* subtle background on hover */
+  color: #00c6ff; /* highlight text in blue */
+}
     main {
       display: grid;
       grid-template-columns: 1fr 360px;
@@ -244,25 +263,38 @@
       font-size: 13px;
     }
 
-    .reviews {
-      margin-top: 12px;
-    }
+   .review-btn {
+  background: linear-gradient(90deg, #8a2be2, #00c6ff); /* purple → blue gradient */
+  color: #fff;
+  border: none;
+  border-radius: 10px;       /* pill shape */
+  padding: 10px 22px;         /* proper spacing inside */
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;       /* ensures perfect vertical + horizontal alignment */
+  align-items: center;        /* centers text vertically */
+  justify-content: center;    /* centers text horizontally */
+  text-align: center;
+  line-height: 1;             /* fixes vertical alignment issues */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-    .review {
-      background: rgba(255, 255, 255, 0.02);
-      padding: 10px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
+/* Hover effect */
+.review-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
 
-    .review .meta {
-      display: flex;
-      justify-content: space-between;
-      color: var(--muted);
-      font-size: 12px;
+/* Active (click) effect */
+.review-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+ .review-btn:hover {
+      box-shadow: 0 12px 40px rgba(6, 182, 212, 0.2);
+      transform: translateY(-2px);
     }
-
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -386,19 +418,20 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 8px 0;
-            min-width: 140px;
+            min-width: 160px;
             z-index: 1000;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
           ">
-            <div class="sort-option" data-sort="top" style="padding:8px 12px; cursor:pointer; color: var(--muted);">Top Rated</div>
-            <div class="sort-option" data-sort="priceLow" style="padding:8px 12px; cursor:pointer; color: var(--muted);">Price Low → High</div>
-            <div class="sort-option" data-sort="priceHigh" style="padding:8px 12px; cursor:pointer; color: var(--muted);">Price High → Low</div>
-            <div class="sort-option" data-sort="amazonShop" style="padding:8px 12px; cursor:pointer; color: var(--muted); border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 4px;"> <button id="Amazon" onclick="window.location.href='/amazon/amazonproducts.html'">Amazon</button>
- 
+            <div class="sort-option" data-sort="top">Top Rated</div>
+            <div class="sort-option" data-sort="priceLow">Price Low → High</div>
+            <div class="sort-option" data-sort="priceHigh">Price High → Low</div>
+            <div class="sort-option" data-sort="Amazon"><button onclick="window.location.href='/amazon/amazonproducts.html'" style="all: unset; cursor: pointer; color: inherit; display: block; width: 100%; text-align: left;">
+              Amazon
+            </button></div>
           </div>
         </div>
-
-        <button class="btn primary" id="openReview">Write a Review</button>        
+   
+        <button class="review-btn" id="openReview">Write a Review</button>        
       </div>
     </header>
 
