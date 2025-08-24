@@ -188,7 +188,8 @@
     .meta h3 { font-size: 16px; margin: 0; }
     .actions { display: flex; gap: 8px; margin-top: 8px; }
     .stars { color: gold; font-size: 15px; margin-right: 5px; user-select: none; }
-    .review-btn {
+.review-btn 
+{
   background: linear-gradient(90deg, #8a2be2, #00c6ff); /* purple → blue gradient */
   color: #fff;
   border: none;
@@ -206,22 +207,26 @@
 }
 
 /* Hover effect */
-.review-btn:hover {
+.review-btn:hover 
+{
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 /* Active (click) effect */
-.review-btn:active {
+.review-btn:active 
+{
   transform: translateY(0);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
- .review-btn:hover {
+.review-btn:hover 
+ {
       box-shadow: 0 12px 40px rgba(6, 182, 212, 0.2);
       transform: translateY(-2px);
     }
 
-    .back-link {
+.back-link 
+{
   font-family: 'Poppins', sans-serif; /* custom font */
   font-weight: 600;
   color: inherit;          /* keeps the parent text color */
@@ -229,11 +234,13 @@
   transition: color 0.2s ease;
 }
 
-.back-link:hover {
-  color: #0d171a; /* optional: highlight in blue on hover */
+.back-link:hover 
+{
+  color: #122024; /* optional: highlight in blue on hover */
 }
 
-    @media (max-width:900px){
+    @media (max-width:900px)
+    {
       .grid { grid-template-columns: 1fr; }
       header { flex-direction: column; }
       .controls { flex-direction: column; }
