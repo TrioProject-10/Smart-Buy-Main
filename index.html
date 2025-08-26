@@ -2,6 +2,7 @@
 <!--1=#072968-->
 <!--Og=#101a29-->
 <!--2=#072253-->
+<!--radial-gradient(1200px 600px at 10% 10%, rgba(124, 58, 237, 0.12), transparent)-->
 
 <!doctype html>
 <html lang="en">
@@ -16,21 +17,20 @@
   
   <style>
     :root {
-      --bg: #101a29;
+      --bg: #02193a;
       --card: #0b1220;
       --accent: #7c3aed;
       --accent-2: #06b6d4;
       --glass: rgba(255, 255, 255, 0.04);
       --muted: #9aa6b2;
       --success: #16a34a;
+      --accent-3: #7c3aed;
     }
-
-    
 
     * {
       box-sizing: border-box
     }
-
+    
     html,
     body {
       height: 100%;
@@ -39,9 +39,7 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(124, 58, 237, 0.12), transparent),
-        radial-gradient(900px 400px at 90% 90%, rgba(6, 182, 212, 0.06), transparent),
-        var(--bg);
+      background:var(--bg);
       color: #e6eef6;
     }
 
@@ -52,40 +50,62 @@
  flex-grow: 1;
 }
 
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 22px;
-    }
+   header {
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: var(--card); /* Or your preferred color */
+  padding: 14px 0 14px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  z-index: 10;
+}
+header > .brand,
+header > .controls {
+  margin: 0 24px;
+}
+
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 15px;
-      color:whitesmoke
+      gap: 14px;
+      color:whitesmoke;
     }
 
     .logo {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
+      width: 60px;
+      height: 60px;
+      border-radius: 20px;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
       color: white;
-      font-size: 18px;
+      font-size: 32px;
       box-shadow: 0 6px 24px rgba(7, 12, 20, 0.6);
     }
-
+header {
+      padding: 24px;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
     .brand-title {
       font-family: 'Monoton', cursive;
       font-size: 38px;
       margin: 0;
       letter-spacing: 1px;
-      word-spacing: 4px;
+      font-weight: 500;
+      word-spacing: 5px;
+      color: var(--accent-3)
     }
 
     p.lead {
@@ -362,7 +382,7 @@
   box-sizing: border-box;
   margin-top: 250px;
   text-align: center;
-  padding: 13px 0;
+  padding: 15px 0 15px 0;
   color: var(--muted);
   font-size: 13px;
   background: var(--card);
@@ -383,10 +403,7 @@
     }
   </style>
 </head>
-
-<body>
-  <div class="container">
-    <header>
+<header>
 
       <div class="brand">
         <div class="logo">
@@ -437,6 +454,8 @@
       </div>
     </header>
 
+<body>
+  <div class="container">
     <main>
       <section>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
@@ -460,11 +479,7 @@
         <div class="reviews" id="recentReviews"></div>
       </aside>
     </main>
-
-   <footer>
-    Made with — Smart♥Buy. Try writing a review to see it live!<br><br>
-    &copy; 2023 Smart Buy. All rights reserved.
-  </footer>
+  </div>
   
   <div class="modal-backdrop" id="modal">
     <div class="modal">
@@ -499,6 +514,10 @@
       </div>
     </div>
   </div>
+  <footer>
+    Made with — Smart♥Buy. Try writing a review to see it live!<br><br>
+    &copy; 2023 Smart Buy. All rights reserved.
+  </footer>
 
   <script>
     const products = [
