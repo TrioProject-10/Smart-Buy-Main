@@ -213,13 +213,13 @@
   <main>
     <div class="login-card">
       <h2>Login</h2>
-      <form action="/api/v1/users/login" method="POST" novalidate>
+      <form>
         <label for="email">Email</label>
         <input type="text" id="email" name="email" required autocomplete="email" />
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required autocomplete="current-password" />
 
-        <button type="submit" id="loginBtn">Login</button>
+        <button type="submit" onclick="window.location.href='/HomePage/homepage.html'" id="loginBtn">Login</button>
       </form>
 
       <div class="links">
