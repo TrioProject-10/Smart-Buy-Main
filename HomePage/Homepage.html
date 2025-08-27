@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Buy - Creative Product Review Hub</title>
+  <link rel="icon" type="image/png" href="/Images/fevicon.png" rect width="2000%" height="2000%" fill="white"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #101a29;
+      --card: #0b1220;
+      --accent: #7c3aed;
+      --accent-2: #06b6d4;
+      --muted: #9aa6b2;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, Arial;
+      background: var(--bg);
+      color: #e6eef6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      padding: 24px;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+   .brand-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;  /* space between logo and text */
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ff6a00, #ff4081, #8c52ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: white;
+      font-family: Arial, sans-serif;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    .brand-text {
+      font-family: 'Monoton', cursive;
+      font-size: 38px;
+      color: #8c52ff;
+      margin: 0;
+      letter-spacing: 1px;
+      font-weight: 500;
+      word-spacing: 1px;
+    }
+   p.lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+      
+    nav a {
+      color: var(--muted);
+      margin-left: 24px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: var(--accent-2);
+    }
+    .hero {
+      text-align: center;
+      padding: 60px 20px 42px 20px;
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      color: #fff;
+    }
+    
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 32px;
+  padding: 0 5px;
+}
+
+
+hero-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.hero-text {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+.hero-text h1 {
+  font-size: 3rem;
+  margin: 0 0 18px 0;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  align-items: flex-start;
+  margin-left: -60px; 
+}
+.hero-text p {
+  font-size: 1.5rem;
+  margin-bottom: 32px;
+
+}
+.hero-image {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.hero-image img {
+  max-width: 360px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+}
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: -25px;
+    }
+    .hero p {
+      font-size: 22px;
+      color: #e6eef6;
+      margin-bottom: 22px;
+    }
+   .btn-primary {
+  background: linear-gradient(90deg, #9158f4, #06b6d4);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0px 2px 14px rgba(124, 58, 237, 0.12);
+}
+    .filter-btn:hover {
+  background: #273c75;   /* lighter shade */
+  transform: scale(1.05); /* slight zoom */
+}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 48px auto 0 auto;
+      padding: 20px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 8px 32px rgba(7, 12, 20, 0.15);
+      text-align: center;
+      color: #e6eef6;
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: transform 0.15s;
+    }
+    .card:hover {
+      transform: translateY(-6px) scale(1.03);
+      border-color: var(--accent);
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 14px 0 14px 0;
+      color: var(--muted);
+      font-size: 13px;
+      background: var(--card);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+ /* Responsive: Stack on mobile */
+@media (max-width: 900px) {
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 12px;
+  }
+  .hero-image {
+    justify-content: center;
+    margin-top: 36px;
+  }
+  .hero-text {
+    align-items: center;
+  }
+}
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo"> <img src="/Images/generated-image.png" style="background-color: gray; width:125%; height:125%; object-fit:contain; border-radius:20px;">
+      </div>
+  
+    <div>
+          <h1 class="brand-text">Smart Buy</h1>
+    <p class="lead">Your feedback shapes better choices — curated for shoppers</p>
+    </div>  
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Products</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+  <div class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+  
+    <h1 style="font-family: 'poppins'; letter-spacing:1px; text-align:center;" > “ Where reviews meet smart choices. ”</h1>
+    <p>Discover the best products, reviews, and deals  — all in one spot.</p>
+    <button class="btn-primary">Get Started</button>
+  </div>
+  <div class="hero-image">
+      <img src="/Images/user-reviews-laptop.avif" alt="SmartBuy Example" style="max-width:390px; width:100%; border-radius:18px;" />
+    </div>
+  </div>
+</div>
+  <div class="grid">
+    <div class="card">
+      <h3>Top Products</h3>
+      <p>Curated selection of highly-rated products.</p>
+    </div>
+    <div class="card">
+      <h3>Write a Review</h3>
+      <p>Help others by sharing your experience.</p>
+    </div>
+    <div class="card">
+      <h3>Special Offers</h3>
+      <p>Don’t miss the best deals and discounts.</p>
+    </div>
+  </div>
+  <footer>
+      <p>
+      <a href="#">About</a> | 
+      <a href="#">Privacy</a> | 
+      <a href="#">Terms</a> | 
+      <a href="#">Contact</a>
+    </p>
+    Made with — Smart♥Buy. Try writing a review to see it live!<br><br>
+    &copy; 2025 SmartBuy. All rights reserved.
+  </footer>
+</body>
+</html>
