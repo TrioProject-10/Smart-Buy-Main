@@ -198,6 +198,12 @@ header > .brand {
   text-decoration: none;   /* removes underline */
   transition: color 0.2s ease;
 }
+.error {
+  color: #f87171;
+  font-size: 13px;
+  margin-top: 4px;
+  display: none;
+}
 
   .hidden {
     display: none;
@@ -224,17 +230,24 @@ header > .brand {
   <!-- Signup Form -->
   <main class="signup-card">
     <!-- Step 1 -->
-    <form id="step1">
+    <form id="step1" novalidate>
       <h2>Sign up</h2>
       <form>
       <input type="text" placeholder="Full Name" required>
       <input type="email" placeholder="Email Address" pattern="^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com|hotmail\.com|live\.com)$" required>
-      <input type="password" placeholder="Password" required>
-      <input type="password" placeholder="Confirm Password" required>
-      <div class="profile-upload">
-  <label for="profilePic" class="upload-btn">Choose Profile Picture</label>
-  <input type="file" id="profilePic" accept="image/*" hidden>
-</div>
+     <input type="password" id="password" placeholder="Password" required minlength="8" />
+     <input type="password" id="confirmPassword" placeholder="Confirm Password" required minlength="8" />
+     <div class="error" id="passwordError">Passwords do not match!</div>
+    
+     <label>
+      <input type="checkbox" id="togglePassword" />
+      Show Passwords
+     </label>
+
+     <div class="profile-upload">
+       <label for="profilePic" class="upload-btn">Choose Profile Picture</label>
+       <input type="file" id="profilePic" accept="image/*" hidden>
+     </div>
       <button type="button" onclick="nextStep()">Continue</button>
     </form>
 
@@ -264,6 +277,7 @@ header > .brand {
     </form>
   </main>
 <script>
+// Move to Step 2 after validating Step 1 :
   function nextStep() {
   // get all inputs from step1
   const step1Inputs = document.querySelectorAll('#step1 input');
@@ -279,6 +293,31 @@ header > .brand {
   document.getElementById('step1').classList.add('hidden');
   document.getElementById('step2').classList.remove('hidden');
 }
+
+// Password match validation & show/hide password :
+const form = document.getElementById('signupForm');
+const password = document.getElementById('password');
+const confirmPassword = document.getElementById('confirmPassword');
+const passwordError = document.getElementById('passwordError');
+const toggle = document.getElementById('togglePassword');
+
+toggle.addEventListener('change', () => {
+  const show = toggle.checked;
+  password.type = show ? 'text' : 'password';
+  confirmPassword.type = show ? 'text' : 'password';
+});
+
+form.addEventListener('submit', (e) => {
+  if (password.value !== confirmPassword.value) {
+    e.preventDefault();
+    passwordError.style.display = 'block';
+    confirmPassword.focus();
+  } else {
+    passwordError.style.display = 'none';
+  }
+});
+
+    // Profile picture filename display:
    const profileInput = document.getElementById('profilePic');
   const fileNameSpan = document.getElementById('fileName');
 
