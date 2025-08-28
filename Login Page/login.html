@@ -183,6 +183,7 @@
       text-align: center;
       color: var(--muted);
       user-select: none;
+      cursor: pointer;
     }
 
     .links a {
@@ -213,18 +214,18 @@
   <main>
     <div class="login-card">
       <h2>Login</h2>
-      <form>
+      <form novalidate>
         <label for="email">Email</label>
-        <input type="text" id="email" name="email" required autocomplete="email" />
+        <input type="text" id="email" name="email" required />
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required autocomplete="current-password" />
+        <input type="password" id="password" name="password" required />
 
         <button type="submit" onclick="window.location.href='/HomePage/homepage.html'" id="loginBtn">Login</button>
       </form>
 
       <div class="links">
-        <a href="/api/v1/authenticate/verify">Forgot Password?</a> |
-        <a href="/api/v1/users">Sign Up</a>
+        <a href="/api/v1/authenticate/verify">Forgot Password?</a> 
+         <p>Don’t have an account?<a onclick="window.location.href='/Sign Up Page/signup.html'">Sign Up</a></p>
       </div>
     </div>
   </main>
