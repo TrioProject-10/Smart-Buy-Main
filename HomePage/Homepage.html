@@ -57,6 +57,7 @@
       color: white;
       font-family: Arial, sans-serif;
       box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      cursor: pointer;
     }
 
     .brand-text {
@@ -67,11 +68,13 @@
       letter-spacing: 1px;
       font-weight: 500;
       word-spacing: 1px;
+      cursor: pointer;
     }
    p.lead {
       margin: 0;
       color: var(--muted);
       font-size: 13px;
+      cursor: pointer;
     }
 
       
@@ -82,13 +85,18 @@
       font-weight: 600;
       font-size: 15px;
       transition: color 0.2s;
+      cursor: pointer;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
     }
     nav a:hover {
-      color: var(--accent-2);
+      color: whitesmoke;
+      text-decoration:underline;
+      text-decoration-thickness: 2px;
     }
     .hero {
       text-align: center;
-      padding: 60px 20px 42px 20px;
+      padding: 30px 20px 10px 20px;
       background: linear-gradient(120deg, var(--accent), var(--accent-2));
       color: #fff;
     }
@@ -145,12 +153,12 @@
 }
     .hero h1 {
       font-size: 48px;
-      margin-bottom: -25px;
+      margin-bottom: 5px;
     }
     .hero p {
       font-size: 22px;
       color: #e6eef6;
-      margin-bottom: 22px;
+      margin-bottom: -10px;
     }
    .btn-primary {
   background: linear-gradient(90deg, #9158f4, #06b6d4);
@@ -163,6 +171,61 @@
   cursor: pointer;
   transition: background 0.2s;
   box-shadow: 0px 2px 14px rgba(124, 58, 237, 0.12);
+}
+.btn-primary:hover {
+  background: linear-gradient(90deg, #7c3aed, #0ea5e9);
+  transform: scale(1.05);
+}
+.process {
+    background: #0b40d3f5;
+    padding: 4rem 10rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+   *{ margin: 0;
+    margin-bottom: 1px;
+    padding: 0;
+    box-sizing:border-box;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}}
+.step {
+    flex: 2 2 1px;
+    text-align:center;
+    padding: 1rem;
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+}
+float animation {
+    transform: translateY(-0.00678997px);
+}
+element.style {
+}
+.mobilesImage {
+    display: flex
+;
+    animation: float 2s ease-in-out infinite;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+}
+.filter-btn {
+  background: #192a56; /* original color */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0px 2px 14px rgba(25, 42, 86, 0.12);
 }
     .filter-btn:hover {
   background: #273c75;   /* lighter shade */
@@ -245,13 +308,52 @@
   
     <h1 style="font-family: 'poppins'; letter-spacing:1px; text-align:center;" > “ Where reviews meet smart choices. ”</h1>
     <p>Discover the best products, reviews, and deals  — all in one spot.</p>
-    <button class="btn-primary">Get Started</button>
+    <p>“Find it. Rate it. Own it - Real reviews.Real trust.”</p>
   </div>
   <div class="hero-image">
       <img src="/Images/user-reviews-laptop.avif" alt="SmartBuy Example" style="max-width:390px; width:100%; border-radius:18px;" />
     </div>
   </div>
 </div>
+<div class="process">
+  <section class="process">
+    <div class="step">
+      <h3>Step 1</h3>
+      <p>Browse categories and find your product.</p>
+    </div>
+    <div class="step">
+      <h3>Step 2</h3>
+      <p>Check reviews, ratings, and comparisons.</p>
+    </div>
+    <div class="step">
+      <h3>Step 3</h3>
+      <p>Buy with confidence using trusted sources.</p>
+    </div>
+  </section>
+</div>
+<div>
+  <section class="mobilesImage">
+  <img src="/Images/hompagesection.png" style="display: block; margin: 0 auto; max-width:60%; height:60; border-radius: 16px; box-shadow: 0 12px 32px rgba(0,0,0,0.18);" />
+  </section>
+</div>
+<div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: 32px;">
+  <h2>Featured Products</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Wireless Headphones</h3>
+      <p>Top-rated for sound quality and comfort.</p>
+    </div>
+    <div class="card">
+      <h3>Smart Home Hub</h3>
+      <p>Best for seamless home automation.</p>
+    </div>
+    <div class="card">
+      <h3>Fitness Tracker</h3>
+      <p>Highly rated for accuracy and features.</p>
+    </div>
+  </div>
+<div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: 32px;">
+  <h2>Why Smart Buy ?</h2>
   <div class="grid">
     <div class="card">
       <h3>Top Products</h3>
