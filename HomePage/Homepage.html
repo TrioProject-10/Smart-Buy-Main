@@ -177,7 +177,8 @@
   transform: scale(1.05);
 }
 .process {
-    background: #0b40d3f5;
+    background: linear-gradient(150deg, var(--accent), var(--accent-2));
+    color:rgb(255, 255, 255);
     padding: 4rem 10rem;
     display: flex;
     flex-wrap: wrap;
@@ -187,17 +188,38 @@
     margin-bottom: 1px;
     padding: 0;
     box-sizing:border-box;
-    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }}
 .step {
     flex: 2 2 1px;
     text-align:center;
     padding: 1rem;
-    * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1); 
+    box-shadow: 0 8px 32px rgba(7, 12, 20, 0.15);
+    transition: transform 0.15s;
 }
+.step:hover {
+    transform: translateY(-6px) scale(1.03);
+    border-color: var(--accent);
+}
+.step h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    color: #fff;
+}
+.step p {
+    font-size: 1.1rem;
+    color: #e6eef6;
+}
+@media (max-width: 768px) {
+  .process {
+    flex-direction: column;
+    padding: 2rem;
+  }
+  .step {
+    flex: 1 1 100%;
+  }
 }
 .mobilesImage {
     display: flex
@@ -258,6 +280,7 @@
       margin-top: 0;
     }
     footer {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin-top: auto;
       text-align: center;
       padding: 14px 0 14px 0;
@@ -338,6 +361,7 @@
   <img src="/Images/hompagesection.png" Class="zoom-animation" style=" background:transparent; margin: 0 auto; max-width:60%; height:60; border-radius: 16px;" />
   </section>
 </div>
+
   <div class="process">
   <section class="process">
     <div class="step">
