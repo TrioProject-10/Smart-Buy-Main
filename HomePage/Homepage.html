@@ -144,6 +144,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  animation: zoomInOut 8.5s ease-in-out infinite;
+
 }
 .hero-image img {
   max-width: 360px;
@@ -176,8 +178,25 @@
   background: linear-gradient(90deg, #7c3aed, #0ea5e9);
   transform: scale(1.05);
 }
+.h2 {
+  font-size: 28px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  color: whitesmoke;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  cursor: pointer;
+  animation: zoomInOut 9.5s ease-in-out infinite;
+}
+.h2:hover {
+  color: whitesmoke;
+  text-decoration:underline;
+  text-decoration-thickness: 2px;
+  transform: translateY(-6px) scale(1.03);
+  border-color: var(--accent);
+}
 .process {
-    background: linear-gradient(150deg, var(--accent), var(--accent-2));
+    background: linear-gradient(250deg, var(--accent), var(--accent-2));
     color:rgb(255, 255, 255);
     padding: 4rem 10rem;
     display: flex;
@@ -188,16 +207,25 @@
     margin-bottom: 1px;
     padding: 0;
     box-sizing:border-box;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }}
 .step {
-    flex: 2 2 1px;
+    flex: 5 5 5px;
     text-align:center;
     padding: 1rem;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.1); 
     box-shadow: 0 8px 32px rgba(7, 12, 20, 0.15);
     transition: transform 0.15s;
+    border: 1px solid rgba(255,255,255,0.04);
+    min-width: 220px;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+
 }
 .step:hover {
     transform: translateY(-6px) scale(1.03);
@@ -230,7 +258,7 @@
     background-color: whitesmoke;
 }
 .zoom-animation {
-  animation: zoomInOut 2.5s ease-in-out infinite;
+  animation: zoomInOut 3.5s ease-in-out infinite;
 }
 
 @keyframes zoomInOut {
@@ -261,6 +289,12 @@
       max-width: 1100px;
       margin: 48px auto 0 auto;
       padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      justify-items: center;
+      align-items: start;
+      color: #e6eef6;
+      cursor: pointer;
     }
     .card {
       background: var(--card);
@@ -271,6 +305,7 @@
       color: #e6eef6;
       border: 1px solid rgba(255,255,255,0.04);
       transition: transform 0.15s;
+      animation: zoomInOut 4.5s ease-in-out infinite;
     }
     .card:hover {
       transform: translateY(-6px) scale(1.03);
@@ -339,23 +374,32 @@
     </div>
   </div>
 </div>
-<div>
-  <div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: 32px;">
-  <h2>Featured Products</h2>
-  <div class="grid">
+<div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -10px;">
+  <div class="h2">
+  <h2>Featured Products</h2></div>
+  <div class="grid" style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -32px;">
     <div class="card">
-      <h3>Wireless Headphones</h3>
+      <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+        <img src="/Images/wirelessheadphones.webp" alt="iPhone 14 Pro" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
+      </div>
+      <h3>boAt Wireless Headphones </h3>
       <p>Top-rated for sound quality and comfort.</p>
     </div>
     <div class="card">
-      <h3>Smart Home Hub</h3>
-      <p>Best for seamless home automation.</p>
+      <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+        <img src="/Images/acernitro5.webp" alt="Smartwatch" style="max-width: 500%; max-height: 110%; border-radius: 12px;" /> </div>
+      <h3>Acer Nitro 5 12th Gen Intel i5 Gaming Laptop</h3>
+      <p>Top choice for gamers and professionals alike.</p>
     </div>
     <div class="card">
-      <h3>Fitness Tracker</h3>
+      <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+        <img src="/Images/fitnesstracker.jpg" alt="Fitness Tracker" style="max-width: 110%; max-height: 115%; border-radius: 10px;" /> </div>
+      <h3>Lunar Vista Fitness Tracker</h3>
       <p>Highly rated for accuracy and features.</p>
     </div>
   </div>
+  <div style="margin-top: 24px; text-align: center;">
+    <button class="filter-btn" style="background: linear-gradient(250deg, var(--accent), var(--accent-2));">See All Products</button><br><br>
 </div>
   <section class="mobilesImage">
   <img src="/Images/hompagesection.png" Class="zoom-animation" style=" background:transparent; margin: 0 auto; max-width:60%; height:60; border-radius: 16px;" />
