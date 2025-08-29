@@ -199,22 +199,23 @@
     box-sizing: border-box;
 }
 }
-float animation {
-    transform: translateY(-0.00678997px);
-}
-element.style {
-}
 .mobilesImage {
     display: flex
 ;
-    animation: float 2s ease-in-out infinite;
-}
-* {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    color: white;
+    background: transparent;
+    background-color: whitesmoke;
 }
+.zoom-animation {
+  animation: zoomInOut 2.5s ease-in-out infinite;
+}
+
+@keyframes zoomInOut {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(0.9); } /* Adjust value for intensity */
+}
+
 .filter-btn {
   background: #192a56; /* original color */
   color: #fff;
@@ -315,28 +316,8 @@ element.style {
     </div>
   </div>
 </div>
-<div class="process">
-  <section class="process">
-    <div class="step">
-      <h3>Step 1</h3>
-      <p>Browse categories and find your product.</p>
-    </div>
-    <div class="step">
-      <h3>Step 2</h3>
-      <p>Check reviews, ratings, and comparisons.</p>
-    </div>
-    <div class="step">
-      <h3>Step 3</h3>
-      <p>Buy with confidence using trusted sources.</p>
-    </div>
-  </section>
-</div>
 <div>
-  <section class="mobilesImage">
-  <img src="/Images/hompagesection.png" style="display: block; margin: 0 auto; max-width:60%; height:60; border-radius: 16px; box-shadow: 0 12px 32px rgba(0,0,0,0.18);" />
-  </section>
-</div>
-<div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: 32px;">
+  <div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: 32px;">
   <h2>Featured Products</h2>
   <div class="grid">
     <div class="card">
@@ -352,6 +333,28 @@ element.style {
       <p>Highly rated for accuracy and features.</p>
     </div>
   </div>
+</div>
+  <section class="mobilesImage">
+  <img src="/Images/hompagesection.png" Class="zoom-animation" style=" background:transparent; margin: 0 auto; max-width:60%; height:60; border-radius: 16px;" />
+  </section>
+</div>
+  <div class="process">
+  <section class="process">
+    <div class="step">
+      <h3>Step 1</h3>
+      <p>Browse categories and find your product.</p>
+    </div>
+    <div class="step">
+      <h3>Step 2</h3>
+      <p>Check reviews, ratings, and comparisons.</p>
+    </div>
+    <div class="step">
+      <h3>Step 3</h3>
+      <p>Buy with confidence using trusted sources.</p>
+    </div>
+  </section>
+</div>
+
 <div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: 32px;">
   <h2>Why Smart Buy ?</h2>
   <div class="grid">
