@@ -186,14 +186,23 @@
   letter-spacing: 1px;
   word-spacing: 2px;
   cursor: pointer;
-  animation: zoomInOut 9.5s ease-in-out infinite;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
 }
 .h2:hover {
   color: whitesmoke;
-  text-decoration:underline;
-  text-decoration-thickness: 2px;
-  transform: translateY(-6px) scale(1.03);
   border-color: var(--accent);
+  transform: scale(1.1); /* zoom effect */
+   opacity: 0;
+  transform: scale(0.5);
+  animation: pushIn 0.8s forwards;
+}
+@keyframes pushIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 .process {
     background: linear-gradient(250deg, var(--accent), var(--accent-2));
@@ -297,19 +306,22 @@
       cursor: pointer;
     }
     .card {
-      background: var(--card);
+      background: whitesmoke;
       border-radius: 14px;
       padding: 24px;
       box-shadow: 0 8px 32px rgba(7, 12, 20, 0.15);
       text-align: center;
-      color: #e6eef6;
+      color: #000000;
       border: 1px solid rgba(255,255,255,0.04);
-      transition: transform 0.15s;
-      animation: zoomInOut 4.5s ease-in-out infinite;
+      transition: transform 0.15s, border-color 0.15s;
     }
     .card:hover {
       transform: translateY(-6px) scale(1.03);
-      border-color: var(--accent);
+      border-color:#06f3c7;
+      border-width: 0.25cap;
+      opacity: 1;
+      animation: fadeInUp 1s forwards;
+      transform: scale(1.1);
     }
     .card h3 {
       margin-top: 0;
@@ -324,6 +336,27 @@
       background: var(--card);
       border-top: 1px solid rgba(255,255,255,0.05);
     }
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      margin: 0 8px;
+      transition: color 0.2s;
+    }
+    footer a:hover {
+      color: whitesmoke;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+.push-in {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.7s ease-out;
+}
+
+.push-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
  /* Responsive: Stack on mobile */
 @media (max-width: 900px) {
   .hero-content {
@@ -374,33 +407,42 @@
     </div>
   </div>
 </div>
-<div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -10px;">
-  <div class="h2">
-  <h2>Featured Products</h2></div>
-  <div class="grid" style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -32px;">
-    <div class="card">
-      <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
-        <img src="/Images/wirelessheadphones.webp" alt="iPhone 14 Pro" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
+
+  <section>
+  <div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -10px;">
+    <div class="h2">
+      <h2 class="push-in">Featured Products</h2>
+    </div>
+</div>
+    <div class="grid" style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -32px;">
+      <div class="card">
+        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+          <img src="/Images/wirelessheadphones.webp" alt="iPhone 14 Pro" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
+        </div>
+        <h3>boAt Wireless Headphones </h3>
+        <p>Top-rated for sound quality and comfort.</p>
       </div>
-      <h3>boAt Wireless Headphones </h3>
-      <p>Top-rated for sound quality and comfort.</p>
+      <div class="card">
+        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+          <img src="/Images/acernitro5.webp" alt="Smartwatch" style="max-width: 500%; max-height: 110%; border-radius: 12px;" /> 
+        </div>
+        <h3>Acer Nitro 5 12th Gen Intel i5 Gaming Laptop</h3>
+        <p>Top choice for gamers and professionals alike.</p>
+      </div>
+      <div class="card">
+        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+          <img src="/Images/fitnesstracker.jpg" alt="Fitness Tracker" style="max-width: 110%; max-height: 115%; border-radius: 10px;" /> 
+        </div>
+        <h3>Lunar Vista Fitness Tracker</h3>
+        <p>Highly rated for accuracy and features.</p>
+      </div>
     </div>
-    <div class="card">
-      <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
-        <img src="/Images/acernitro5.webp" alt="Smartwatch" style="max-width: 500%; max-height: 110%; border-radius: 12px;" /> </div>
-      <h3>Acer Nitro 5 12th Gen Intel i5 Gaming Laptop</h3>
-      <p>Top choice for gamers and professionals alike.</p>
-    </div>
-    <div class="card">
-      <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
-        <img src="/Images/fitnesstracker.jpg" alt="Fitness Tracker" style="max-width: 110%; max-height: 115%; border-radius: 10px;" /> </div>
-      <h3>Lunar Vista Fitness Tracker</h3>
-      <p>Highly rated for accuracy and features.</p>
+    <div style="margin-top: 24px; text-align: center;">
+      <button class="filter-btn" style="background: linear-gradient(250deg, var(--accent), var(--accent-2));">See All Products</button><br><br>
     </div>
   </div>
-  <div style="margin-top: 24px; text-align: center;">
-    <button class="filter-btn" style="background: linear-gradient(250deg, var(--accent), var(--accent-2));">See All Products</button><br><br>
-</div>
+</section>
+
   <section class="mobilesImage">
   <img src="/Images/hompagesection.png" Class="zoom-animation" style=" background:transparent; margin: 0 auto; max-width:60%; height:60; border-radius: 16px;" />
   </section>
@@ -449,5 +491,67 @@
     Made with — Smart♥Buy. Try writing a review to see it live!<br><br>
     &copy; 2025 SmartBuy. All rights reserved.
   </footer>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const target = document.querySelector(".push-in");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target); // animate only once
+      }
+    });
+  }, { threshold: 0.3 });
+
+  if (target) {
+    observer.observe(target);
+  }
+});
+</script>
 </body>
 </html>
+
+
+<!--
+  Smart Buy - Creative Product Review Hub
+  A sleek, modern homepage design for a product review website.
+  Features a dark theme with vibrant accent colors, a hero section,
+  featured products, and a simple three-step process explanation.
+  Designed for clarity, ease of use, and visual appeal.
+
+
+  <section>
+  <div style="background: var(--accent-2); padding: 40px 0 20px 0; margin-top: -20px;"></div>
+    <div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -10px;">
+      <div class="h2">
+        <h2 class="push-in">Popular Categories</h2>
+      </div>
+    </div>
+    <div class="grid" style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -32px;">
+      <div class="card">
+        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+          <img src="/Images/electronics.jpg" alt="Electronics" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
+        </div>
+        <h3>Electronics</h3>
+        <p>Latest gadgets and devices.</p>
+      </div>
+      <div class="card">
+        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+          <img src="/Images/homeappliances.jpg" alt="Home Appliances" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
+        </div>
+        <h3>Home Appliances</h3>
+        <p>Essentials for your home.</p>
+      </div>
+      <div class="card">
+        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+          <img src="/Images/fashion.jpg" alt="Fashion" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
+        </div>
+        <h3>Fashion</h3>
+        <p>Trendy clothing and accessories.</p>
+      </div>
+    </div>
+    <div style="margin-top: 24px; text-align: center;">
+      <button class="filter-btn" style="background: linear-gradient(250deg, var(--accent), var(--accent-2));">See All Categories</button><br><br>
+  </div>
+  </section>-->
