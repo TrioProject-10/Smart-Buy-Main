@@ -57,6 +57,7 @@
       color: white;
       font-family: Arial, sans-serif;
       box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      cursor: pointer;
     }
 
     .brand-text {
@@ -67,11 +68,13 @@
       letter-spacing: 1px;
       font-weight: 500;
       word-spacing: 1px;
+      cursor: pointer;
     }
    p.lead {
       margin: 0;
       color: var(--muted);
       font-size: 13px;
+      cursor: pointer;
     }
 
       
@@ -82,13 +85,18 @@
       font-weight: 600;
       font-size: 15px;
       transition: color 0.2s;
+      cursor: pointer;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
     }
     nav a:hover {
-      color: var(--accent-2);
+      color: whitesmoke;
+      text-decoration:underline;
+      text-decoration-thickness: 2px;
     }
     .hero {
       text-align: center;
-      padding: 60px 20px 42px 20px;
+      padding: 30px 20px 10px 20px;
       background: linear-gradient(120deg, var(--accent), var(--accent-2));
       color: #fff;
     }
@@ -136,6 +144,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  animation: zoomInOut 8.5s ease-in-out infinite;
+
 }
 .hero-image img {
   max-width: 360px;
@@ -145,12 +155,12 @@
 }
     .hero h1 {
       font-size: 48px;
-      margin-bottom: -25px;
+      margin-bottom: 5px;
     }
     .hero p {
       font-size: 22px;
       color: #e6eef6;
-      margin-bottom: 22px;
+      margin-bottom: -10px;
     }
    .btn-primary {
   background: linear-gradient(90deg, #9158f4, #06b6d4);
@@ -164,6 +174,119 @@
   transition: background 0.2s;
   box-shadow: 0px 2px 14px rgba(124, 58, 237, 0.12);
 }
+.btn-primary:hover {
+  background: linear-gradient(90deg, #7c3aed, #0ea5e9);
+  transform: scale(1.05);
+}
+.h2 {
+  font-size: 28px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  color: whitesmoke;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  cursor: pointer;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+.h2:hover {
+  color: whitesmoke;
+  border-color: var(--accent);
+  transform: scale(1.1); /* zoom effect */
+   opacity: 0;
+  transform: scale(0.5);
+  animation: pushIn 0.8s forwards;
+}
+@keyframes pushIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.process {
+    background: linear-gradient(250deg, var(--accent), var(--accent-2));
+    color:rgb(255, 255, 255);
+    padding: 4rem 10rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+   *{ margin: 0;
+    margin-bottom: 1px;
+    padding: 0;
+    box-sizing:border-box;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}}
+.step {
+    flex: 5 5 5px;
+    text-align:center;
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1); 
+    box-shadow: 0 8px 32px rgba(7, 12, 20, 0.15);
+    transition: transform 0.15s;
+    border: 1px solid rgba(255,255,255,0.04);
+    min-width: 220px;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+
+}
+.step:hover {
+    transform: translateY(-6px) scale(1.03);
+    border-color: var(--accent);
+}
+.step h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    color: #fff;
+}
+.step p {
+    font-size: 1.1rem;
+    color: #e6eef6;
+}
+@media (max-width: 768px) {
+  .process {
+    flex-direction: column;
+    padding: 2rem;
+  }
+  .step {
+    flex: 1 1 100%;
+  }
+}
+.mobilesImage {
+    display: flex
+;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    background-color: whitesmoke;
+}
+.zoom-animation {
+  animation: zoomInOut 3.5s ease-in-out infinite;
+}
+
+@keyframes zoomInOut {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(0.9); } /* Adjust value for intensity */
+}
+
+.filter-btn {
+  background: #192a56; /* original color */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0px 2px 14px rgba(25, 42, 86, 0.12);
+}
     .filter-btn:hover {
   background: #273c75;   /* lighter shade */
   transform: scale(1.05); /* slight zoom */
@@ -175,25 +298,36 @@
       max-width: 1100px;
       margin: 48px auto 0 auto;
       padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      justify-items: center;
+      align-items: start;
+      color: #e6eef6;
+      cursor: pointer;
     }
     .card {
-      background: var(--card);
+      background: whitesmoke;
       border-radius: 14px;
       padding: 24px;
       box-shadow: 0 8px 32px rgba(7, 12, 20, 0.15);
       text-align: center;
-      color: #e6eef6;
+      color: #000000;
       border: 1px solid rgba(255,255,255,0.04);
-      transition: transform 0.15s;
+      transition: transform 0.15s, border-color 0.15s;
     }
     .card:hover {
       transform: translateY(-6px) scale(1.03);
-      border-color: var(--accent);
+      border-color:#06f3c7;
+      border-width: 0.25cap;
+      opacity: 1;
+      animation: fadeInUp 1s forwards;
+      transform: scale(1.1);
     }
     .card h3 {
       margin-top: 0;
     }
     footer {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin-top: auto;
       text-align: center;
       padding: 14px 0 14px 0;
@@ -202,6 +336,27 @@
       background: var(--card);
       border-top: 1px solid rgba(255,255,255,0.05);
     }
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      margin: 0 8px;
+      transition: color 0.2s;
+    }
+    footer a:hover {
+      color: whitesmoke;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+.push-in {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.7s ease-out;
+}
+
+.push-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
  /* Responsive: Stack on mobile */
 @media (max-width: 900px) {
   .hero-content {
@@ -245,13 +400,73 @@
   
     <h1 style="font-family: 'poppins'; letter-spacing:1px; text-align:center;" > “ Where reviews meet smart choices. ”</h1>
     <p>Discover the best products, reviews, and deals  — all in one spot.</p>
-    <button class="btn-primary">Get Started</button>
+    <p>“Find it. Rate it. Own it - Real reviews.Real trust.”</p>
   </div>
   <div class="hero-image">
       <img src="/Images/user-reviews-laptop.avif" alt="SmartBuy Example" style="max-width:390px; width:100%; border-radius:18px;" />
     </div>
   </div>
 </div>
+
+  <section>
+  <div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -10px;">
+    <div class="h2">
+      <h2 class="push-in">Featured Products</h2>
+    </div>
+</div>
+    <div class="grid" style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -32px;">
+      <div class="card">
+        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+          <img src="/Images/wirelessheadphones.webp" alt="iPhone 14 Pro" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
+        </div>
+        <h3>boAt Wireless Headphones </h3>
+        <p>Top-rated for sound quality and comfort.</p>
+      </div>
+      <div class="card">
+        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+          <img src="/Images/acernitro5.webp" alt="Smartwatch" style="max-width: 500%; max-height: 110%; border-radius: 12px;" /> 
+        </div>
+        <h3>Acer Nitro 5 12th Gen Intel i5 Gaming Laptop</h3>
+        <p>Top choice for gamers and professionals alike.</p>
+      </div>
+      <div class="card">
+        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+          <img src="/Images/fitnesstracker.jpg" alt="Fitness Tracker" style="max-width: 110%; max-height: 115%; border-radius: 10px;" /> 
+        </div>
+        <h3>Lunar Vista Fitness Tracker</h3>
+        <p>Highly rated for accuracy and features.</p>
+      </div>
+    </div>
+    <div style="margin-top: 24px; text-align: center;">
+      <button class="filter-btn" style="background: linear-gradient(250deg, var(--accent), var(--accent-2));">See All Products</button><br><br>
+    </div>
+  </div>
+</section>
+
+  <section class="mobilesImage">
+  <img src="/Images/hompagesection.png" Class="zoom-animation" style=" background:transparent; margin: 0 auto; max-width:60%; height:60; border-radius: 16px;" />
+  </section>
+</div>
+
+  <div class="process">
+  <section class="process">
+    <div class="step">
+      <h3>Step 1</h3>
+      <p>Browse categories and find your product.</p>
+    </div>
+    <div class="step">
+      <h3>Step 2</h3>
+      <p>Check reviews, ratings, and comparisons.</p>
+    </div>
+    <div class="step">
+      <h3>Step 3</h3>
+      <p>Buy with confidence using trusted sources.</p>
+    </div>
+  </section>
+</div>
+
+<div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: 32px;">
+  <h2>Why Smart Buy ?</h2>
   <div class="grid">
     <div class="card">
       <h3>Top Products</h3>
@@ -276,5 +491,67 @@
     Made with — Smart♥Buy. Try writing a review to see it live!<br><br>
     &copy; 2025 SmartBuy. All rights reserved.
   </footer>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const target = document.querySelector(".push-in");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target); // animate only once
+      }
+    });
+  }, { threshold: 0.3 });
+
+  if (target) {
+    observer.observe(target);
+  }
+});
+</script>
 </body>
 </html>
+
+
+<!--
+  Smart Buy - Creative Product Review Hub
+  A sleek, modern homepage design for a product review website.
+  Features a dark theme with vibrant accent colors, a hero section,
+  featured products, and a simple three-step process explanation.
+  Designed for clarity, ease of use, and visual appeal.
+
+
+  <section>
+  <div style="background: var(--accent-2); padding: 40px 0 20px 0; margin-top: -20px;"></div>
+    <div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -10px;">
+      <div class="h2">
+        <h2 class="push-in">Popular Categories</h2>
+      </div>
+    </div>
+    <div class="grid" style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -32px;">
+      <div class="card">
+        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+          <img src="/Images/electronics.jpg" alt="Electronics" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
+        </div>
+        <h3>Electronics</h3>
+        <p>Latest gadgets and devices.</p>
+      </div>
+      <div class="card">
+        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+          <img src="/Images/homeappliances.jpg" alt="Home Appliances" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
+        </div>
+        <h3>Home Appliances</h3>
+        <p>Essentials for your home.</p>
+      </div>
+      <div class="card">
+        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
+          <img src="/Images/fashion.jpg" alt="Fashion" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
+        </div>
+        <h3>Fashion</h3>
+        <p>Trendy clothing and accessories.</p>
+      </div>
+    </div>
+    <div style="margin-top: 24px; text-align: center;">
+      <button class="filter-btn" style="background: linear-gradient(250deg, var(--accent), var(--accent-2));">See All Categories</button><br><br>
+  </div>
+  </section>-->

@@ -1,60 +1,79 @@
 const express = require("express");
-const mysql = require("mysql2");
+const bodyParser = require("body-parser");
+const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
 
 const app = express();
-const port = 3000;
+const PORT = 3000;
 
-// Enable CORS so frontend can access backend
-app.use(cors());
+// Middleware
+app.use(cors()); // ✅ allow requests from Live Server (5500)
+app.use(bodyParser.json());
 
-// Middleware to parse JSON
-app.use(express.json());
-
-// Connect to MySQL
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "rahul1911@!",
-  database: "smartbuy"
-});
-
-db.connect((err) => {
+// DB setup
+const db = new sqlite3.Database("./smartbuy.db", (err) => {
   if (err) {
-    console.error("Database connection failed:", err);
-    return;
+    console.error("Error opening database:", err);
+  } else {
+    console.log("Connected to SQLite database");
+    db.run(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        fullname TEXT,
+        email TEXT UNIQUE,
+        password TEXT
+      )
+    `);
   }
-  console.log("Connected to MySQL ✅");
 });
 
-// Test route
-app.get("/", (req, res) => {
-  res.send("Backend working fine ✅");
-});
+// Routes
+app.post("/signup", (req, res) => {
+  const { fullname, email, password } = req.body;
 
-// Login route
-app.post("/api/v1/users/login", (req, res) => {
-  const { username, password } = req.body; // must match frontend names
-
-  if (!username || !password) {
-    return res.status(400).json({ success: false, message: "Username and password are required" });
+  if (!fullname || !email || !password) {
+    return res.status(400).json({ message: "All fields are required." });
   }
 
-  const query = "SELECT * FROM users WHERE username = ? AND password = ?";
-  db.query(query, [username, password], (err, results) => {
-    if (err) {
-      console.error("MySQL Error:", err);
-      return res.status(500).json({ success: false, message: "Database error" });
+  db.run(
+    "INSERT INTO users (fullname, email, password) VALUES (?, ?, ?)",
+    [fullname, email, password],
+    function (err) {
+      if (err) {
+        console.error("Database error:", err.message);
+        return res.status(500).json({ message: "User already exists or DB error." });
+      }
+      res.json({ message: "Signup successful!" });
     }
+  );
+});
+// Login Route
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
 
-    if (results.length > 0) {
-      res.json({ success: true, message: "Login successful" });
-    } else {
-      res.json({ success: false, message: "Invalid credentials" });
+  if (!email || !password) {
+    return res.status(400).json({ success: false, message: "All fields are required." });
+  }
+
+  db.get(
+    "SELECT * FROM users WHERE email = ? AND password = ?",
+    [email, password],
+    (err, row) => {
+      if (err) {
+        console.error("Database error:", err.message);
+        return res.status(500).json({ success: false, message: "Database error." });
+      }
+
+      if (row) {
+        res.json({ success: true, message: "Login successful!" });
+      } else {
+        res.json({ success: false, message: "Invalid email or password." });
+      }
     }
-  });
+  );
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port} ✅`);
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
