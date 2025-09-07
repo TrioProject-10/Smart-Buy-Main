@@ -187,6 +187,9 @@ header {
       align-items: center;
       transition: transform 0.18s ease, box-shadow 0.18s;
       margin-bottom: 14px;
+      flex: 1 1 400px; /* allow card to grow with a base width of 400px */
+  max-width: 200%; /* prevent overflow */
+  min-width: 400px; /* optional minimum width */
     }
     .card:hover {
       transform: translateY(-6px);
@@ -292,6 +295,77 @@ header {
       border: 1px solid rgba(255,255,255,0.04);
       color: #e6eef6;
     }
+    .modal h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+.card {
+  position: relative; /* Ensure child elements can go absolute */
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 14px;
+  padding: 18px 14px 14px 14px; /* More space on top for menu */
+  border: 1px solid rgba(255,255,255,0.03);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start; /* Key for alignment */
+  transition: transform 0.18s ease, box-shadow 0.18s;
+  margin-bottom: 14px;
+}
+.menu-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 2;
+  outline: none;
+  box-shadow: none;
+}
+.menu-btn span {
+  display: block;
+  width: 5px;
+  height: 5px;
+  margin: 2px 0;
+  background: #888;
+  border-radius: 50%;
+}
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 34px;
+  right: 14px;
+  background: #222;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  min-width: 140px;
+  z-index: 3;
+}
+.menu-dropdown.active {
+  display: block;
+  animation: fadeIn 0.2s;
+}
+.menu-dropdown button {
+  width: 100%;
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 12px 16px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 15px;
+  border-radius: 8px;
+}
+.menu-dropdown button:hover {
+  background:#06b6d4; color: white;
+}
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-8px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
     footer {
       text-align: center;
       padding: 14px 0 14px 0;
@@ -388,7 +462,7 @@ header {
       </div>
     </div>
   </div>
-
+  
   <script>
     const amazonProducts = [
       {
@@ -470,27 +544,32 @@ header {
         const card = document.createElement('div');
         card.className = 'card';
         const productReviews = reviewsForProduct(p.id);
-        card.innerHTML = `
-          <div class="thumb">
-            <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;border-radius:10px;object-fit:cover;">
-          </div>
-          <div class="meta">
-            <h3>${p.name}</h3>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
-              <div>
-                <div class="price">₹${p.price}</div>
-                <div class="actions">
-                  <a class="pill" href="${p.url}" target="_blank">Buy on Amazon</a>
-                  <button class="pill" onclick="openReviewModal(${p.id})">Review</button>
-                </div>
-                <div class="rating"><span class="stars">${starString(avgRatingForProduct(p.id))}</span> (${productReviews.length} reviews)</div>
-              </div>
-            </div>
-            <div class="reviews">
-              ${productReviews.map(r => `<div class="review">${starString(r.rating)} ${r.text}<br/><span style="color:var(--muted);font-size:11px;">— ${r.name}</span></div>`).join('')}
-            </div>
-          </div>
-        `;
+       card.innerHTML = `
+  <button class="menu-btn" onclick="toggleMenu(this)" aria-label="Actions">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="menu-dropdown">
+    <button onclick="openReviewModal(${p.id})">Write a Review</button>
+  </div>
+  <div class="thumb">
+    <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;border-radius:10px;object-fit:cover;">
+  </div>
+  <div class="meta">
+    <h3>${p.name}</h3>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+      <div>
+        <div class="price">₹${p.price}</div>
+        <div class="actions">
+          <a class="pill" href="${p.url}" target="_blank">Buy on Amazon</a>
+        </div>
+        <div class="rating"><span class="stars">${starString(avgRatingForProduct(p.id))}</span> (${productReviews.length} reviews)</div>
+      </div>
+    </div>
+    <div class="reviews">
+      ${productReviews.map(r => `<div class="review">${starString(r.rating)} ${r.text}<br/><span style="color:var(--muted);font-size:11px;">— ${r.name}</span></div>`).join('')}
+    </div>
+  </div>
+`;
         grid.appendChild(card);
       });
     }
@@ -542,6 +621,18 @@ header {
     });
 
     renderProducts();
+    function toggleMenu(btn) {
+  document.querySelectorAll('.menu-dropdown.active').forEach(menu => menu.classList.remove('active'));
+  btn.nextElementSibling.classList.toggle('active');
+}
+document.addEventListener('click', function(e) {
+  if(!e.target.classList.contains('menu-btn') && !e.target.closest('.menu-dropdown')) {
+    document.querySelectorAll('.menu-dropdown.active').forEach(menu => menu.classList.remove('active'));
+  }
+});
+
+
+
 
     el('#modal').addEventListener('click', ev => { if(ev.target === el('#modal')) closeModal(); });
   </script>
