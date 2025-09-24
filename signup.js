@@ -4,35 +4,31 @@ const router = express.Router();
 module.exports = (db) => {
   // Signup route
   router.post("/signup", (req, res) => {
-    const { fullName, email, password, confirmPassword } = req.body;
+    const { uname, umail, udob, upass } = req.body;
 
-    // Check if all fields are provided
-    if (!fullName || !email || !password || !confirmPassword) {
+    // Check required fields
+    if (!uname || !umail || !udob || !upass) {
       return res.status(400).json({ success: false, message: "All fields are required" });
     }
 
-    // Check if passwords match
-    if (password !== confirmPassword) {
-      return res.status(400).json({ success: false, message: "Passwords do not match" });
-    }
-
     // Check if email already exists
-    const checkQuery = "SELECT * FROM users WHERE email = ?";
-    db.query(checkQuery, [email], (err, results) => {
+    const checkQuery = "SELECT * FROM users WHERE umail = ?";
+    db.get(checkQuery, [umail], (err, row) => {
       if (err) {
-        console.error("MySQL Error:", err);
+        console.error("SQLite Error:", err);
         return res.status(500).json({ success: false, message: "Database error" });
       }
 
-      if (results.length > 0) {
+      if (row) {
         return res.status(400).json({ success: false, message: "Email already registered" });
       }
 
       // Insert new user
-      const insertQuery = "INSERT INTO users (fullName, email, password) VALUES (?, ?, ?)";
-      db.query(insertQuery, [fullName, email, password], (err, result) => {
+      const insertQuery =
+        "INSERT INTO users (uname, umail, udob, upass) VALUES (?, ?, ?, ?)";
+      db.run(insertQuery, [uname, umail, udob, upass], function (err) {
         if (err) {
-          console.error("MySQL Error:", err);
+          console.error("SQLite Error:", err);
           return res.status(500).json({ success: false, message: "Database error" });
         }
 

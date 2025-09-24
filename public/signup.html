@@ -449,12 +449,11 @@ form.addEventListener('submit', (e) => {
     const udob = document.getElementById("udob").value;
 
     try {
-     const res = await fetch("/api/v1/users/signup", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ fullname, email, password })
-});
-
+      const res = await fetch("http://localhost:3000/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ uname, umail, udob, upass })
+      });
 
       const data = await res.json();
       const message = document.getElementById("message");
