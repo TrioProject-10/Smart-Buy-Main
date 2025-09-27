@@ -1,10 +1,11 @@
 {
   "name": "smart-buy-main",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Smart Buy Backend",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,8 @@
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "mysql2": "^3.14.3",
+    "mysql2": "^3.15.1",
+    "pg": "^8.16.3",
     "sqlite3": "^5.1.7"
   }
 }

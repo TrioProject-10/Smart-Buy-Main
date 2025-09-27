@@ -1,86 +1,78 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const sqlite3 = require("sqlite3").verbose();
-const path = require("path");
+import express from "express";
+import bodyParser from "body-parser";
+import pkg from "pg"; // PostgreSQL client
+const { Pool } = pkg;
 
 const app = express();
-const PORT = 3000;
-
-// Middleware
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "public"))); // serve frontend
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// DB setup
-const db = new sqlite3.Database("./smartbuy.db", (err) => {
-  if (err) {
-    console.error("Error opening database:", err);
-  } else {
-    console.log("Connected to SQLite database ✅");
-    db.run(`
-      CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        uname TEXT,
-        umail TEXT UNIQUE,
-        udob TEXT,
-        upass TEXT
-      )
-    `);
-  }
+// 🔑 Replace with your Supabase Database URL (from Settings > Database > Connection string > URI)
+const pool = new Pool({
+  connectionString: "postgresql://postgres.qbtlzjnjvgktsyddwweo:192622MSrBvR@aws-1-ap-south-1.pooler.supabase.com:5432/postgres",
+  ssl: {
+    rejectUnauthorized: false, // required for Supabase
+  },
 });
 
-// -------- Signup Route --------
-app.post("/api/v1/users/signup", (req, res) => {
+// ✅ Test DB connection
+pool.connect()
+  .then(() => console.log("Connected to Supabase PostgreSQL ✅"))
+  .catch((err) => console.error("DB connection error ❌", err));
+
+// ---------------- ROUTES ---------------- //
+
+// Signup
+app.post("/signup", async (req, res) => {
   const { uname, umail, udob, upass } = req.body;
 
-  if (!uname || !umail || !udob || !upass) {
-    return res.status(400).json({ success: false, message: "All fields are required." });
-  }
+  try {
+    const query = `
+      INSERT INTO users (uname, umail, udob, upass)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *;
+    `;
+    const values = [uname, umail, udob, upass];
 
-  db.run(
-    "INSERT INTO users (uname, umail, udob, upass) VALUES (?, ?, ?, ?)",
-    [uname, umail, udob, upass],
-    function (err) {
-      if (err) {
-        console.error("Database error:", err.message);
-        return res
-          .status(500)
-          .json({ success: false, message: "User already exists or DB error." });
-      }
-      res.json({ success: true, message: "Signup successful!" });
-    }
-  );
+    const result = await pool.query(query, values);
+    res.status(201).json({
+      message: "User created successfully!",
+      user: result.rows[0],
+    });
+  } catch (err) {
+    console.error("❌ Error inserting user:", err);
+    res.status(500).json({ error: "Server error. Try again!" });
+  }
 });
 
-// -------- Login Route --------
-app.post("/api/v1/users/login", (req, res) => {
+// Login
+app.post("/login", async (req, res) => {
   const { umail, upass } = req.body;
 
-  if (!umail || !upass) {
-    return res.status(400).json({ success: false, message: "Email and password are required." });
-  }
+  try {
+    const query = `SELECT * FROM users WHERE umail = $1 AND upass = $2`;
+    const values = [umail, upass];
 
-  console.log("Login attempt:", umail);
+    const result = await pool.query(query, values);
 
-  db.get(
-    "SELECT id, uname, umail, udob FROM users WHERE umail = ? AND upass = ?",
-    [umail, upass],
-    (err, row) => {
-      if (err) {
-        console.error("Database error:", err.message);
-        return res.status(500).json({ success: false, message: "Internal server error." });
-      }
-
-      if (!row) {
-        return res.status(401).json({ success: false, message: "Invalid email or password." });
-      }
-
-      console.log("Login success:", row);
-      res.json({ success: true, message: "Login successful!", user: row });
+    if (result.rows.length > 0) {
+      res.json({ message: "Login successful!", user: result.rows[0] });
+    } else {
+      res.status(401).json({ error: "Invalid credentials" });
     }
-  );
+  } catch (err) {
+    console.error("❌ Error during login:", err);
+    res.status(500).json({ error: "Server error. Try again!" });
+  }
 });
 
-// -------- Start Server --------
+// Default route
+app.get("/", (req, res) => {
+  res.send("🚀 Supabase PostgreSQL Server Running");
+});
+
+// Start server
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`✅ Server running at http://localhost:${PORT}`);
 });
