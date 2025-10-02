@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -218,11 +218,11 @@ header > .brand {
 </head>
 <body>
 
-  <!-- Header --><!--/Images/generated-image.png-->
+  // Header <Images/generated-image.png
  <header>
   <div class="brand">
     <div class="logo">
-      <!-- you can put logo text OR an <img> inside -->
+      you can put logo text OR an <img> inside 
       <img src="/Images/generated-image.png" alt="SmartBuy Logo" style="background-color: gray;width:100%;height:100%;object-fit:cover;border-radius:20px;" >
     </div>
     <div class="brand-text">
@@ -232,9 +232,9 @@ header > .brand {
   </div>
 </header>
 
-  <!-- Signup Form -->
+  Signup Form 
   <main class="signup-card">
-    <!-- Step 1 -->
+    Step 1
     <form id="step1" novalidate>
       <h2>Sign up</h2>
       <form>
@@ -256,7 +256,7 @@ header > .brand {
       <button type="button" onclick="nextStep()">Continue</button>
     </form>
 
-    <!-- Step 2 -->
+    Step 2 
     <form id="step2" class="hidden">
       <h2>Personalize Your Profile</h2>
       <input type="date" placeholder="Date of Birth" required>
@@ -331,6 +331,145 @@ form.addEventListener('submit', (e) => {
       ? profileInput.files[0].name 
       : "No file chosen";
   });
+</script>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up - Smart Buy</title>
+<style>
+  body {
+    font-family: Arial;
+    background: #3a52aa;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .signup-card {
+    background: #0b1220;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  input, button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+  }
+  button {
+    background: #7c3aed;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .error {
+    color: #f87171;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  #message {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+  label.checkbox {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+  label.checkbox input {
+    width: auto;
+    margin-right: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="signup-card">
+  <h2>Sign Up</h2>
+  <form id="signupForm">
+    <input type="text" id="uname" placeholder="Full Name" required>
+    <input type="email" id="umail" placeholder="Email" required>
+    <input type="password" id="upass" placeholder="Password" required minlength="6">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password" required minlength="6">
+    <label class="checkbox"><input type="checkbox" id="togglePassword"> Show Passwords</label>
+    <input type="date" id="udob" required>
+    <label class="checkbox"><input type="checkbox" id="terms" required> I agree to Terms & Privacy Policy</label>
+    <button type="submit">Sign Up</button>
+  </form>
+  <div id="message"></div>
+</div>
+
+<script>
+const form = document.getElementById("signupForm");
+const password = document.getElementById("upass");
+const confirmPassword = document.getElementById("confirmPassword");
+const toggle = document.getElementById("togglePassword");
+const messageDiv = document.getElementById("message");
+
+// Show/Hide passwords
+toggle.addEventListener("change", () => {
+  const type = toggle.checked ? "text" : "password";
+  password.type = type;
+  confirmPassword.type = type;
+});
+
+// Clear message when typing
+form.addEventListener("input", () => {
+  messageDiv.innerText = "";
+});
+
+// Form submit
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  if (password.value !== confirmPassword.value) {
+    messageDiv.innerText = "Passwords do not match!";
+    messageDiv.style.color = "red";
+    return;
+  }
+
+  if (!document.getElementById("terms").checked) {
+    messageDiv.innerText = "You must agree to Terms & Privacy Policy!";
+    messageDiv.style.color = "red";
+    return;
+  }
+
+  const data = {
+    uname: document.getElementById("uname").value.trim(),
+    umail: document.getElementById("umail").value.trim(),
+    udob: document.getElementById("udob").value,
+    upass: password.value
+  };
+
+  try {
+    const res = await fetch("/signup", { // adjust endpoint if needed
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+    messageDiv.innerText = result.message;
+    messageDiv.style.color = res.ok ? "lightgreen" : "red";
+
+    if (res.ok) form.reset();
+  } catch (err) {
+    console.error(err);
+    messageDiv.innerText = "Server error. Try again!";
+    messageDiv.style.color = "red";
+  }
+});
 </script>
 </body>
 </html>
