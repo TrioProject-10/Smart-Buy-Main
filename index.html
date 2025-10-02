@@ -169,6 +169,103 @@ header {
       box-shadow: 0 12px 40px rgba(6, 182, 212, 0.2);
       transform: translateY(-2px);
     }
+
+    /* User Profile Styles */
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: #fff;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: white;
+    }
+
+    .user-info h4 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .user-info p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .profile-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .profile-dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: var(--card);
+      min-width: 200px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      margin-top: 8px;
+    }
+
+    .profile-dropdown-content a, 
+    .profile-dropdown-content button {
+      color: #fff;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.2s;
+      border-radius: 0;
+      font-size: 14px;
+    }
+
+    .profile-dropdown-content a:first-child,
+    .profile-dropdown-content button:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+
+    .profile-dropdown-content a:last-child,
+    .profile-dropdown-content button:last-child {
+      border-radius: 0 0 12px 12px;
+    }
+
+    .profile-dropdown-content a:hover,
+    .profile-dropdown-content button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .profile-dropdown-content .divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 8px 0;
+    }
+
+    .profile-dropdown.show .profile-dropdown-content {
+      display: block;
+    }
   .sort-option {
   padding: 8px 12px;
   cursor: pointer;
@@ -454,7 +551,54 @@ header {
           </div>
         </div>
    
-        <button class="review-btn" id="openReview">Write a Review</button>        
+        <!-- Authentication buttons -->
+        <div data-auth="login" style="display: flex; gap: 8px;">
+          <a href="/auth/login.html" class="btn" style="text-decoration: none; padding: 8px 16px; border-radius: 8px; background: rgba(255,255,255,0.1);">Login</a>
+          <a href="/auth/signup.html" class="btn primary" style="text-decoration: none; padding: 8px 16px;">Sign Up</a>
+        </div>
+        
+        <!-- User Profile Section -->
+        <div data-auth="logout" style="display: none; gap: 12px; align-items: center;">
+          <button class="review-btn" id="openReview" style="padding: 8px 16px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); border: none; color: white; cursor: pointer; font-weight: 600;">Write Review</button>
+          
+          <div class="profile-dropdown">
+            <div class="user-profile" id="userProfileBtn" style="cursor: pointer;">
+              <div class="user-avatar" id="userAvatar">U</div>
+              <div class="user-info">
+                <h4 id="userName">User</h4>
+                <p id="userEmail">user@example.com</p>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+            
+            <div class="profile-dropdown-content">
+              <a href="#" id="profileSettings">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 8px;">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M12 1v6m0 10v6m11-7h-6m-10 0H1m15.5-6.5l-4.24 4.24M7.76 7.76L3.52 3.52m12.73 12.73l4.24 4.24M7.76 16.24l-4.24 4.24"/>
+                </svg>
+                Profile Settings
+              </a>
+              <a href="#" id="myReviews">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 8px;">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/>
+                </svg>
+                My Reviews
+              </a>
+              <div class="divider"></div>
+              <button id="logoutBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 8px;">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                  <polyline points="16,17 21,12 16,7"/>
+                  <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -529,6 +673,73 @@ header {
     &copy; 2025 Smart Buy. All rights reserved.
   </footer>
 
+  <!-- Add Supabase and Auth integration -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" src="/auth/auth.js"></script>
+  
+  <script type="module">
+    import { AuthManager } from '/auth/auth.js';
+    
+    // Initialize authentication
+    const authManager = new AuthManager();
+    
+    // Update user profile display
+    async function updateUserProfile() {
+      const user = await authManager.getCurrentUser();
+      if (user) {
+        const userName = user.user_metadata?.full_name || user.email;
+        const userEmail = user.email;
+        const userInitial = userName.charAt(0).toUpperCase();
+        
+        document.getElementById('userName').textContent = userName;
+        document.getElementById('userEmail').textContent = userEmail;
+        document.getElementById('userAvatar').textContent = userInitial;
+      }
+    }
+    
+    // Handle profile dropdown
+    document.getElementById('userProfileBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.querySelector('.profile-dropdown').classList.toggle('show');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.profile-dropdown')) {
+        document.querySelector('.profile-dropdown').classList.remove('show');
+      }
+    });
+    
+    // Handle logout
+    document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      const result = await authManager.signOut();
+      if (result.success) {
+        window.location.reload();
+      } else {
+        alert('Failed to logout. Please try again.');
+      }
+    });
+    
+    // Handle profile settings (placeholder)
+    document.getElementById('profileSettings').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Profile settings feature coming soon!');
+    });
+    
+    // Handle my reviews (placeholder)
+    document.getElementById('myReviews').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('My reviews feature coming soon!');
+    });
+    
+    // Update user profile when page loads
+    updateUserProfile();
+    
+    // Update review submission to use authentication
+    window.authManager = authManager;
+  </script>
+  
   <script>
     const products = [
       { id: 1, name: 'Adidas Runner', price: 25000, image: 'Images/adidas runner.avif' },
@@ -646,12 +857,52 @@ header {
 
     elAll('#starPicker .star').forEach(s => s.addEventListener('click', () => setStarPicker(parseInt(s.dataset.value))));
 
-    el('#saveReview').addEventListener('click', () => {
-      const name = el('#reviewer').value.trim() || 'Anonymous';
-      const text = el('#reviewText').value.trim() || '—';
+    el('#saveReview').addEventListener('click', async () => {
+      if (!window.authManager || !window.authManager.isAuthenticated()) {
+        alert('Please log in to write a review');
+        window.location.href = '/auth/login.html';
+        return;
+      }
+
+      const text = el('#reviewText').value.trim();
       const pid = parseInt(el('#productSelect').value, 10);
-      const r = { productId: pid, name, text, rating: chosenStar, when: Date.now() };
-      reviews.push(r); saveReviews(); renderAll(); closeModal();
+      const product = products.find(p => p.id === pid);
+      
+      if (!text) {
+        alert('Please write a review');
+        return;
+      }
+
+      try {
+        const result = await window.authManager.submitReview(
+          pid,
+          product?.name || 'Unknown Product',
+          chosenStar,
+          text
+        );
+
+        if (result.success) {
+          // Add to local reviews for immediate display
+          const user = await window.authManager.getCurrentUser();
+          const r = { 
+            productId: pid, 
+            name: user?.user_metadata?.full_name || user?.email || 'User',
+            text, 
+            rating: chosenStar, 
+            when: Date.now() 
+          };
+          reviews.push(r); 
+          saveReviews(); 
+          renderAll(); 
+          closeModal();
+          alert('Review submitted successfully!');
+        } else {
+          alert(result.message || 'Failed to submit review');
+        }
+      } catch (error) {
+        console.error('Review submission error:', error);
+        alert('Failed to submit review. Please try again.');
+      }
     });
 
     function openQuickReview(id) { openModal(); el('#productSelect').value = id; }
