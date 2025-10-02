@@ -149,6 +149,64 @@ header {
     .sort-option {
       padding:8px 12px; cursor:pointer; color: var(--muted);
     }
+
+    /* User Profile Styles */
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .user-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 12px;
+      color: white;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .auth-buttons .btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .auth-buttons .btn-login {
+      background: rgba(255,255,255,0.1);
+      color: inherit;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .auth-buttons .btn-signup {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      border: none;
+    }
+
+    .auth-buttons .btn:hover {
+      transform: translateY(-1px);
+    }
+    
     .sort-option:hover {
       background: var(--glass); color: var(--accent-2);
     }
@@ -406,9 +464,26 @@ header {
           </div>
         </div>
         <button class="review-btn" id="openReview">Write a Review</button>
-    <div class="pill" style="margin-top:10px;">
-        <a href="/index.html" class="back-link">← Back to Home</a>
-      </div>
+        
+        <!-- Authentication section -->
+        <div data-auth="login" class="auth-buttons">
+          <a href="/auth/login.html" class="btn btn-login">Login</a>
+          <a href="/auth/signup.html" class="btn btn-signup">Sign Up</a>
+        </div>
+        
+        <div data-auth="logout" style="display: none;">
+          <div class="user-profile" id="userProfileBtn">
+            <div class="user-avatar" id="userAvatar">U</div>
+            <span id="userName">User</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="pill" style="margin-top:10px;">
+          <a href="/index.html" class="back-link">← Back to Home</a>
+        </div>
       
     </header>
     
@@ -635,6 +710,46 @@ document.addEventListener('click', function(e) {
 
 
     el('#modal').addEventListener('click', ev => { if(ev.target === el('#modal')) closeModal(); });
+  </script>
+  
+  <!-- Add Supabase and Auth integration -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module">
+    import { AuthManager } from '/auth/auth.js';
+    
+    // Initialize authentication
+    const authManager = new AuthManager();
+    
+    // Update user profile display
+    async function updateUserProfile() {
+      const user = await authManager.getCurrentUser();
+      if (user) {
+        const userName = user.user_metadata?.full_name || user.email;
+        const userInitial = userName.charAt(0).toUpperCase();
+        
+        document.getElementById('userName').textContent = userName;
+        document.getElementById('userAvatar').textContent = userInitial;
+      }
+    }
+    
+    // Handle user profile click (simple logout for now)
+    document.getElementById('userProfileBtn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      if (confirm('Are you sure you want to logout?')) {
+        const result = await authManager.signOut();
+        if (result.success) {
+          window.location.reload();
+        } else {
+          alert('Failed to logout. Please try again.');
+        }
+      }
+    });
+    
+    // Update user profile when page loads
+    updateUserProfile();
+    
+    // Make auth manager available globally for review functionality
+    window.authManager = authManager;
   </script>
 </body>
 

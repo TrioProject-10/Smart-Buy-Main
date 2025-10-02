@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Test - Smart Buy</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+        }
+        #log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Smart Buy Authentication Test</h1>
+    
+    <div class="test-container">
+        <h2>Supabase Connection Test</h2>
+        <button onclick="testSupabaseConnection()">Test Supabase Connection</button>
+        <div id="connection-status"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>Sign Up Test</h2>
+        <input type="email" id="signup-email" placeholder="Email" value="test@example.com">
+        <input type="password" id="signup-password" placeholder="Password" value="testpass123">
+        <input type="text" id="signup-name" placeholder="Full Name" value="Test User">
+        <button onclick="testSignUp()">Test Sign Up</button>
+    </div>
+
+    <div class="test-container">
+        <h2>Sign In Test</h2>
+        <input type="email" id="signin-email" placeholder="Email" value="test@example.com">
+        <input type="password" id="signin-password" placeholder="Password" value="testpass123">
+        <button onclick="testSignIn()">Test Sign In</button>
+        <button onclick="testSignOut()">Test Sign Out</button>
+    </div>
+
+    <div class="test-container">
+        <h2>Test Log</h2>
+        <button onclick="clearLog()">Clear Log</button>
+        <div id="log"></div>
+    </div>
+
+    <script type="module">
+        import { SUPABASE_CONFIG } from './config.js';
+        import { AuthManager } from './auth/auth.js';
+
+        let authManager;
+        let supabase;
+
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : 'info';
+            logDiv.innerHTML += `<span class="${className}">[${timestamp}] ${message}</span>\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        window.clearLog = function() {
+            document.getElementById('log').innerHTML = '';
+        }
+
+        window.testSupabaseConnection = async function() {
+            try {
+                log('Testing Supabase connection...');
+                
+                if (!window.supabase) {
+                    log('ERROR: Supabase client not available', 'error');
+                    document.getElementById('connection-status').innerHTML = '<span class="error">❌ Supabase client not loaded</span>';
+                    return;
+                }
+
+                supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+                log('✅ Supabase client created successfully', 'success');
+
+                // Test connection by trying to get session
+                const { data, error } = await supabase.auth.getSession();
+                if (error) {
+                    log(`ERROR: ${error.message}`, 'error');
+                    document.getElementById('connection-status').innerHTML = '<span class="error">❌ Connection failed</span>';
+                } else {
+                    log('✅ Supabase connection successful', 'success');
+                    document.getElementById('connection-status').innerHTML = '<span class="success">✅ Connected successfully</span>';
+                    log(`Current session: ${data.session ? 'Active' : 'None'}`);
+                }
+            } catch (error) {
+                log(`ERROR: ${error.message}`, 'error');
+                document.getElementById('connection-status').innerHTML = '<span class="error">❌ Connection error</span>';
+            }
+        }
+
+        window.testSignUp = async function() {
+            try {
+                if (!authManager) {
+                    authManager = new AuthManager();
+                    await new Promise(resolve => setTimeout(resolve, 500)); // Wait for initialization
+                }
+
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+                const fullName = document.getElementById('signup-name').value;
+
+                log(`Attempting sign up for: ${email}`);
+                const result = await authManager.signUp(email, password, fullName);
+
+                if (result.success) {
+                    log(`✅ Sign up successful: ${result.message}`, 'success');
+                } else {
+                    log(`❌ Sign up failed: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`ERROR during sign up: ${error.message}`, 'error');
+            }
+        }
+
+        window.testSignIn = async function() {
+            try {
+                if (!authManager) {
+                    authManager = new AuthManager();
+                    await new Promise(resolve => setTimeout(resolve, 500)); // Wait for initialization
+                }
+
+                const email = document.getElementById('signin-email').value;
+                const password = document.getElementById('signin-password').value;
+
+                log(`Attempting sign in for: ${email}`);
+                const result = await authManager.signIn(email, password);
+
+                if (result.success) {
+                    log(`✅ Sign in successful: ${result.message}`, 'success');
+                } else {
+                    log(`❌ Sign in failed: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`ERROR during sign in: ${error.message}`, 'error');
+            }
+        }
+
+        window.testSignOut = async function() {
+            try {
+                if (!authManager) {
+                    authManager = new AuthManager();
+                    await new Promise(resolve => setTimeout(resolve, 500)); // Wait for initialization
+                }
+
+                log('Attempting sign out...');
+                const result = await authManager.signOut();
+
+                if (result.success) {
+                    log(`✅ Sign out successful: ${result.message}`, 'success');
+                } else {
+                    log(`❌ Sign out failed: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`ERROR during sign out: ${error.message}`, 'error');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            log('🚀 Test page loaded');
+            log(`📡 Supabase URL: ${SUPABASE_CONFIG.url}`);
+            log(`🔑 Supabase Key: ${SUPABASE_CONFIG.anonKey.substring(0, 20)}...`);
+            
+            // Auto-test connection
+            setTimeout(testSupabaseConnection, 1000);
+        });
+    </script>
+</body>
+</html>
