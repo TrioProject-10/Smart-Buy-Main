@@ -89,14 +89,44 @@
       font-family: 'Poppins', Arial, Helvetica, sans-serif;
       box-sizing: border-box;
     }
-    nav a:hover {
-      color: whitesmoke;
+       .btn {
+      padding: 0.625rem 1.5rem;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.938rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+    } 
+      .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: #fff;
+    }
+
+    .btn-outline:hover {
+      background: rgb(73, 155, 226);
+       color: whitesmoke;
       text-decoration:underline;
       text-decoration-thickness: 2px;
     }
+
+    .btn-gradient {
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      color: #fff;
+      border: none;
+    }
+
+    .btn-gradient:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+    }  
     .hero {
       text-align: center;
-      padding: 30px 20px 10px 20px;
+      padding: 30px 40px 10px 40px;
       background: linear-gradient(120deg, var(--accent), var(--accent-2));
       color: #fff;
     }
@@ -139,14 +169,22 @@
   margin-bottom: 32px;
 
 }
+ .hero-text .italic-text {
+      font-style: italic;
+      color: rgba(247, 239, 239, 0.984);
+      margin-bottom: 2rem;
+    }
 .hero-image {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  animation: zoomInOut 8.5s ease-in-out infinite;
-
+  animation:myDiv 5s ease-in-out infinite;
+  @keyframes myDiv {
+    50% {box-shadow: 10px 20px 30px ;}
 }
+  }
+
 .hero-image img {
   max-width: 360px;
   width: 100%;
@@ -291,41 +329,151 @@
   background: #273c75;   /* lighter shade */
   transform: scale(1.05); /* slight zoom */
 }
+ .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      background:#06b6d4
+    }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      max-width: 1100px;
-      margin: 48px auto 0 auto;
-      padding: 20px;
-      box-sizing: border-box;
-      text-align: center;
-      justify-items: center;
-      align-items: start;
-      color: #e6eef6;
-      cursor: pointer;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
     }
+
     .card {
-      background: whitesmoke;
+      background: #fff;
+      color: #000;
       border-radius: 14px;
-      padding: 24px;
-      box-shadow: 0 8px 32px rgba(7, 12, 20, 0.15);
-      text-align: center;
-      color: #000000;
-      border: 1px solid rgba(255,255,255,0.04);
-      transition: transform 0.15s, border-color 0.15s;
+      padding: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
+
     .card:hover {
-      transform: translateY(-6px) scale(1.03);
-      border-color:#06f3c7;
-      border-width: 0.25cap;
-      opacity: 1;
-      animation: fadeInUp 1s forwards;
-      transform: scale(1.1);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 48px rgba(139, 92, 246, 0.3);
     }
+
+    .card-image {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f3f4f6;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .card-image img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
     .card h3 {
-      margin-top: 0;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 0.75rem;
     }
+
+    .card p {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+  
+      /* Why Smart Buy */
+          .card why-buy{
+      background: #fff;
+      color: #000;
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .why-cards .card {
+      text-align: center;
+    }
+
+    .card-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }  
+
+    .rating {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .stars {
+      display: flex;
+      gap: 0.125rem;
+    }
+
+    .star {
+      color: #fbbf24;
+      font-size: 1rem;
+    }
+
+    .star.empty {
+      color: #d1d5db;
+    }
+
+    .reviews {
+      text-align: center;
+      font-size: 0.875rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+
+    .btn-card {
+      width: 100%;
+      padding: 0.625rem;
+      background: transparent;
+      border: 1px solid #d1d5db;
+      color: #000;
+      border-radius: 6px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-card:hover {
+      background: #f3f4f6;
+      border-color: var(--primary);
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    /* Image Showcase */
+    .showcase {
+      background: #fff;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .showcase img {
+      max-width: 60%;
+      height: auto;
+      border-radius: 16px;
+      animation: zoomInOut 8.5s ease-in-out infinite;
+    }
+ 
     footer {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin-top: auto;
@@ -388,10 +536,11 @@
     </div>  
     </div>
     <nav>
-      <a href="#">Home</a>
-      <a href="#">Products</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
+    <button onclick="window.location.href='#Home'" class="btn btn-outline">Home</button>
+    <button onclick="window.location.href='#Products'" class="btn btn-outline">Products</button>
+    <button onclick="window.location.href='#About'" class="btn btn-outline">About</button>
+    <button onclick="window.location.href='#Contact'" class="btn btn-outline">Contact</button>&nbsp;
+    <button onclick="window.location.href='/Sign up page/signup.html'" class="btn btn-gradient">Sign In</button>
     </nav>
   </header>
   <div class="hero">
@@ -399,11 +548,11 @@
     <div class="hero-text">
   
     <h1 style="font-family: 'poppins'; letter-spacing:1px; text-align:center;" > “ Where reviews meet smart choices. ”</h1>
-    <p>Discover the best products, reviews, and deals  — all in one spot.</p>
-    <p>“Find it. Rate it. Own it - Real reviews.Real trust.”</p>
+    <p >Discover the best products, reviews, and deals  — all in one spot.</p>
+    <p class="italic-text">“Find it. Rate it. Own it - Real reviews.Real trust.”</p>
   </div>
   <div class="hero-image">
-      <img src="/Images/user-reviews-laptop.avif" alt="SmartBuy Example" style="max-width:390px; width:100%; border-radius:18px;" />
+      <img class="myDiv" src="/Images/user-reviews-laptop.avif" alt="SmartBuy Example" style="max-width:390px; width:100%; border-radius:18px;" />
     </div>
   </div>
 </div>
@@ -414,42 +563,78 @@
       <h2 class="push-in">Featured Products</h2>
     </div>
 </div>
-    <div class="grid" style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -32px;">
-      <div class="card">
-        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
-          <img src="/Images/wirelessheadphones.webp" alt="iPhone 14 Pro" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
+     <div class="grid">
+        <div class="card">
+          <div class="card-image">
+            <img src="/Images/wirelessheadphones.webp" alt="boAt Wireless Headphones" />
+          </div>
+          <h3>boAt Wireless Headphones</h3>
+          <div class="rating">
+            <div class="stars">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <span>4.5</span>
+          </div>
+          <p>Top-rated for sound quality and comfort.</p>
+          <p class="reviews">1,247 reviews</p>
+          <button class="btn-card">Read Reviews</button>
         </div>
-        <h3>boAt Wireless Headphones </h3>
-        <p>Top-rated for sound quality and comfort.</p>
-      </div>
-      <div class="card">
-        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
-          <img src="/Images/acernitro5.webp" alt="Smartwatch" style="max-width: 500%; max-height: 110%; border-radius: 12px;" /> 
-        </div>
-        <h3>Acer Nitro 5 12th Gen Intel i5 Gaming Laptop</h3>
-        <p>Top choice for gamers and professionals alike.</p>
-      </div>
-      <div class="card">
-        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
-          <img src="/Images/fitnesstracker.jpg" alt="Fitness Tracker" style="max-width: 110%; max-height: 115%; border-radius: 10px;" /> 
-        </div>
-        <h3>Lunar Vista Fitness Tracker</h3>
-        <p>Highly rated for accuracy and features.</p>
-      </div>
-    </div>
-    <div style="margin-top: 24px; text-align: center;">
-      <button class="filter-btn" style="background: linear-gradient(250deg, var(--accent), var(--accent-2));">See All Products</button><br><br>
-    </div>
-  </div>
-</section>
 
-  <section class="mobilesImage">
-  <img src="/Images/hompagesection.png" Class="zoom-animation" style=" background:transparent; margin: 0 auto; max-width:60%; height:60; border-radius: 16px;" />
+        <div class="card">
+          <div class="card-image">
+            <img src="/Images/acernitro5.webp" alt="Acer Nitro 5 Gaming Laptop" />
+          </div>
+          <h3>Acer Nitro 5 Gaming Laptop</h3>
+          <div class="rating">
+            <div class="stars">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <span>4.7</span>
+          </div>
+          <p>Top choice for gamers and professionals alike.</p>
+          <p class="reviews">892 reviews</p>
+          <button class="btn-card">Read Reviews</button>
+        </div>
+
+        <div class="card">
+          <div class="card-image">
+            <img src="/Images/fitnesstracker.jpg" alt="Lunar Vista Fitness Tracker" />
+          </div>
+          <h3>Lunar Vista Fitness Tracker</h3>
+          <div class="rating">
+            <div class="stars">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star empty">★</span>
+            </div>
+            <span>4.3</span>
+          </div>
+          <p>Highly rated for accuracy and features.</p>
+          <p class="reviews">654 reviews</p>
+          <button class="btn-card">Read Reviews</button>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-gradient btn-hero">See All Products</button>
+      </div>
+    </div>
   </section>
-</div>
+  <br><br>
 
+ <!-- Process Section -->
+ <section class="process">
   <div class="process">
-  <section class="process">
     <div class="step">
       <h3>Step 1</h3>
       <p>Browse categories and find your product.</p>
@@ -465,9 +650,10 @@
   </section>
 </div>
 
+<section>
 <div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: 32px;">
   <h2>Why Smart Buy ?</h2>
-  <div class="grid">
+  <div class=".card why-buy">
     <div class="card">
       <h3>Top Products</h3>
       <p>Curated selection of highly-rated products.</p>
@@ -481,6 +667,8 @@
       <p>Don’t miss the best deals and discounts.</p>
     </div>
   </div>
+  </div>
+  </section>
   <footer>
       <p>
       <a href="#">About</a> | 
