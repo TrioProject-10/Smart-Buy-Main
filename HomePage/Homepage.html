@@ -521,6 +521,173 @@
     align-items: center;
   }
 }
+
+/* Dropdown wrapper */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -200px;
+  background: #0b1220;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  padding: 20px;
+  min-width: 600px;
+  z-index: 999;
+  border-radius: 12px;
+  font-size: 14px;
+  text-align: left;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: none; /* Hidden by default */
+  flex-direction: column;
+}
+
+/* Visible when open */
+.dropdown.open .dropdown-content {
+  display: block;
+}
+
+/* Mega menu grid layout */
+.mega-menu {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.mega-column h4 {
+  color: #358decf8;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.mega-column a {
+  display: block;
+  color: #e6eef6;
+  text-decoration: none;
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.mega-column a:hover {
+  color: #06b6d4;
+  text-decoration: underline;
+}
+/* Profile Dropdown */
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 16px;
+  cursor: pointer;
+}
+.profile-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: #1b243a;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  padding: 12px 16px;
+  min-width: 200px;
+  z-index: 999;
+  border-radius: 12px;
+  font-size: 14px;
+  text-align: left;
+}
+.profile-dropdown-content a, .profile-dropdown-content button {
+  display: block;
+  color: #e6eef6;
+  text-decoration: none;
+  margin: 8px 0;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
+.profile-dropdown-content a:hover, .profile-dropdown-content button:hover {
+  color: #06b6d4;
+  text-decoration: underline;
+}
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  background: #7c3aed;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.user-info h4, .user-info p {
+  margin: 0;
+  line-height: 1.2;
+}
+.user-info h4 {
+  font-size: 14px;
+  font-weight: 600;
+}
+.user-info p {
+  font-size: 12px;
+  color: #9aa6b2;
+  font-weight: 400;
+}
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin: 8px 0;
+}
+/* Show dropdown on click */
+#productsMenu {
+  display: none;
+  flex-direction: row;
+  gap: 24px;
+  padding: 20px;
+  background: #0b1220;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  position: absolute;
+  top: 100%;
+  left: -200px;
+  z-index: 999;
+  min-width: 600px;
+}
+#productsBtn:hover + #productsMenu,
+#productsMenu:hover {
+  display: flex; 
+}
+@media (max-width: 768px) {
+  #productsMenu {
+    left: -150px; /* Adjust as needed for mobile */
+    min-width: 300px;
+  }
+  .mega-menu {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .mega-column h4 {
+    font-size: 16px;
+  }
+  .mega-column a {
+    font-size: 14px;
+  }
+}  
+  
   </style>
 </head>
 
@@ -537,7 +704,35 @@
     </div>
     <nav>
     <button onclick="window.location.href='#Home'" class="btn btn-outline">Home</button>
-    <button onclick="window.location.href='#Products'" class="btn btn-outline">Products</button>
+    <div class="dropdown">
+    <button onclick="window.location.href='#Products'" class=" btn btn-outline" id="productsBtn">Products</button>
+     <div class="dropdown-content" id="productsMenu">
+     <div class="mega-menu">
+        <div class="mega-column">
+          <h4>Electronics</h4>
+          <a href="#">Smartphones</a>
+          <a href="#">Laptops</a>
+          <a href="#">Headphones</a>
+        </div>
+        <div class="mega-column">
+          <h4>Home & Living</h4>
+          <a href="#">Appliances</a>
+          <a href="#">Kitchen</a>
+        </div>
+        <div class="mega-column">
+          <h4>Fashion & Lifestyle</h4>
+          <a href="#">Men’s Fashion</a>
+          <a href="#">Women’s Fashion</a>
+          <a href="#">Shoes</a>
+          <a href="#">Fitness</a>
+        </div>
+        <div class="mega-column">
+          <h4>Amazon</h4>
+          <a href="#">Top Products</a>
+        </div>
+      </div>
+    </div>
+    </div>
     <button onclick="window.location.href='#About'" class="btn btn-outline">About</button>
     <button onclick="window.location.href='#Contact'" class="btn btn-outline">Contact</button>&nbsp;
     <button onclick="window.location.href='/auth/signup.html'" class="btn btn-gradient">Sign In</button>
@@ -742,6 +937,107 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(target);
   }
 });
+
+const productsBtn = document.getElementById("productsBtn");
+const productsMenu = document.getElementById("productsMenu");
+let hideTimeout;
+
+productsBtn.addEventListener("mouseenter", () => {
+  clearTimeout(hideTimeout);
+  productsMenu.style.display = "flex"; // Show immediately on hover
+});
+
+productsBtn.addEventListener("mouseleave", () => {
+  hideTimeout = setTimeout(() => {
+    productsMenu.style.display = "none"; // Hide after 1.5s
+  }, 1500);
+});
+
+productsMenu.addEventListener("mouseenter", () => {
+  clearTimeout(hideTimeout); // Cancel hide if hovering over menu
+});
+
+productsMenu.addEventListener("mouseleave", () => {
+  hideTimeout = setTimeout(() => {
+    productsMenu.style.display = "none"; // Hide after 1.5s when leaving menu
+  }, 1500);
+});
+
+// User Authentication Simulation
+const isAuthenticated = false; // Change to true to simulate logged-in state  
+document.addEventListener("DOMContentLoaded", () => {
+  const authElements = document.querySelectorAll("[data-auth='logout']");
+  const guestElements = document.querySelectorAll("[data-auth='login']");
+
+  if (isAuthenticated) {
+    authElements.forEach(el => el.style.display = "flex");
+    guestElements.forEach(el => el.style.display = "none");
+  } else {
+    authElements.forEach(el => el.style.display = "none");
+    guestElements.forEach(el => el.style.display = "flex");
+  }
+});
+// Profile Dropdown
+const userProfileBtn = document.getElementById("userProfileBtn");
+const profileDropdown = document.querySelector(".profile-dropdown-content");
+userProfileBtn.addEventListener("click", () => {
+  profileDropdown.style.display = profileDropdown.style.display === "block" ? "none" : "block";
+});
+window.addEventListener("click", (e) => {
+  if (!userProfileBtn.contains(e.target)) {
+    profileDropdown.style.display = "none";
+  }
+});
+// Logout Button
+const logoutBtn = document.getElementById("logoutBtn");
+logoutBtn.addEventListener("click", () => {
+  alert("Logged out successfully!");
+  // Implement actual logout logic here
+});
+// Open Review Modal (Placeholder)
+const openReviewBtn = document.getElementById("openReview");
+openReviewBtn.addEventListener("click", () => {
+  alert("Open review modal (to be implemented)");
+  // Implement actual modal logic here
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const dropdown = document.querySelector(".dropdown");
+  const btn = document.getElementById("productsBtn");
+  const menu = document.getElementById("productsMenu");
+
+  let isOpen = false;
+
+  // Open menu on hover
+  btn.addEventListener("mouseenter", () => {
+    dropdown.classList.add("open");
+    isOpen = true;
+  });
+
+  menu.addEventListener("mouseenter", () => {
+    dropdown.classList.add("open");
+    isOpen = true;
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (event) => {
+    if (!dropdown.contains(event.target)) {
+      dropdown.classList.remove("open");
+      isOpen = false;
+    }
+  });
+
+  // Optional: clicking "Products" toggles menu
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle("open");
+    isOpen = !isOpen;
+  });
+});
+
+
+
 </script>
 </body>
 </html>
