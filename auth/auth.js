@@ -106,7 +106,7 @@ class AuthManager {
   async signUp(email, password, fullName) {
     if (!this.supabase) {
       console.error('❌ Supabase client not available');
-      return { success: false, message: 'Authentication service not available. Please refresh the page and try again.' };
+      return { success: false, message: 'Incorrect Email or Password. Please try again.' };
     }
 
     try {

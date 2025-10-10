@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up - Smart Buy</title>
-  <link rel="icon" type="image/png" href="/Images/fevicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Buy - Creative Product Review Hub</title>
+  <link rel="icon" type="image/png" href="/Images/fevicon.png" rect width="2000%" height="2000%" fill="white"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
-      --bg: #02193a;
+      --bg: #1b283af5;
       --card: #0b1220;
       --accent: #7c3aed;
       --accent-2: #06b6d4;
@@ -63,13 +62,35 @@
       transform: translateY(-1px);
     }
 
-    .brand {
+   .brand {
       display: flex;
       align-items: center;
-      gap: 16px;
-      text-decoration: none;
-      color: inherit;
+      gap: 12px;
     }
+    
+   .brand-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;  /* space between logo and text */
+    }
+
+    .brand-text {
+      font-family: 'Monoton', cursive;
+      font-size: 38px;
+      color: #8c52ff;
+      margin: 0;
+      letter-spacing: 1px;
+      font-weight: 500;
+      word-spacing: 1px;
+      cursor: pointer;
+    }
+     p.lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
 
     .logo {
       width: 56px;
@@ -86,20 +107,6 @@
       height: 100%;
       object-fit: cover;
     }
-
-    .brand-text h1 {
-      font-family: 'Monoton', cursive;
-      font-size: 32px;
-      color: var(--accent);
-      margin: 0;
-    }
-
-    .brand-text p {
-      font-size: 14px;
-      color: var(--muted);
-      margin: 4px 0 0 0;
-    }
-
     main {
       flex: 1;
       display: flex;
@@ -325,21 +332,22 @@
 </head>
 <body>
   <header>
-    <a href="/" class="brand">
-      <div class="logo">
-        <img src="/Images/generated-image.png" alt="Smart Buy Logo">
+     <a class="brand">
+      <div class="brand">
+      <div class="logo"> <img src="/Images/generated-image.png" style="background-color: gray; width:125%; height:125%; object-fit:contain; border-radius:20px;">
       </div>
-      <div class="brand-text">
-        <h1>Smart Buy</h1>
-        <p>Your feedback shapes better choices</p>
-      </div>
+  
+    <div>
+          <h1 class="brand-text">Smart Buy</h1>
+    <p class="lead">Your feedback shapes better choices — curated for shoppers</p>
+    </div>  
+    </div>
     </a>
     
     <!-- Navigation with user profile -->
     <div class="nav-controls">
       <!-- Show when not logged in -->
       <div data-auth="login" style="display: flex; gap: 8px;">
-        <a href="/auth/login.html" class="btn" style="text-decoration: none; padding: 8px 16px; border-radius: 8px; background: rgba(255,255,255,0.1); color: inherit;">Login</a>
       </div>
       
       <!-- Show when logged in -->
@@ -351,7 +359,7 @@
 
   <main>
     <div class="signup-container">
-      <h2>Create Account</h2>
+      <h2>Sign Up</h2>
       
       <div id="message" class="message"></div>
 
@@ -373,7 +381,7 @@
             <div class="strength-bar">
               <div id="strengthFill" class="strength-fill"></div>
             </div>
-            <div id="strengthText">Password must contain: 8+ characters, uppercase, lowercase, number, special character</div>
+            <div id="strengthText" >Password must contain: 8+ characters, uppercase, lowercase, number, special character</div>
           </div>
         </div>
 
@@ -395,11 +403,8 @@
         </button>
       </form>
 
-      <div class="divider">Already have an account?</div>
-
       <div class="links">
-        <a href="/auth/login.html">Sign In</a>
-      </div>
+        <a href="/auth/login.html">Already have an account? </a></div>
     </div>
   </main>
 
