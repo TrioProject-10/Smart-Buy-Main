@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Smart Buy - Creative Product Review Hub</title>
-  <link rel="icon" type="image/png" href="/Images/fevicon.png" rect width="2000%" height="2000%" fill="white"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&display=swap" rel="stylesheet">
+  <title>Smartphones - Smart Buy</title>
+  <link rel="icon" type="image/png" href="/Images/fevicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #101a29;
@@ -14,34 +15,32 @@
       --accent-2: #06b6d4;
       --muted: #9aa6b2;
     }
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
     html, body {
-      height: 100%;
       margin: 0;
-      font-family: Inter, system-ui, Arial;
+      padding: 0;
       background: var(--bg);
       color: #e6eef6;
-      display: flex;
-      flex-direction: column;
+      font-family: 'Inter', system-ui, Arial;
       min-height: 100vh;
     }
+
+    /* Header - same as homepage */
     header {
       padding: 24px;
       background: var(--card);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     }
+
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-    }
-    
-   .brand-top {
-      display: flex;
-      align-items: center;
-      gap: 10px;  /* space between logo and text */
     }
 
     .logo {
@@ -52,12 +51,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: white;
-      font-family: Arial, sans-serif;
       box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+      background: gray;
     }
 
     .brand-text {
@@ -70,26 +73,21 @@
       word-spacing: 1px;
       cursor: pointer;
     }
-   p.lead {
+
+    p.lead {
       margin: 0;
       color: var(--muted);
       font-size: 13px;
       cursor: pointer;
     }
 
-      
-    nav a {
-      color: var(--muted);
-      margin-left: 24px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 15px;
-      transition: color 0.2s;
-      cursor: pointer;
-      font-family: 'Poppins', Arial, Helvetica, sans-serif;
-      box-sizing: border-box;
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
-       .btn {
+
+    .btn {
       padding: 0.625rem 1.5rem;
       border-radius: 8px;
       font-family: 'Poppins', sans-serif;
@@ -100,8 +98,9 @@
       border: none;
       text-decoration: none;
       display: inline-block;
-    } 
-      .btn-outline {
+    }
+
+    .btn-outline {
       background: transparent;
       border: 1px solid var(--border);
       color: #fff;
@@ -109,8 +108,8 @@
 
     .btn-outline:hover {
       background: rgb(73, 155, 226);
-       color: whitesmoke;
-      text-decoration:underline;
+      color: whitesmoke;
+      text-decoration: underline;
       text-decoration-thickness: 2px;
     }
 
@@ -123,359 +122,136 @@
     .btn-gradient:hover {
       transform: scale(1.05);
       box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
-    }  
-    .hero {
-      text-align: center;
-      padding: 30px 40px 10px 40px;
-      background: linear-gradient(120deg, var(--accent), var(--accent-2));
-      color: #fff;
     }
+
+    /* Smartphones Section */
+    .content {
+      padding: 40px 80px;
+      max-width: 1300px;
+      margin: auto;
+    }
+
+.page-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 25px;
+  text-align: center;
+  letter-spacing: 2px;
+  word-spacing: 3px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #7c3aed, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 50px 0 40px;
+  margin-bottom: -30px;
+  position: relative;
+  text-shadow: 0 0 12px rgba(124, 58, 237, 0.5);
+}
+
+.page-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed, #06b6d4);
+  border-radius: 4px;
+}
     
-.hero-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 32px;
-  padding: 0 5px;
-}
-
-.hero-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 48px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-.hero-text {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 18px;
-}
-.hero-text h1 {
-  font-size: 3rem;
-  margin: 0 0 18px 0;
-  font-family: 'Poppins', Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  align-items: flex-start;
-  margin-left: -60px; 
-}
-.hero-text p {
-  font-size: 1.5rem;
-  margin-bottom: 32px;
-
-}
- .hero-text .italic-text {
-      font-style: italic;
-      color: rgba(247, 239, 239, 0.984);
-      margin-bottom: 2rem;
-    }
-.hero-image {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  animation:myDiv 5s ease-in-out infinite;
-  @keyframes myDiv {
-    50% {box-shadow: 10px 20px 30px ;}
-}
-  }
-
-.hero-image img {
-  max-width: 360px;
-  width: 100%;
-  border-radius: 16px;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.18);
-}
-    .hero h1 {
-      font-size: 48px;
-      margin-bottom: 5px;
-    }
-    .hero p {
-      font-size: 22px;
-      color: #e6eef6;
-      margin-bottom: -10px;
-    }
-   .btn-primary {
-  background: linear-gradient(90deg, #9158f4, #06b6d4);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 32px;
-  font-size: 1.15rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-  box-shadow: 0px 2px 14px rgba(124, 58, 237, 0.12);
-}
-.btn-primary:hover {
-  background: linear-gradient(90deg, #7c3aed, #0ea5e9);
-  transform: scale(1.05);
-}
-.h2 {
-  font-size: 28px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  color: whitesmoke;
-  letter-spacing: 1px;
+.items-info {
+  text-align: right;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #9baec8;
+  margin-top: -20px;
+  margin-bottom: 40px;
+  letter-spacing: 0.5px;
   word-spacing: 2px;
-  cursor: pointer;
-  display: inline-block;
-  padding: 8px 16px;
-  border-radius: 8px;
-}
-.h2:hover {
-  color: whitesmoke;
-  border-color: var(--accent);
-  transform: scale(1.1); /* zoom effect */
-   opacity: 0;
-  transform: scale(0.5);
-  animation: pushIn 0.8s forwards;
-}
-@keyframes pushIn {
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-.process {
-    background: linear-gradient(250deg, var(--accent), var(--accent-2));
-    color:rgb(255, 255, 255);
-    padding: 4rem 10rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-   *{ margin: 0;
-    margin-bottom: 1px;
-    padding: 0;
-    box-sizing:border-box;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}}
-.step {
-    flex: 5 5 5px;
-    text-align:center;
-    padding: 1rem;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1); 
-    box-shadow: 0 8px 32px rgba(7, 12, 20, 0.15);
-    transition: transform 0.15s;
-    border: 1px solid rgba(255,255,255,0.04);
-    min-width: 220px;
-    max-width: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    display: grid;
-
-}
-.step:hover {
-    transform: translateY(-6px) scale(1.03);
-    border-color: var(--accent);
-}
-.step h3 {
-    margin-bottom: 0.5rem;
-    font-size: 1.5rem;
-    color: #fff;
-}
-.step p {
-    font-size: 1.1rem;
-    color: #e6eef6;
-}
-@media (max-width: 768px) {
-  .process {
-    flex-direction: column;
-    padding: 2rem;
-  }
-  .step {
-    flex: 1 1 100%;
-  }
-}
-.mobilesImage {
-    display: flex
-;
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    background-color: whitesmoke;
-}
-.zoom-animation {
-  animation: zoomInOut 3.5s ease-in-out infinite;
 }
 
-@keyframes zoomInOut {
-  0%, 100% { transform: scale(1); }
-  50%      { transform: scale(0.9); } /* Adjust value for intensity */
-}
-
-.filter-btn {
-  background: #192a56; /* original color */
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 24px;
-  font-size: 1rem;
+.items-info span {
+  color: #7c3aed;
   font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-  box-shadow: 0px 2px 14px rgba(25, 42, 86, 0.12);
 }
-    .filter-btn:hover {
-  background: #273c75;   /* lighter shade */
-  transform: scale(1.05); /* slight zoom */
-}
- .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      background:#06b6d4
-    }
-
-    .grid {
+    .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      margin-bottom: 1.5rem;
-      margin-top: 0.5rem;
-      justify-items: center;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 28px;
     }
 
-    .card {
-      background: #74b2ec;
-      color: #000;
-      border-radius: 14px;
-      padding: 2rem;
-      margin-top: -5px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 25px 48px rgba(71, 8, 218, 0.3);
-      border-color: var(--accent);
-    }
-
-    .card-image {
-      height: 200px;
-      padding: 15px;
+    .product-card {
+      background-color: #101a29;
+      border-radius: 16px;
+      padding: 16px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      background: #f3f4f6;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-      overflow: hidden;
+      gap: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
     }
 
-    .card-image img {
-      max-width: 100%;
-      max-height: 100%;
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(139, 92, 246, 0.25);
+    }
+
+    .product-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 12px;
       object-fit: contain;
-      border-radius: 10px;
-    }
-
-    .card h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.75rem;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 0.75rem;
-    }
-
-    .card p {
-      text-align: center;
-      color: #000000;
-      margin-bottom: 1rem;
-    }
-  
-      /* Why Smart Buy */
-          .card why-buy{
       background: #fff;
-      color: #000;
-      border-radius: 14px;
-      padding: 1.5rem;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .why-cards .card {
-      text-align: center;
+      padding: 6px;
     }
 
-    .card-icon {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-    }  
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .product-info h2 {
+      font-size: 1.1rem;
+      color: #ffffff;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .price {
+      color: #06b6d4;
+      font-weight: 600;
+    }
+
+    .buy-btn {
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      border: none;
+      color: white;
+      border-radius: 24px;
+      padding: 6px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      width: fit-content;
+      font-size: 0.9rem;
+    }
+
+    .buy-btn:hover {
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
+
     .rating {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .stars {
-      display: flex;
-      gap: 0.125rem;
-    }
-
-    .star {
-      color: #fbbf24;
-      font-size: 1rem;
-    }
-
-    .star.empty {
-      color: #d1d5db;
+      font-size: 0.85rem;
+      color: #ffcb00;
+      gap: 6px;
     }
 
     .reviews {
-      text-align: center;
-      font-size: 0.875rem;
-      color: #9ca3af;
-      margin-bottom: 1rem;
-    }
-
-    .btn-card {
-      width: 100%;
-      padding: 0.625rem;
-      background: transparent;
-      border: 1px solid #d1d5db;
-      color: #000;
-      border-radius: 6px;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-card:hover {
-      background: #f3f4f6;
-      border-color: var(--primary);
-    }
-
-    .text-center {
-      text-align: center;
-    }
-
-    /* Image Showcase */
-    .showcase {
-      background: #fff;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .showcase img {
-      max-width: 60%;
-      height: auto;
-      border-radius: 16px;
-      animation: zoomInOut 8.5s ease-in-out infinite;
+      color: #9aa6b2;
+      font-size: 0.85rem;
     }
  
     footer {
@@ -707,7 +483,7 @@
     </div>  
     </div>
     <nav>
-    <button onclick="window.location.href='#Home'" class="btn btn-outline">Home</button>
+    <button onclick="window.location.href='/Homepage/Homepage.html'" class="btn btn-outline">Home</button>
     <div class="dropdown">
     <button onclick="window.location.href='#Products'" class=" btn btn-outline" id="productsBtn">Products</button>
      <div class="dropdown-content" id="productsMenu">
@@ -788,134 +564,96 @@
     </header>
 
   </header>
-  <div class="hero">
-  <div class="hero-content">
-    <div class="hero-text">
   
-    <h1 style="font-family: 'poppins'; letter-spacing:1px; text-align:center;" > “ Where reviews meet smart choices. ”</h1>
-    <p >Discover the best products, reviews, and deals  — all in one spot.</p>
-    <p class="italic-text">“Find it. Rate it. Own it - Real reviews.Real trust.”</p>
-  </div>
-  <div class="hero-image">
-      <img class="myDiv" src="/Images/user-reviews-laptop.avif" alt="SmartBuy Example" style="max-width:390px; width:100%; border-radius:18px;" />
+ <main class="content">
+    <div class="page-title push-in">
+      <h1>Smartphones</h1>
     </div>
-  </div>
-</div>
+<p class="items-info"><span>Showing 8 items</span></p>
 
-  <section>
-  <div style="text-align: center; font:bold; font-family:A; color:rgba(118, 117, 117, 0.847); font-size: 22px; margin-top: -10px;">
-    <div class="h2">
-      <h2 class="push-in">Featured Products</h2>
-    </div>
-</div>
-     <div class="grid">
-        <div class="card">
-          <div class="card-image">
-            <img src="/Images/wirelessheadphones.webp" alt="boAt Wireless Headphones" />
-          </div>
-          <h3>boAt Wireless Headphones</h3>
-          <div class="rating">
-            <div class="stars">
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-            </div>
-            <span>4.5</span>
-          </div>
-          <p>Top-rated for sound quality and comfort.</p>
-          <p class="reviews">1,247 reviews</p>
-          <button class="btn-card">Read Reviews</button>
-        </div>
-
-        <div class="card">
-          <div class="card-image">
-            <img src="/Images/acernitro5.webp" alt="Acer Nitro 5 Gaming Laptop" />
-          </div>
-          <h3>Acer Nitro 5 Gaming Laptop</h3>
-          <div class="rating">
-            <div class="stars">
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-            </div>
-            <span>4.7</span>
-          </div>
-          <p>Top choice for gamers and professionals alike.</p>
-          <p class="reviews">892 reviews</p>
-          <button class="btn-card">Read Reviews</button>
-        </div>
-
-        <div class="card">
-          <div class="card-image">
-            <img src="/Images/fitnesstracker.jpg" alt="Lunar Vista Fitness Tracker" />
-          </div>
-          <h3>Lunar Vista Fitness Tracker</h3>
-          <div class="rating">
-            <div class="stars">
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star empty">★</span>
-            </div>
-            <span>4.3</span>
-          </div>
-          <p>Highly rated for accuracy and features.</p>
-          <p class="reviews">654 reviews</p>
-          <button class="btn-card">Read Reviews</button>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="/Images/smartphones/Iphone_15-Pro.jpg" alt="iPhone 15 Pro">
+        <div class="product-info">
+          <h2>Apple iPhone 15 Pro</h2>
+          <p class="price">₹1,35,000</p>
+          <button class="buy-btn">Buy on Amazon</button>
+          <div class="rating">★★★★★ <span class="reviews">(104 reviews)</span></div>
         </div>
       </div>
 
-      <div class="text-center">
-        <button class="btn btn-gradient btn-hero">See All Products</button>
+      <div class="product-card">
+        <img src="/Images/smartphones/Samsung Galaxy S23 Ultra.jpeg" alt="Samsung Galaxy S23 Ultra">
+        <div class="product-info">
+          <h2>Samsung Galaxy S23 Ultra</h2>
+          <p class="price">₹1,25,000</p>
+          <button class="buy-btn">Buy on Amazon</button>
+          <div class="rating">★★★★★ <span class="reviews">(88 reviews)</span></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="/Images/smartphones/OnePlus 12.webp" alt="OnePlus 12">
+        <div class="product-info">
+          <h2>OnePlus 12</h2>
+          <p class="price">₹68,000</p>
+          <button class="buy-btn">Buy on Amazon</button>
+          <div class="rating">★★★★☆ <span class="reviews">(75 reviews)</span></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="/Images/smartphones/Google Pixel 8 Pro.jpg" alt="Google Pixel 8 Pro">
+        <div class="product-info">
+          <h2>Google Pixel 8 Pro</h2>
+          <p class="price">₹1,06,000</p>
+          <button class="buy-btn">Buy on Amazon</button>
+          <div class="rating">★★★★★ <span class="reviews">(52 reviews)</span></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="/Images/smartphones/Realme GT 5.jpeg" alt="Realme GT 5">
+        <div class="product-info">
+          <h2>Realme GT 5</h2>
+          <p class="price">₹45,000</p>
+          <button class="buy-btn">Buy on Amazon</button>
+          <div class="rating">★★★★☆ <span class="reviews">(130 reviews)</span></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="/Images/smartphones/Redmi Note 13 Pro+.jpg" alt="Redmi Note 13 Pro+">
+        <div class="product-info">
+          <h2>Redmi Note 13 Pro+</h2>
+          <p class="price">₹32,000</p>
+          <button class="buy-btn">Buy on Amazon</button>
+          <div class="rating">★★★★☆ <span class="reviews">(212 reviews)</span></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="/Images/smartphones/Nothing Phone (2).jpg" alt="Nothing Phone 2">
+        <div class="product-info">
+          <h2>Nothing Phone (2)</h2>
+          <p class="price">₹49,999</p>
+          <button class="buy-btn">Buy on Amazon</button>
+          <div class="rating">★★★★☆ <span class="reviews">(97 reviews)</span></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="/Images/smartphones/Vivo X100 Pro.webp" alt="Vivo X100 Pro">
+        <div class="product-info">
+          <h2>Vivo X100 Pro</h2>
+          <p class="price">₹89,999</p>
+          <button class="buy-btn">Buy on Amazon</button>
+          <div class="rating">★★★★★ <span class="reviews">(68 reviews)</span></div>
+        </div>
       </div>
     </div>
-  </section>
-  <br><br>
+  </main>
 
- <!-- Process Section -->
- <section class="process">
-  <div class="process">
-    <div class="step">
-      <h3>Step 1</h3>
-      <p>Browse categories and find your product.</p>
-    </div>
-    <div class="step">
-      <h3>Step 2</h3>
-      <p>Check reviews, ratings, and comparisons.</p>
-    </div>
-    <div class="step">
-      <h3>Step 3</h3>
-      <p>Buy with confidence using trusted sources.</p>
-    </div>
-  </section>
-</div>
-
-<section>
-<div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: 32px;">
-  <h2>Why Smart Buy ?</h2>
-  <div class=".card why-buy">
-    <div class="grid why-cards">
-    <div class="card">
-      <h3>Top Products</h3>
-      <p>Curated selection of highly-rated products.</p>
-    </div>
-    <div class="card">
-      <h3>Write a Review</h3>
-      <p>Help others by sharing your experience.</p>
-    </div>
-    <div class="card">
-      <h3>Special Offers</h3>
-      <p>Don’t miss the best deals and discounts.</p>
-    </div>
-    </div>
-  </div>
-  </div>
-  </section>
   <footer>
       <p>
       <a href="#">About</a> | 
@@ -1042,52 +780,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
-
 </script>
 </body>
 </html>
-
-
-<!--
-  Smart Buy - Creative Product Review Hub
-  A sleek, modern homepage design for a product review website.
-  Features a dark theme with vibrant accent colors, a hero section,
-  featured products, and a simple three-step process explanation.
-  Designed for clarity, ease of use, and visual appeal.
-
-
-  <section>
-  <div style="background: var(--accent-2); padding: 40px 0 20px 0; margin-top: -20px;"></div>
-    <div style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -10px;">
-      <div class="h2">
-        <h2 class="push-in">Popular Categories</h2>
-      </div>
-    </div>
-    <div class="grid" style="text-align: center; font:bold; font-family:A; color:whitesmoke; font-size: 22px; margin-top: -32px;">
-      <div class="card">
-        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
-          <img src="/Images/electronics.jpg" alt="Electronics" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
-        </div>
-        <h3>Electronics</h3>
-        <p>Latest gadgets and devices.</p>
-      </div>
-      <div class="card">
-        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
-          <img src="/Images/homeappliances.jpg" alt="Home Appliances" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
-        </div>
-        <h3>Home Appliances</h3>
-        <p>Essentials for your home.</p>
-      </div>
-      <div class="card">
-        <div style="display: flex; justify-content: center; align-items: center; height: 150px; margin-bottom: 16px;">
-          <img src="/Images/fashion.jpg" alt="Fashion" style="max-width: 100%; max-height: 115%; border-radius: 10px;" /> 
-        </div>
-        <h3>Fashion</h3>
-        <p>Trendy clothing and accessories.</p>
-      </div>
-    </div>
-    <div style="margin-top: 24px; text-align: center;">
-      <button class="filter-btn" style="background: linear-gradient(250deg, var(--accent), var(--accent-2));">See All Categories</button><br><br>
-  </div>
-  </section>-->
