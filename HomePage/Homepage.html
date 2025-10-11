@@ -499,6 +499,35 @@
       text-decoration: underline;
       text-decoration-thickness: 1px;
     }
+   
+    .page-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 25px;
+  text-align: center;
+  letter-spacing: 2px;
+  word-spacing: 3px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #7c3aed, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 50px 0 40px;
+  margin-bottom: -30px;
+  position: relative;
+  text-shadow: 0 0 12px rgba(124, 58, 237, 0.5);
+}
+
+.page-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed, #06b6d4);
+  border-radius: 4px;
+}
+    /* Push-in animation */
 .push-in {
   opacity: 0;
   transform: translateY(50px);
@@ -805,7 +834,9 @@
   <section>
   <div style="text-align: center; font:bold; font-family:A; color:rgba(118, 117, 117, 0.847); font-size: 22px; margin-top: -10px;">
     <div class="h2">
-      <h2 class="push-in">Featured Products</h2>
+      <div class="page-title push-in">
+      <h1>Featured Products</h1>
+    </div>
     </div>
 </div>
      <div class="grid">
