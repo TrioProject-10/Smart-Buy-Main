@@ -23,7 +23,7 @@ const supabase = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
 
 // Serve main page
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'Homepage.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Serve login page
