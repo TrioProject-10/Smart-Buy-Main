@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Smartphones - Smart Buy</title>
+  <title>Shoes - Smart Buy</title>
   <link rel="icon" type="image/png" href="/Images/fevicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
@@ -124,7 +124,7 @@
       box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
     }
 
-    /* Smartphones Section */
+    /* Products Section */
     .content {
       padding: 40px 80px;
       max-width: 1300px;
@@ -432,230 +432,190 @@
   background: rgba(255,255,255,0.1);
   margin: 8px 0;
 }
-/* Show dropdown on click */
-#productsMenu {
-  display: none;
-  flex-direction: row;
-  gap: 24px;
-  padding: 20px;
-  background: #0b1220;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  position: absolute;
-  top: 100%;
-  left: -200px;
-  z-index: 999;
-  min-width: 600px;
-}
-#productsBtn:hover + #productsMenu,
-#productsMenu:hover {
-  display: flex; 
-}
-@media (max-width: 768px) {
-  #productsMenu {
-    left: -150px; /* Adjust as needed for mobile */
-    min-width: 300px;
-  }
-  .mega-menu {
-    flex-direction: column;
-    gap: 12px;
-  }
-  .mega-column h4 {
-    font-size: 16px;
-  }
-  .mega-column a {
-    font-size: 14px;
-  }
-}  
-  
-  </style>
+</style>
 </head>
-
 <body>
   <header>
     <div class="brand">
       <div class="logo"> <img src="/Images/generated-image.png" style="background-color: gray; width:125%; height:125%; object-fit:contain; border-radius:20px;">
       </div>
-  
-    <div>
-          <h1 class="brand-text">Smart Buy</h1>
-    <p class="lead">Your feedback shapes better choices — curated for shoppers</p>
-    </div>  
+      <div>
+        <h1 class="brand-text">Smart Buy</h1>
+        <p class="lead">Your feedback shapes better choices — curated for shoppers</p>
+      </div>  
     </div>
     <nav>
-    <button onclick="window.location.href='/Homepage/Homepage.html'" class="btn btn-outline">Home</button>
-    <div class="dropdown">
-    <button onclick="window.location.href='#Products'" class=" btn btn-outline" id="productsBtn">Products</button>
-     <div class="dropdown-content" id="productsMenu">
-     <div class="mega-menu">
-        <div class="mega-column">
-          <h4>Electronics</h4>
-          <a onclick="window.location.href='/HomePage/smartphones.html'">Smartphones</a>
-          <a href="#">Laptops</a>
-          <a href="#">Headphones</a>
-        </div>
-        <div class="mega-column">
-          <h4>Home & Living</h4>
-          <a href="#">Appliances</a>
-          <a href="#">Kitchen</a>
-        </div>
-        <div class="mega-column">
-          <h4>Fashion & Lifestyle</h4>
-          <a href="#">Men’s Fashion</a>
-          <a href="#">Women’s Fashion</a>
-          <a onclick="window.location.href='/HomePage/shoes.html'">Shoes</a>
-          <a href="#">Fitness</a>
-        </div>
-        <div class="mega-column">
-          <h4>Amazon</h4>
-          <a onclick="window.location.href='/Amazon/amazonproducts.html'">Top Products</a>
-        </div>
-      </div>
-    </div>
-    </div>
-    <button onclick="window.location.href='#About'" class="btn btn-outline">About</button>
-    <button onclick="window.location.href='#Contact'" class="btn btn-outline">Contact</button>&nbsp;
-    <button onclick="window.location.href='/auth/signup.html'" class="btn btn-gradient">Sign In</button>
-    </nav>
-        
-        <!-- User Profile Section -->
-        <div data-auth="logout" style="display: none; gap: 12px; align-items: center;">
-          <button class="review-btn" id="openReview" style="padding: 8px 16px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); border: none; color: white; cursor: pointer; font-weight: 600;">Write Review</button>
-          
-          <div class="profile-dropdown">
-            <div class="user-profile" id="userProfileBtn" style="cursor: pointer;">
-              <div class="user-avatar" id="userAvatar">U</div>
-              <div class="user-info">
-                <h4 id="userName">User</h4>
-                <p id="userEmail">user@example.com</p>
-              </div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
+      <button onclick="window.location.href='/Homepage/Homepage.html'" class="btn btn-outline">Home</button>
+      <div class="dropdown">
+        <button onclick="window.location.href='#Products'" class=" btn btn-outline" id="productsBtn">Products</button>
+        <div class="dropdown-content" id="productsMenu">
+          <div class="mega-menu">
+            <div class="mega-column">
+              <h4>Electronics</h4>
+              <a href="#">Smartphones</a>
+              <a href="#">Laptops</a>
+              <a href="#">Headphones</a>
             </div>
-            
-            <div class="profile-dropdown-content">
-              <a href="#" id="profileSettings">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 8px;">
-                  <circle cx="12" cy="12" r="3"/>
-                  <path d="M12 1v6m0 10v6m11-7h-6m-10 0H1m15.5-6.5l-4.24 4.24M7.76 7.76L3.52 3.52m12.73 12.73l4.24 4.24M7.76 16.24l-4.24 4.24"/>
-                </svg>
-                Profile Settings
-              </a>
-              <a href="#" id="myReviews">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 8px;">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/>
-                </svg>
-                My Reviews
-              </a>
-              <div class="divider"></div>
-              <button id="logoutBtn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 8px;">
-                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                  <polyline points="16,17 21,12 16,7"/>
-                  <line x1="21" y1="12" x2="9" y2="12"/>
-                </svg>
-                Logout
-              </button>
+            <div class="mega-column">
+              <h4>Home & Living</h4>
+              <a href="#">Appliances</a>
+              <a href="#">Kitchen</a>
+            </div>
+            <div class="mega-column">
+              <h4>Fashion & Lifestyle</h4>
+              <a href="#">Men’s Fashion</a>
+              <a href="#">Women’s Fashion</a>
+              <a onclick="window.location.href='/HomePage/shoes.html'">Shoes</a>
+              <a href="#">Fitness</a>
+            </div>
+            <div class="mega-column">
+              <h4>Amazon</h4>
+              <a onclick="window.location.href='/Amazon/amazonproducts.html'">Top Products</a>
             </div>
           </div>
         </div>
       </div>
-    </header>
-
+      <button onclick="window.location.href='#About'" class="btn btn-outline">About</button>
+      <button onclick="window.location.href='#Contact'" class="btn btn-outline">Contact</button>&nbsp;
+      <button onclick="window.location.href='/auth/signup.html'" class="btn btn-gradient">Sign In</button>
+    </nav>
   </header>
-  
- <main class="content">
+
+  <main class="content">
     <div class="page-title push-in">
-      <h1>Smartphones</h1>
+      <h1>Shoes</h1>
     </div>
-<p class="items-info"><span>Showing 8 items</span></p>
+    <p class="items-info"><span>Showing 12 items</span></p>
 
     <div class="product-grid">
       <div class="product-card">
-        <img src="/Images/smartphones/Iphone_15-Pro.jpg" alt="iPhone 15 Pro">
+        <img src="/Images/shoes/nike-airzoom.jpg" alt="Nike AirZoom">
         <div class="product-info">
-          <h2>Apple iPhone 15 Pro</h2>
-          <p class="price">₹1,35,000</p>
+          <h2>Nike AirZoom</h2>
+          <p class="price">₹12,500</p>
           <button class="buy-btn">Buy on Amazon</button>
           <div class="rating">★★★★★ <span class="reviews">(104 reviews)</span></div>
         </div>
       </div>
 
       <div class="product-card">
-        <img src="/Images/smartphones/Samsung Galaxy S23 Ultra.jpeg" alt="Samsung Galaxy S23 Ultra">
+        <img src="/Images/shoes/adidas-formal.jpg" alt="Adidas Formal">
         <div class="product-info">
-          <h2>Samsung Galaxy S23 Ultra</h2>
-          <p class="price">₹1,25,000</p>
+          <h2>Adidas Formal</h2>
+          <p class="price">₹8,500</p>
           <button class="buy-btn">Buy on Amazon</button>
-          <div class="rating">★★★★★ <span class="reviews">(88 reviews)</span></div>
+          <div class="rating">★★★★☆ <span class="reviews">(88 reviews)</span></div>
         </div>
       </div>
 
       <div class="product-card">
-        <img src="/Images/smartphones/OnePlus 12.webp" alt="OnePlus 12">
+        <img src="/Images/shoes/puma-casual.jpg" alt="Puma Casual">
         <div class="product-info">
-          <h2>OnePlus 12</h2>
-          <p class="price">₹68,000</p>
+          <h2>Puma Casual</h2>
+          <p class="price">₹6,800</p>
           <button class="buy-btn">Buy on Amazon</button>
           <div class="rating">★★★★☆ <span class="reviews">(75 reviews)</span></div>
         </div>
       </div>
 
       <div class="product-card">
-        <img src="/Images/smartphones/Google Pixel 8 Pro.jpg" alt="Google Pixel 8 Pro">
+        <img src="/Images/shoes/reebok-sport.jpg" alt="Reebok Sport">
         <div class="product-info">
-          <h2>Google Pixel 8 Pro</h2>
-          <p class="price">₹1,06,000</p>
+          <h2>Reebok Sport</h2>
+          <p class="price">₹10,600</p>
           <button class="buy-btn">Buy on Amazon</button>
           <div class="rating">★★★★★ <span class="reviews">(52 reviews)</span></div>
         </div>
       </div>
 
       <div class="product-card">
-        <img src="/Images/smartphones/Realme GT 5.jpeg" alt="Realme GT 5">
+        <img src="/Images/shoes/nike-fly.jpg" alt="Nike Fly">
         <div class="product-info">
-          <h2>Realme GT 5</h2>
-          <p class="price">₹45,000</p>
+          <h2>Nike Fly</h2>
+          <p class="price">₹4,500</p>
           <button class="buy-btn">Buy on Amazon</button>
           <div class="rating">★★★★☆ <span class="reviews">(130 reviews)</span></div>
         </div>
       </div>
 
       <div class="product-card">
-        <img src="/Images/smartphones/Redmi Note 13 Pro+.jpg" alt="Redmi Note 13 Pro+">
+        <img src="/Images/shoes/adidas-runner.jpg" alt="Adidas Runner">
         <div class="product-info">
-          <h2>Redmi Note 13 Pro+</h2>
-          <p class="price">₹32,000</p>
+          <h2>Adidas Runner</h2>
+          <p class="price">₹3,200</p>
           <button class="buy-btn">Buy on Amazon</button>
           <div class="rating">★★★★☆ <span class="reviews">(212 reviews)</span></div>
         </div>
       </div>
 
       <div class="product-card">
-        <img src="/Images/smartphones/Nothing Phone (2).jpg" alt="Nothing Phone 2">
+        <img src="/Images/shoes/puma-sporty.jpg" alt="Puma Sporty">
         <div class="product-info">
-          <h2>Nothing Phone (2)</h2>
-          <p class="price">₹49,999</p>
+          <h2>Puma Sporty</h2>
+          <p class="price">₹4,999</p>
           <button class="buy-btn">Buy on Amazon</button>
           <div class="rating">★★★★☆ <span class="reviews">(97 reviews)</span></div>
         </div>
       </div>
 
       <div class="product-card">
-        <img src="/Images/smartphones/Vivo X100 Pro.webp" alt="Vivo X100 Pro">
+        <img src="/Images/shoes/reebok-classic.jpg" alt="Reebok Classic">
         <div class="product-info">
-          <h2>Vivo X100 Pro</h2>
-          <p class="price">₹89,999</p>
+          <h2>Reebok Classic</h2>
+          <p class="price">₹8,999</p>
           <button class="buy-btn">Buy on Amazon</button>
           <div class="rating">★★★★★ <span class="reviews">(68 reviews)</span></div>
         </div>
       </div>
-    </div>
+
+ <div class="product-card">
+  <img src="Images/adidas runner.avif" alt="Adidas Runner">
+  <div class="product-info">
+    <h2>Adidas Runner</h2>
+    <p class="price">₹25,000</p>
+    <button class="buy-btn">Buy on Amazon</button>
+    <div class="rating">★★★★★ <span class="reviews">(120 reviews)</span></div>
+  </div>
+</div>
+
+
+<div class="product-card">
+  <img src="Images/skechers.webp" alt="Skechers Sprint">
+  <div class="product-info">
+    <h2>Skechers Sprint</h2>
+    <p class="price">₹10,000</p>
+    <button class="buy-btn">Buy on Amazon</button>
+    <div class="rating">★★★★☆ <span class="reviews">(85 reviews)</span></div>
+  </div>
+</div>
+
+
+<div class="product-card">
+  <img src="Images/nikeflex.avif" alt="Nike Flex">
+  <div class="product-info">
+    <h2>Nike Flex</h2>
+    <p class="price">₹15,000</p>
+    <button class="buy-btn">Buy on Amazon</button>
+    <div class="rating">★★★★★ <span class="reviews">(102 reviews)</span></div>
+  </div>
+</div>
+
+
+<div class="product-card">
+  <img src="Images/casual canvas.avif" alt="Casual Canvas">
+  <div class="product-info">
+    <h2>Casual Canvas</h2>
+    <p class="price">₹12,000</p>
+    <button class="buy-btn">Buy on Amazon</button>
+    <div class="rating">★★★★☆ <span class="reviews">(76 reviews)</span></div>
+  </div>
+</div>
+ 
+ </div>
   </main>
 
   <footer>
-      <p>
+    <p>
       <a href="#">About</a> | 
       <a href="#">Privacy</a> | 
       <a href="#">Terms</a> | 
@@ -664,6 +624,7 @@
     Made with — Smart♥Buy. Try writing a review to see it live!<br><br>
     &copy; 2025 SmartBuy. All rights reserved.
   </footer>
+
   <script>
 document.addEventListener("DOMContentLoaded", function () {
   const target = document.querySelector(".push-in");
@@ -682,33 +643,34 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// Dropdown hover logic
 const productsBtn = document.getElementById("productsBtn");
 const productsMenu = document.getElementById("productsMenu");
 let hideTimeout;
 
 productsBtn.addEventListener("mouseenter", () => {
   clearTimeout(hideTimeout);
-  productsMenu.style.display = "flex"; // Show immediately on hover
+  productsMenu.style.display = "flex"; 
 });
 
 productsBtn.addEventListener("mouseleave", () => {
   hideTimeout = setTimeout(() => {
-    productsMenu.style.display = "none"; // Hide after 1.5s
+    productsMenu.style.display = "none"; 
   }, 1500);
 });
 
 productsMenu.addEventListener("mouseenter", () => {
-  clearTimeout(hideTimeout); // Cancel hide if hovering over menu
+  clearTimeout(hideTimeout);
 });
 
 productsMenu.addEventListener("mouseleave", () => {
   hideTimeout = setTimeout(() => {
-    productsMenu.style.display = "none"; // Hide after 1.5s when leaving menu
+    productsMenu.style.display = "none"; 
   }, 1500);
 });
 
 // User Authentication Simulation
-const isAuthenticated = false; // Change to true to simulate logged-in state  
+const isAuthenticated = false;  
 document.addEventListener("DOMContentLoaded", () => {
   const authElements = document.querySelectorAll("[data-auth='logout']");
   const guestElements = document.querySelectorAll("[data-auth='login']");
@@ -721,6 +683,7 @@ document.addEventListener("DOMContentLoaded", () => {
     guestElements.forEach(el => el.style.display = "flex");
   }
 });
+
 // Profile Dropdown
 const userProfileBtn = document.getElementById("userProfileBtn");
 const profileDropdown = document.querySelector(".profile-dropdown-content");
@@ -732,54 +695,35 @@ window.addEventListener("click", (e) => {
     profileDropdown.style.display = "none";
   }
 });
+
 // Logout Button
 const logoutBtn = document.getElementById("logoutBtn");
 logoutBtn.addEventListener("click", () => {
   alert("Logged out successfully!");
-  // Implement actual logout logic here
 });
-// Open Review Modal (Placeholder)
+
+// Open Review Modal
 const openReviewBtn = document.getElementById("openReview");
 openReviewBtn.addEventListener("click", () => {
   alert("Open review modal (to be implemented)");
-  // Implement actual modal logic here
 });
 
-
+// Toggle products dropdown on click
 document.addEventListener("DOMContentLoaded", () => {
   const dropdown = document.querySelector(".dropdown");
   const btn = document.getElementById("productsBtn");
   const menu = document.getElementById("productsMenu");
 
-  let isOpen = false;
-
-  // Open menu on hover
-  btn.addEventListener("mouseenter", () => {
-    dropdown.classList.add("open");
-    isOpen = true;
-  });
-
-  menu.addEventListener("mouseenter", () => {
-    dropdown.classList.add("open");
-    isOpen = true;
-  });
-
-  // Close menu when clicking outside
-  document.addEventListener("click", (event) => {
-    if (!dropdown.contains(event.target)) {
-      dropdown.classList.remove("open");
-      isOpen = false;
-    }
-  });
-
-  // Optional: clicking "Products" toggles menu
   btn.addEventListener("click", (e) => {
     e.stopPropagation();
     dropdown.classList.toggle("open");
-    isOpen = !isOpen;
+  });
+  document.addEventListener("click", (event) => {
+    if (!dropdown.contains(event.target)) {
+      dropdown.classList.remove("open");
+    }
   });
 });
-
-</script>
+  </script>
 </body>
 </html>
