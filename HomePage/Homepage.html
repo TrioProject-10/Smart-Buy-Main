@@ -500,7 +500,7 @@
       text-decoration-thickness: 1px;
     }
    
-    .page-title {
+.page-title {
   font-family: 'Orbitron', sans-serif;
   font-size: 25px;
   text-align: center;
@@ -508,18 +508,21 @@
   word-spacing: 3px;
   text-transform: uppercase;
   background: linear-gradient(90deg, #7c3aed, #06b6d4);
-  -webkit-background-clip: text;
+  background-clip: text;           /* ✅ Add this line */
+  -webkit-background-clip: text;   /* for Chrome/Safari */
   -webkit-text-fill-color: transparent;
+  color: transparent;              /* for Firefox compatibility */
   margin: 50px 0 40px;
   margin-bottom: -30px;
   position: relative;
   text-shadow: 0 0 12px rgba(124, 58, 237, 0.5);
 }
 
+
 .page-title::after {
   content: "";
   position: absolute;
-  bottom: -8px;
+  bottom: -15px;
   left: 50%;
   transform: translateX(-50%);
   width: 120px;

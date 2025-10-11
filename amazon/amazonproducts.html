@@ -149,7 +149,34 @@ header {
     .sort-option {
       padding:8px 12px; cursor:pointer; color: var(--muted);
     }
-
+.page-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 25px;
+  text-align: center;
+  letter-spacing: 2px;
+  word-spacing: 3px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #7c3aed, #06b6d4);
+  background-clip: text;           /* ✅ Add this line */
+  -webkit-background-clip: text;   /* for Chrome/Safari */
+  -webkit-text-fill-color: transparent;
+  color: transparent;              /* for Firefox compatibility */
+  margin: 50px 0 40px;
+  margin-bottom: 35px;
+  position: relative;
+  text-shadow: 0 0 12px rgba(124, 58, 237, 0.5);
+}
+.page-title::after {
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 4px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #7c3aed, #06b6d4);
+    }
     /* User Profile Styles */
     .user-profile {
       display: flex;
@@ -490,10 +517,11 @@ header {
   
     <main>
       <section>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <h2 style="margin:1;">Amazon Top Products</h2>
-          <div style="color:var(--muted); font-size:13px;">Showing <span id="count">0</span> items</div>
+        <div class="page-title">
+          <h2>Amazon Top Products</h2>
         </div>
+
+         <div style="color:var(--muted); font-size:13px; margin-bottom: 10px; text-align: right;">Showing <span id="count">0</span> items</div>
         <div class="grid" id="productGrid"></div>
       </section>
     </main>
