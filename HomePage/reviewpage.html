@@ -2,6 +2,1340 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Buy - Creative Product Review Hub</title>
+  <link rel="icon" type="image/png" href="/Images/fevicon.png" rect width="2000%" height="2000%" fill="white"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #101a29;
+      --card: #0b1220;
+      --accent: #7c3aed;
+      --accent-2: #06b6d4;
+      --muted: #9aa6b2;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, Arial;
+      background: var(--bg);
+      color: #e6eef6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      padding: 24px;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+   .brand-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;  /* space between logo and text */
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ff6a00, #ff4081, #8c52ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: white;
+      font-family: Arial, sans-serif;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      cursor: pointer;
+    }
+
+    .brand-text {
+      font-family: 'Monoton', cursive;
+      font-size: 38px;
+      color: #8c52ff;
+      margin: 0;
+      letter-spacing: 1px;
+      font-weight: 500;
+      word-spacing: 1px;
+      cursor: pointer;
+    }
+   p.lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+      
+    nav a {
+      color: var(--muted);
+      margin-left: 24px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: color 0.2s;
+      cursor: pointer;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
+    }
+       .btn {
+      padding: 0.625rem 1.5rem;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.938rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+    } 
+      .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: #fff;
+    }
+
+    .btn-outline:hover {
+      background: rgb(73, 155, 226);
+       color: whitesmoke;
+      text-decoration:underline;
+      text-decoration-thickness: 2px;
+    }
+
+    .btn-gradient {
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      color: #fff;
+      border: none;
+    }
+
+    .btn-gradient:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+    }  
+    nav button {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: color 0.2s;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    }
+    .container {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      justify-content: center;
+      max-width: 1100px;
+      width: 100%;
+      padding: 40px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s;
+      flex-wrap: wrap;
+    }
+
+    .main-wrapper {
+  display: flex;
+  justify-content: center; /* horizontally center */
+  align-items: center;     /* vertically center */
+  margin-top: 200px;  /* space from header */
+  flex-direction: column;  /* stack elements vertically if needed */
+  min-height: calc(100vh - 120px); /* adjust for header height */
+  padding: 20px;           /* optional spacing */
+}
+
+
+    .container:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .product-image img {
+      width: 100%;
+      max-width: 450px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+      transition: transform 0.4s;
+    }
+
+    .product-image img:hover {
+      transform: scale(1.05);
+    }
+
+    .review-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      min-width: 320px;
+    }
+
+    .review-card h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #a5b4fc;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #f8fafc;
+      font-size: 15px;
+      outline: none;
+      transition: border 0.3s, background 0.3s;
+    }
+
+    select:focus, input:focus, textarea:focus {
+      border-color: #60a5fa;
+      background: #111827;
+    }
+
+    textarea {
+      resize: none;
+      height: 100px;
+    }
+
+    /* Scrollable product select */
+    .select-wrapper {
+      max-height: 180px;
+      overflow-y: auto;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #1e293b;
+    }
+
+    #productSelect {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: #f8fafc;
+      font-size: 15px;
+      padding: 8px;
+    }
+
+    #productSelect option {
+      padding: 10px;
+    }
+
+    #productSelect option:hover {
+      background-color: #334155;
+    }
+
+    .rating-stars {
+      display: flex;
+      gap: 6px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #94a3b8;
+    }
+
+    .rating-stars .star.active {
+      color: #facc15;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cancel-btn {
+      background: #475569;
+      color: #f8fafc;
+    }
+
+    .cancel-btn:hover {
+      background: #64748b;
+    }
+
+    .submit-btn {
+      background: linear-gradient(90deg, #2563eb, #06b6d4);
+      color: white;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(6, 182, 212, 0.4);
+    }
+
+    @media (max-width: 950px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .review-card {
+        width: 100%;
+      }
+    }
+
+/* Dropdown wrapper */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -200px;
+  background: #0b1220;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  padding: 20px;
+  min-width: 600px;
+  z-index: 999;
+  border-radius: 12px;
+  font-size: 14px;
+  text-align: left;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: none; /* Hidden by default */
+  flex-direction: column;
+}
+
+/* Visible when open */
+.dropdown.open .dropdown-content {
+  display: block;
+}
+
+/* Mega menu grid layout */
+.mega-menu {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.mega-column h4 {
+  color: #358decf8;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.mega-column a {
+  display: block;
+  color: #e6eef6;
+  text-decoration: none;
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.mega-column a:hover {
+  color: #06b6d4;
+  text-decoration: underline;
+}
+/* Profile Dropdown */
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 16px;
+  cursor: pointer;
+}
+.profile-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: #1b243a;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  padding: 12px 16px;
+  min-width: 200px;
+  z-index: 999;
+  border-radius: 12px;
+  font-size: 14px;
+  text-align: left;
+}
+.profile-dropdown-content a, .profile-dropdown-content button {
+  display: block;
+  color: #e6eef6;
+  text-decoration: none;
+  margin: 8px 0;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
+.profile-dropdown-content a:hover, .profile-dropdown-content button:hover {
+  color: #06b6d4;
+  text-decoration: underline;
+}
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  background: #7c3aed;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.user-info h4, .user-info p {
+  margin: 0;
+  line-height: 1.2;
+}
+.user-info h4 {
+  font-size: 14px;
+  font-weight: 600;
+}
+.user-info p {
+  font-size: 12px;
+  color: #9aa6b2;
+  font-weight: 400;
+}
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin: 8px 0;
+}
+/* Show dropdown on click */
+#productsMenu {
+  display: none;
+  flex-direction: row;
+  gap: 24px;
+  padding: 20px;
+  background: #0b1220;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  position: absolute;
+  top: 100%;
+  left: -200px;
+  z-index: 999;
+  min-width: 600px;
+}
+#productsBtn:hover + #productsMenu,
+#productsMenu:hover {
+  display: flex; 
+}
+@media (max-width: 768px) {
+  #productsMenu {
+    left: -150px; /* Adjust as needed for mobile */
+    min-width: 300px;
+  }
+  .mega-menu {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .mega-column h4 {
+    font-size: 16px;
+  }
+  .mega-column a {
+    font-size: 14px;
+  }
+}  
+
+  .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #a5b4fc;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #f8fafc;
+      font-size: 15px;
+      outline: none;
+      transition: border 0.3s, background 0.3s;
+    }
+
+    select:focus, input:focus, textarea:focus {
+      border-color: #60a5fa;
+      background: #111827;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+      <div class="logo"> <img src="/Images/generated-image.png" style="background-color: gray; width:125%; height:125%; object-fit:contain; border-radius:20px;">
+      </div>
+  
+    <div>
+          <h1 class="brand-text">Smart Buy</h1>
+    <p class="lead">Your feedback shapes better choices — curated for shoppers</p>
+    </div>  
+    </div>
+    <nav>
+    <button onclick="window.location.href='#Home'" class="btn btn-outline">Home</button>
+    <div class="dropdown">
+    <button onclick="window.location.href='#Products'" class=" btn btn-outline" id="productsBtn">Products</button>
+     <div class="dropdown-content" id="productsMenu">
+     <div class="mega-menu">
+        <div class="mega-column">
+          <h4>Electronics</h4>
+          <a onclick="window.location.href='/HomePage/smartphones.html'">Smartphones</a>
+          <a href="#">Laptops</a>
+          <a href="#">Headphones</a>
+        </div>
+        <div class="mega-column">
+          <h4>Home & Living</h4>
+          <a onclick="window.location.href='/HomePage/appliances.html'">Appliances</a>
+          <a href="#">Kitchen</a>
+        </div>
+        <div class="mega-column">
+          <h4>Fashion & Lifestyle</h4>
+          <a href="#">Men’s Fashion</a>
+          <a href="#">Women’s Fashion</a>
+          <a onclick="window.location.href='/HomePage/shoes.html'">Shoes</a>
+          <a href="#">Fitness</a>
+        </div>
+        <div class="mega-column">
+          <h4>Amazon</h4>
+          <a onclick="window.location.href='/Amazon/amazonproducts.html'">Top Products</a>
+        </div>
+      </div>
+    </div>
+    </div>
+    <button onclick="window.location.href='#About'" class="btn btn-outline">About</button>
+    <button onclick="window.location.href='#Contact'" class="btn btn-outline">Contact</button>&nbsp;
+    <button onclick="window.location.href='/auth/signup.html'" class="btn btn-gradient">Sign In</button>
+    </nav>
+</header>
+    
+   <div class="main-wrapper">
+   <div class="container">
+    <div class="product-image">
+      <img id="productImg" src="../Images/default.avif" alt="Product Image" />
+    </div>
+
+    <div class="review-card">
+      <h2>Write a Review</h2>
+      <div class="form-group scroll-select">
+         <div class="select-wrapper">
+        <label for="productSelect">Product</label>
+       
+          <select id="productSelect" size="6"></select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Rating</label>
+        <div class="rating-stars" id="stars">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="review">Review</label>
+        <textarea id="review" placeholder="Share your experience..." required></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="btn cancel-btn">Cancel</button>
+        <button class="btn submit-btn">Submit Review</button>
+      </div>
+    </div>
+  </div>
+
+<div style="text-align: center; margin-top: 10px; padding: 10px;">  
+  <footer>
+      <p>
+      <a href="#">About</a> | 
+      <a href="#">Privacy</a> | 
+      <a href="#">Terms</a> | 
+      <a href="#">Contact</a>
+    </p>
+    Made with — Smart♥Buy. Try writing a review to see it live!<br><br>
+    &copy; 2025 SmartBuy. All rights reserved.
+  </footer>
+</div>
+  <script>
+ // ✅ Product data
+    const productImages = {
+      "Nike AirZoom": "../Images/Shoes/Nike-AirZoom.webp",
+      "Adidas Runner": "../Images/adidas runner.avif",
+      "Iphone-16": "../Images/iphone-16.jpg",
+      "Skechers Sprint": "../Images/skechers.webp",
+      "Acer Nitro 5": "../Images/acernitro5.webp",
+      "Dell Inspiron": "../Images/dellinspiron.jpg",
+      "Samsung Galaxy S24": "../Images/samsungS24.jpg",
+      "Puma Flex": "../Images/puma-flex.jpg",
+      "Redmi Note 13": "../Images/redminote13.jpg",
+      "Lenovo IdeaPad": "../Images/lenovoideapad.jpg",
+      "Boat Airdopes 441": "../Images/boat-airdopes.jpg"
+    };
+
+    const productSelect = document.getElementById("productSelect");
+    const productImg = document.getElementById("productImg");
+
+    // Populate dropdown dynamically
+    Object.keys(productImages).forEach(name => {
+      const option = document.createElement("option");
+      option.textContent = name;
+      productSelect.appendChild(option);
+    });
+
+    // Change image dynamically on selection
+    productSelect.addEventListener("change", () => {
+      const selected = productSelect.value;
+      productImg.src = productImages[selected] || "../Images/default.avif";
+    });
+
+    // Star rating system
+    const stars = document.querySelectorAll(".star");
+    stars.forEach((star, index) => {
+      star.addEventListener("click", () => {
+        stars.forEach((s, i) => s.classList.toggle("active", i <= index));
+      });
+    });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const target = document.querySelector(".push-in");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target); // animate only once
+      }
+    });
+  }, { threshold: 0.3 });
+
+  if (target) {
+    observer.observe(target);
+  }
+});
+
+const productsBtn = document.getElementById("productsBtn");
+const productsMenu = document.getElementById("productsMenu");
+let hideTimeout;
+
+productsBtn.addEventListener("mouseenter", () => {
+  clearTimeout(hideTimeout);
+  productsMenu.style.display = "flex"; // Show immediately on hover
+});
+
+productsBtn.addEventListener("mouseleave", () => {
+  hideTimeout = setTimeout(() => {
+    productsMenu.style.display = "none"; // Hide after 1.5s
+  }, 1500);
+});
+
+productsMenu.addEventListener("mouseenter", () => {
+  clearTimeout(hideTimeout); // Cancel hide if hovering over menu
+});
+
+productsMenu.addEventListener("mouseleave", () => {
+  hideTimeout = setTimeout(() => {
+    productsMenu.style.display = "none"; // Hide after 1.5s when leaving menu
+  }, 1500);
+});
+
+// User Authentication Simulation
+const isAuthenticated = false; // Change to true to simulate logged-in state  
+document.addEventListener("DOMContentLoaded", () => {
+  const authElements = document.querySelectorAll("[data-auth='logout']");
+  const guestElements = document.querySelectorAll("[data-auth='login']");
+
+  if (isAuthenticated) {
+    authElements.forEach(el => el.style.display = "flex");
+    guestElements.forEach(el => el.style.display = "none");
+  } else {
+    authElements.forEach(el => el.style.display = "none");
+    guestElements.forEach(el => el.style.display = "flex");
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const dropdown = document.querySelector(".dropdown");
+  const btn = document.getElementById("productsBtn");
+  const menu = document.getElementById("productsMenu");
+
+  let isOpen = false;
+
+  // Open menu on hover
+  btn.addEventListener("mouseenter", () => {
+    dropdown.classList.add("open");
+    isOpen = true;
+  });
+
+  menu.addEventListener("mouseenter", () => {
+    dropdown.classList.add("open");
+    isOpen = true;
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (event) => {
+    if (!dropdown.contains(event.target)) {
+      dropdown.classList.remove("open");
+      isOpen = false;
+    }
+  });
+
+  // Optional: clicking "Products" toggles menu
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle("open");
+    isOpen = !isOpen;
+  });
+});
+
+
+
+</script>
+</body>
+</html>
+
+
+
+<!-- <!DOCTYPE html
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Write a Review - Smart Buy</title>
+  <link rel="icon" type="image/png" href="../Images/fevicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+   
+  </style>
+</head>
+
+
+<body>
+  <div class="container">
+    <div class="product-image">
+      <img id="productImg" src="../Images/default.avif" alt="Product Image" />
+    </div>
+
+    <div class="review-card">
+      <h2>Write a Review</h2>
+
+       Scrollable Product Dropdown 
+      <div class="form-group scroll-select">
+        <label for="productSelect">Product</label>
+        <div class="select-wrapper">
+          <select id="productSelect" size="6"></select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Rating</label>
+        <div class="rating-stars" id="stars">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="review">Review</label>
+        <textarea id="review" placeholder="Share your experience..." required></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="btn cancel-btn">Cancel</button>
+        <button class="btn submit-btn">Submit Review</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ✅ Product data
+    const productImages = {
+      "Nike AirZoom": "../Images/Shoes/Nike-AirZoom.webp",
+      "Adidas Runner": "../Images/adidas runner.avif",
+      "Iphone-16": "../Images/iphone-16.jpg",
+      "Skechers Sprint": "../Images/skechers.webp",
+      "Acer Nitro 5": "../Images/acernitro5.webp",
+      "Dell Inspiron": "../Images/dellinspiron.jpg",
+      "Samsung Galaxy S24": "../Images/samsungS24.jpg",
+      "Puma Flex": "../Images/puma-flex.jpg",
+      "Redmi Note 13": "../Images/redminote13.jpg",
+      "Lenovo IdeaPad": "../Images/lenovoideapad.jpg",
+      "Boat Airdopes 441": "../Images/boat-airdopes.jpg"
+    };
+
+    const productSelect = document.getElementById("productSelect");
+    const productImg = document.getElementById("productImg");
+
+    // Populate dropdown dynamically
+    Object.keys(productImages).forEach(name => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      productSelect.appendChild(option);
+    });
+
+    // Change image dynamically on selection
+    productSelect.addEventListener("change", () => {
+      const selected = productSelect.value;
+      productImg.src = productImages[selected] || "../Images/default.avif";
+    });
+
+    // Star rating system
+    const stars = document.querySelectorAll(".star");
+    stars.forEach((star, index) => {
+      star.addEventListener("click", () => {
+        stars.forEach((s, i) => s.classList.toggle("active", i <= index));
+      });
+    });
+  </script>
+</body>
+</html> -->
+
+
+
+<!-- Improved header for home page available
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Write a Review - Smart Buy</title>
+  <link rel="icon" type="image/png" href="../Images/fevicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      width: 100%;
+      background: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 60px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 40px;
+      width: 40px;
+    }
+
+    .logo h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    nav a {
+      color: #f8fafc;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #60a5fa;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      background: #1e293b;
+      display: none;
+      flex-direction: column;
+      min-width: 150px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      z-index: 20;
+    }
+
+    .dropdown-content a {
+      padding: 10px 15px;
+      color: #f8fafc;
+      text-decoration: none;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background: #334155;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: flex;
+    }
+
+    .profile {
+      position: relative;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .profile img {
+      height: 42px;
+      width: 42px;
+      border-radius: 50%;
+      border: 2px solid #38bdf8;
+    }
+
+    .profile-menu {
+      display: none;
+      position: absolute;
+      top: 55px;
+      right: 0;
+      background: #1e293b;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      z-index: 30;
+    }
+
+    .profile-menu a {
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #f8fafc;
+      transition: 0.3s;
+    }
+
+    .profile-menu a:hover {
+      background: #334155;
+    }
+
+    .profile:hover .profile-menu {
+      display: block;
+    }
+
+    /* ---------- MAIN CONTAINER ---------- */
+    .container {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      max-width: 1100px;
+      width: 90%;
+      padding: 40px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .product-image img {
+      width: 100%;
+      max-width: 450px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+      transition: transform 0.4s;
+    }
+
+    .product-image img:hover {
+      transform: scale(1.05);
+    }
+
+    .review-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      min-width: 320px;
+    }
+
+    .review-card h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #a5b4fc;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #f8fafc;
+      font-size: 15px;
+      outline: none;
+      transition: border 0.3s, background 0.3s;
+    }
+
+    select:focus, input:focus, textarea:focus {
+      border-color: #60a5fa;
+      background: #111827;
+    }
+
+    textarea {
+      resize: none;
+      height: 100px;
+    }
+
+    /* Scrollable product select */
+    .select-wrapper {
+      max-height: 180px;
+      overflow-y: auto;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #1e293b;
+    }
+
+    #productSelect {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: #f8fafc;
+      font-size: 15px;
+      padding: 8px;
+    }
+
+    #productSelect option {
+      padding: 10px;
+    }
+
+    #productSelect option:hover {
+      background-color: #334155;
+    }
+
+    .rating-stars {
+      display: flex;
+      gap: 6px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #94a3b8;
+    }
+
+    .rating-stars .star.active {
+      color: #facc15;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cancel-btn {
+      background: #475569;
+      color: #f8fafc;
+    }
+
+    .cancel-btn:hover {
+      background: #64748b;
+    }
+
+    .submit-btn {
+      background: linear-gradient(90deg, #2563eb, #06b6d4);
+      color: white;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(6, 182, 212, 0.4);
+    }
+
+    @media (max-width: 950px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .review-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+   HEADER SECTION 
+  <header>
+    <div class="logo">
+      <img src="../Images/fevicon.png" alt="Logo" />
+      <h1>Smart Buy</h1>
+    </div>
+
+    <nav>
+      <a href="../index.html">Home</a>
+      <div class="dropdown">
+        <a href="#">Products ▼</a>
+        <div class="dropdown-content">
+          <a href="../Pages/smartphones.html">Smartphones</a>
+          <a href="../Pages/laptops.html">Laptops</a>
+          <a href="../Pages/shoes.html">Shoes</a>
+        </div>
+      </div>
+      <a href="../Pages/about.html">About</a>
+      <a href="../Pages/contact.html">Contact</a>
+    </nav>
+
+    <div class="profile">
+      <img src="../Images/profile.jpg" alt="Profile" />
+      <div class="profile-menu">
+        <a href="#">View Profile</a>
+        <a href="#">Orders</a>
+        <a href="#">Settings</a>
+        <a href="#">Logout</a>
+      </div>
+    </div>
+  </header>
+
+   MAIN CONTAINER 
+  <div class="container">
+    <div class="product-image">
+      <img id="productImg" src="../Images/default.avif" alt="Product Image" />
+    </div>
+
+    <div class="review-card">
+      <h2>Write a Review</h2>
+
+      Scrollable Product Dropdown 
+      <div class="form-group scroll-select">
+        <label for="productSelect">Product</label>
+        <div class="select-wrapper">
+          <select id="productSelect" size="6"></select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Rating</label>
+        <div class="rating-stars" id="stars">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="review">Review</label>
+        <textarea id="review" placeholder="Share your experience..." required></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="btn cancel-btn">Cancel</button>
+        <button class="btn submit-btn">Submit Review</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Product Data
+    const productImages = {
+      "Nike AirZoom": "../Images/Shoes/Nike-AirZoom.webp",
+      "Adidas Runner": "../Images/adidas runner.avif",
+      "Iphone 16": "../Images/iphone-16.jpg",
+      "Skechers Sprint": "../Images/skechers.webp",
+      "Acer Nitro 5": "../Images/acernitro5.webp",
+      "Dell Inspiron": "../Images/dellinspiron.jpg",
+      "Samsung Galaxy S24": "../Images/samsungS24.jpg",
+      "Puma Flex": "../Images/puma-flex.jpg",
+      "Redmi Note 13": "../Images/redminote13.jpg",
+      "Lenovo IdeaPad": "../Images/lenovoideapad.jpg",
+      "Boat Airdopes 441": "../Images/boat-airdopes.jpg"
+    };
+
+    const productSelect = document.getElementById("productSelect");
+    const productImg = document.getElementById("productImg");
+
+    Object.keys(productImages).forEach(name => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      productSelect.appendChild(option);
+    });
+
+    productSelect.addEventListener("change", () => {
+      const selected = productSelect.value;
+      productImg.src = productImages[selected] || "../Images/default.avif";
+    });
+
+    // Star Rating
+    const stars = document.querySelectorAll(".star");
+    stars.forEach((star, index) => {
+      star.addEventListener("click", () => {
+        stars.forEach((s, i) => s.classList.toggle("active", i <= index));
+      });
+    });
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+<!-- Final running -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Write a Review - Smart Buy</title>
   <link rel="icon" type="image/png" href="../Images/fevicon.png" />
@@ -42,6 +1376,67 @@
     .container:hover {
       transform: translateY(-5px);
     }
+select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #f8fafc;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.3s, background 0.3s;
+  max-height: 200px;      /* Limit visible area */
+  overflow-y: auto;       /* Make scrollable */
+}
+
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+#productSearch {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #f8fafc;
+  font-size: 15px;
+  outline: none;
+}
+
+#productSearch:focus {
+  border-color: #60a5fa;
+  background: #111827;
+}
+
+.dropdown-list {
+  position: absolute;
+  width: 100%;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  margin-top: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  list-style: none;
+  padding: 5px 0;
+  display: none;
+  z-index: 100;
+}
+
+.dropdown-list li {
+  padding: 10px 15px;
+  color: #f8fafc;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dropdown-list li:hover {
+  background: #334155;
+}
+
 
     .product-image {
       flex: 1;
@@ -175,14 +1570,42 @@
       <h2>Write a Review</h2>
 
       <div class="form-group">
-        <label for="productSelect">Product</label>
-        <select id="productSelect">
+        <label for="productSelect" >Product</label>
+        <select id="productSelect"> 
           <option value="" disabled selected>Select a product</option>
           <option value="NikeAirZoom">Nike AirZoom</option>
           <option value="adidas">Adidas Runner</option>
           <option value="apple">iPhone 16</option>
           <option value="skechers">Skechers Sprint</option>
           <option value="laptop">Acer Nitro 5</option>
+          <option value="AdidasFormal">Adidas Formal Shoes</option>
+          <option value="PumaSporty">Puma Sporty Shoes</option>
+          <option value="ReebokClassic">Reebok Classic Shoes</option>
+          <option value="DellInspiron">Dell Inspiron Laptop</option>
+          <option value="MacBookPro">MacBook Pro</option>
+          <option value="HPEnvy">HP Envy Laptop</option>
+          <option value="SamsungS24">Samsung Galaxy S24</option>
+          <option value="RedmiNote13">Redmi Note 13</option>
+          <option value="OnePlusNord">OnePlus Nord 3</option>
+          <option value="Iphone-16">Iphone-16</option>
+          <option value="LGWashingMachine">LG Washing Machine</option>
+          <option value="BajajMixer">Bajaj Mixer Grinder</option>
+          <option value="SamsungMicrowave">Samsung Microwave Oven</option>
+          <option value="PrestigeInduction">Prestige Induction Cooktop</option>
+
+            Product Search + Selection
+<div class="form-group">
+  <label for="productSearch" >Product</label>
+
+  <div class="custom-select">
+    <input
+      type="text"
+      id="productSearch"
+      placeholder="Search or select a product..."
+      autocomplete="off"
+    />
+    <ul id="productList" class="dropdown-list"></ul>   
+
         </select>
       </div>
 
@@ -214,44 +1637,71 @@
     </div>
   </div>
 
-  <script>
-    // ✅ Correct relative paths for your folder structure
-    const productImages = {
-      NikeAirZoom: "../Images/Shoes/Nike-AirZoom.webp",
-      adidas: "../Images/adidas runner.avif",
-      apple: "../Images/iphone-16.jpg",
-      skechers: "../Images/skechers.webp",
-      laptop: "../Images/acernitro5.webp",
-    };
+<script>
+  // ✅ Product data (Add or modify easily)
+  const products = {
+    NikeAirZoom: "/Images/Shoes/Nike-AirZoom.webp",
+    "Adidas Runner": "/Images/adidas runner.avif",
+    "Iphone-16": "/Images/iphone-16.jpg",
+    "Skechers Sprint": "/Images/skechers.webp",
+    "Acer Nitro 5": "/Images/acernitro5.webp",
+    "Dell Inspiron": "/Images/dellinspiron.jpg",
+    "Samsung Galaxy S24": "/Images/samsungS24.jpg",
+    "Puma Flex": "/Images/puma-flex.jpg",
+    "Redmi Note 13": "/Images/redminote13.jpg",
+    "Lenovo IdeaPad": "/Images/lenovoideapad.jpg",
+    "Boat Airdopes 441": "/Images/boat-airdopes.jpg"
+  };
 
-    const productSelect = document.getElementById("productSelect");
-    const productImg = document.getElementById("productImg");
+  const productImg = document.getElementById("productImg");
+  const productSearch = document.getElementById("productSearch");
+  const productList = document.getElementById("productList");
 
-    // Dynamically change image when product is selected
-    productSelect.addEventListener("change", () => {
-      const selected = productSelect.value;
-      productImg.src = productImages[selected] || "../Images/default.webp";
-    });
+  // Populate dropdown
+  function populateDropdown(filter = "") {
+    productList.innerHTML = "";
+    const filteredProducts = Object.keys(products).filter(product =>
+      product.toLowerCase().includes(filter.toLowerCase())
+    );
 
-    // Star rating functionality
-    const stars = document.querySelectorAll(".star");
-    stars.forEach((star, index) => {
-      star.addEventListener("click", () => {
-        stars.forEach((s, i) => s.classList.toggle("active", i <= index));
+    filteredProducts.forEach(product => {
+      const li = document.createElement("li");
+      li.textContent = product;
+      li.addEventListener("click", () => {
+        productSearch.value = product;
+        productList.style.display = "none";
+        productImg.src = products[product] || "/Images/default.webp";
       });
+      productList.appendChild(li);
     });
 
-    // Reset form
-    function resetForm() {
-      document.getElementById("name").value = "";
-      document.getElementById("review").value = "";
-      productSelect.selectedIndex = 0;
-      productImg.src = "../Images/default.webp";
-      stars.forEach((s) => s.classList.remove("active"));
+    productList.style.display = filteredProducts.length ? "block" : "none";
+  }
+
+  // Open dropdown on focus
+  productSearch.addEventListener("focus", () => populateDropdown());
+  // Filter dropdown on typing
+  productSearch.addEventListener("input", e => populateDropdown(e.target.value));
+  // Close dropdown when clicking outside
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".custom-select")) {
+      productList.style.display = "none";
     }
-  </script>
+  });
+
+  // Star rating system
+  const stars = document.querySelectorAll(".star");
+  stars.forEach((star, index) => {
+    star.addEventListener("click", () => {
+      stars.forEach((s, i) => s.classList.toggle("active", i <= index));
+    });
+  });
+</script>
+
 </body>
-</html>
+</html> -->
+
+
 
 
 
