@@ -154,7 +154,7 @@
   display: flex;
   justify-content: center; /* horizontally center */
   align-items: center;     /* vertically center */
-  margin-top: 200px;  /* space from header */
+  margin-top: 110px;  /* space from header */
   flex-direction: column;  /* stack elements vertically if needed */
   min-height: calc(100vh - 120px); /* adjust for header height */
   padding: 20px;           /* optional spacing */
@@ -196,10 +196,10 @@
     .review-card h2 {
       font-size: 28px;
       font-weight: 700;
-      color: #f1f5f9;
+      color: #05a7e8;
     }
 
-    .form-group {
+ .form-group {
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -227,22 +227,16 @@
       background: #111827;
     }
 
-    textarea {
-      resize: none;
-      height: 100px;
-    }
-
     /* Scrollable product select */
     .select-wrapper {
       max-height: 180px;
       overflow-y: auto;
       border-radius: 10px;
-      border: 1px solid #334155;
+      border: 1px solid #324c70;
       background: #1e293b;
     }
 
-    #productSelect {
-      width: 100%;
+    .scroll-select select {
       border: none;
       background: transparent;
       color: #f8fafc;
@@ -250,13 +244,30 @@
       padding: 8px;
     }
 
-    #productSelect option {
-      padding: 10px;
-    }
+#productSelect {
+  width: 100%;
+  background-color: #1e293b;
+  color: #f8fafc;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  padding: 10px;
+  outline: none;
+  box-shadow: 0 0 25px rgba(0,0,0,0.18);
+}
 
-    #productSelect option:hover {
-      background-color: #334155;
-    }
+#productSelect option {
+  background-color: #1e293b;
+  color: #f8fafc;
+  padding: 10px;
+}
+
+
+/* Optional: when option hovered */
+#productSelect option:hover, #productSelect option:focus {
+  background-color: #334155;
+  color: #ffffff;
+}
 
     .rating-stars {
       display: flex;
@@ -483,34 +494,6 @@
   }
 }  
 
-  .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    label {
-      font-weight: 600;
-      color: #a5b4fc;
-    }
-
-    select, input, textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #334155;
-      background: #1e293b;
-      color: #f8fafc;
-      font-size: 15px;
-      outline: none;
-      transition: border 0.3s, background 0.3s;
-    }
-
-    select:focus, input:focus, textarea:focus {
-      border-color: #60a5fa;
-      background: #111827;
-    }
-
   </style>
 </head>
 
@@ -571,13 +554,16 @@
 
     <div class="review-card">
       <h2>Write a Review</h2>
+
       <div class="form-group scroll-select">
-         <div class="select-wrapper">
         <label for="productSelect">Product</label>
-       
-          <select id="productSelect" size="6"></select>
-        </div>
+         <div class="select-wrapper scroll-select">
+          <select id="productSelect">
+           <option  id="productSelect" value="" disabled selected placeholder="Select a product...">Select a product...</option>
+      
+          </select> 
       </div>
+    </div>
 
       <div class="form-group">
         <label>Rating</label>
@@ -619,7 +605,7 @@
     &copy; 2025 SmartBuy. All rights reserved.
   </footer>
 </div>
-  <script>
+<script>
  // ✅ Product data
     const productImages = {
       "Nike AirZoom": "../Images/Shoes/Nike-AirZoom.webp",
@@ -627,23 +613,32 @@
       "Iphone-16": "../Images/iphone-16.jpg",
       "Skechers Sprint": "../Images/skechers.webp",
       "Acer Nitro 5": "../Images/acernitro5.webp",
-      "Dell Inspiron": "../Images/dellinspiron.jpg",
-      "Samsung Galaxy S24": "../Images/samsungS24.jpg",
-      "Puma Flex": "../Images/puma-flex.jpg",
-      "Redmi Note 13": "../Images/redminote13.jpg",
-      "Lenovo IdeaPad": "../Images/lenovoideapad.jpg",
-      "Boat Airdopes 441": "../Images/boat-airdopes.jpg"
-    };
+      "Philips Air Fryer XXL": "../Images/homeappliances/Philips Air Fryer XXL.webp",
+      "Samsung Galaxy S23 Ultra": "../Images/smartphones/Samsung Galaxy S23 Ultra.jpeg",
+      "Redmi Note 13 pro+": "../Images/smartphones/Redmi Note 13 pro+.jpg",
+      "Realme GT 5": "../Images/smartphones/Realme GT 5.jpeg",
+      "Bajaj GX15 Mixer Grinder": "../Images/homeappliances/Bajaj GX15 Mixer Grinder.webp",
+      "Nike Zoom Rival Fly": "../Images/shoes/Nike-Zoom-Rival-Fly.webp",
+      "Adidas Runner Supernova Solution": "../Images/shoes/Adidas-Runner-supernova-solution-2.0-running-shoes.avif",
+      " Adidas Formal": "../Images/shoes/Adidas-Formal.webp",
+      " Reebok Sport FLYLITE QUICKGLIDE M Running Shoes": "../Images/shoes/Reebok-Sport-FLYLITE-QUICKGLIDE-M-Running-Shoes.webp",
+      " Puma Casual X-Ray 2 Square Retro Style Sneakers": "../Images/shoes/Puma-Casual-X-Ray-2-Square-Retro-Style-Sneakers.avif",
+      " Puma Sporty Skyrocket Lite Men's Running Shoes": "../Images/shoes/Puma-Sporty-Skyrocket-Lite-Men's-Running-Shoes.avif",
+      " Reebok Classic": "../Images/shoes/Reebok-Classic.webp"
+ };
 
     const productSelect = document.getElementById("productSelect");
     const productImg = document.getElementById("productImg");
 
-    // Populate dropdown dynamically
-    Object.keys(productImages).forEach(name => {
-      const option = document.createElement("option");
-      option.textContent = name;
-      productSelect.appendChild(option);
-    });
+
+
+// Populate dropdown dynamically from keys of productImages
+Object.keys(productImages).forEach(name => {
+  const option = document.createElement("option");
+  option.textContent = name;        // visible product name
+  option.value = name;              // value attribute (can customize)
+  productSelect.appendChild(option);
+});
 
     // Change image dynamically on selection
     productSelect.addEventListener("change", () => {
