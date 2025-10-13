@@ -470,6 +470,44 @@
     font-size: 14px;
   }
 }  
+
+.review-btn 
+{
+  background: linear-gradient(90deg, #8a2be2, #00c6ff); /* purple → blue gradient */
+  color: #fff;
+  border: none;
+  border-radius: 10px;       /* pill shape */
+  padding: 10px 22px;         /* proper spacing inside */
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;       /* ensures perfect vertical + horizontal alignment */
+  align-items: center;        /* centers text vertically */
+  justify-content: center;    /* centers text horizontally */
+  text-align: center;
+  line-height: 1;             /* fixes vertical alignment issues */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect */
+.review-btn:hover 
+{
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Active (click) effect */
+.review-btn:active 
+{
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.review-btn:hover 
+ {
+      box-shadow: 0 12px 40px rgba(6, 182, 212, 0.2);
+      transform: translateY(-2px);
+    }
+
   
   </style>
 </head>
@@ -518,6 +556,7 @@
     </div>
     <button onclick="window.location.href='#About'" class="btn btn-outline">About</button>
     <button onclick="window.location.href='#Contact'" class="btn btn-outline">Contact</button>&nbsp;
+    <button class="review-btn" id="openReview" onclick="window.location.href='/Homepage/reviewpage.html'">Write a Review</button>&nbsp;
     <button onclick="window.location.href='/auth/signup.html'" class="btn btn-gradient">Sign In</button>
     </nav>
         
