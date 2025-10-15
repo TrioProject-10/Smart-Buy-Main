@@ -959,125 +959,69 @@
     Made with — Smart♥Buy. Try writing a review to see it live!<br><br>
     &copy; 2025 SmartBuy. All rights reserved.
   </footer>
-  <script>
+<script>
 document.addEventListener("DOMContentLoaded", function () {
+  // Animate "push-in" title
   const target = document.querySelector(".push-in");
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
-        observer.unobserve(entry.target); // animate only once
+        observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.3 });
+  if (target) observer.observe(target);
 
-  if (target) {
-    observer.observe(target);
-  }
-});
+  // ====== Mega Menu (Products Dropdown) ======
+  const productsBtn = document.getElementById("productsBtn");
+  const productsMenu = document.getElementById("productsMenu");
+  let hideTimeout;
 
-const productsBtn = document.getElementById("productsBtn");
-const productsMenu = document.getElementById("productsMenu");
-let hideTimeout;
-
-productsBtn.addEventListener("mouseenter", () => {
-  clearTimeout(hideTimeout);
-  productsMenu.style.display = "flex"; // Show immediately on hover
-});
-
-productsBtn.addEventListener("mouseleave", () => {
-  hideTimeout = setTimeout(() => {
-    productsMenu.style.display = "none"; // Hide after 1.5s
-  }, 1500);
-});
-
-productsMenu.addEventListener("mouseenter", () => {
-  clearTimeout(hideTimeout); // Cancel hide if hovering over menu
-});
-
-productsMenu.addEventListener("mouseleave", () => {
-  hideTimeout = setTimeout(() => {
-    productsMenu.style.display = "none"; // Hide after 1.5s when leaving menu
-  }, 1500);
-});
-
-// User Authentication Simulation
-const isAuthenticated = false; // Change to true to simulate logged-in state  
-document.addEventListener("DOMContentLoaded", () => {
-  const authElements = document.querySelectorAll("[data-auth='logout']");
-  const guestElements = document.querySelectorAll("[data-auth='login']");
-
-  if (isAuthenticated) {
-    authElements.forEach(el => el.style.display = "flex");
-    guestElements.forEach(el => el.style.display = "none");
-  } else {
-    authElements.forEach(el => el.style.display = "none");
-    guestElements.forEach(el => el.style.display = "flex");
-  }
-});
-// Profile Dropdown
-const userProfileBtn = document.getElementById("userProfileBtn");
-const profileDropdown = document.querySelector(".profile-dropdown-content");
-userProfileBtn.addEventListener("click", () => {
-  profileDropdown.style.display = profileDropdown.style.display === "block" ? "none" : "block";
-});
-window.addEventListener("click", (e) => {
-  if (!userProfileBtn.contains(e.target)) {
-    profileDropdown.style.display = "none";
-  }
-});
-// Logout Button
-const logoutBtn = document.getElementById("logoutBtn");
-logoutBtn.addEventListener("click", () => {
-  alert("Logged out successfully!");
-  // Implement actual logout logic here
-});
-// Open Review Modal (Placeholder)
-const openReviewBtn = document.getElementById("openReview");
-openReviewBtn.addEventListener("click", () => {
-  alert("Open review modal (to be implemented)");
-  // Implement actual modal logic here
-});
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  const dropdown = document.querySelector(".dropdown");
-  const btn = document.getElementById("productsBtn");
-  const menu = document.getElementById("productsMenu");
-
-  let isOpen = false;
-
-  // Open menu on hover
-  btn.addEventListener("mouseenter", () => {
-    dropdown.classList.add("open");
-    isOpen = true;
+  // Show dropdown on hover
+  productsBtn.addEventListener("mouseenter", () => {
+    clearTimeout(hideTimeout);
+    productsMenu.style.display = "flex";
   });
 
-  menu.addEventListener("mouseenter", () => {
-    dropdown.classList.add("open");
-    isOpen = true;
+  productsBtn.addEventListener("mouseleave", () => {
+    hideTimeout = setTimeout(() => {
+      productsMenu.style.display = "none";
+    }, 200);
   });
 
-  // Close menu when clicking outside
-  document.addEventListener("click", (event) => {
-    if (!dropdown.contains(event.target)) {
-      dropdown.classList.remove("open");
-      isOpen = false;
+  productsMenu.addEventListener("mouseenter", () => {
+    clearTimeout(hideTimeout);
+    productsMenu.style.display = "flex";
+  });
+
+  productsMenu.addEventListener("mouseleave", () => {
+    hideTimeout = setTimeout(() => {
+      productsMenu.style.display = "none";
+    }, 200);
+  });
+
+  // ====== Profile Dropdown ======
+  const userProfileBtn = document.getElementById("userProfileBtn");
+  const profileDropdown = document.querySelector(".profile-dropdown-content");
+
+  userProfileBtn?.addEventListener("click", () => {
+    profileDropdown.style.display =
+      profileDropdown.style.display === "block" ? "none" : "block";
+  });
+
+  // Hide profile dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    if (
+      !e.target.closest(".profile-dropdown") &&
+      !e.target.closest("#userProfileBtn")
+    ) {
+      profileDropdown.style.display = "none";
     }
   });
-
-  // Optional: clicking "Products" toggles menu
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    dropdown.classList.toggle("open");
-    isOpen = !isOpen;
-  });
 });
-
-
-
 </script>
+
 </body>
 </html>
 
