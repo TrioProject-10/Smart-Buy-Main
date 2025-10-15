@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Panel - Smart Buy</title>
+  <link rel="icon" type="image/png" href="/Images/fevicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #101a29;
+      --card: #0b1220;
+      --accent: #7c3aed;
+      --accent-2: #06b6d4;
+      --muted: #9aa6b2;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Inter', system-ui, Arial;
+      background: var(--bg);
+      color: #e6eef6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      background: var(--card);
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      font-size: 28px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: var(--muted);
+      color: white;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      background: var(--card);
+      padding: 10px;
+      border-radius: 12px;
+    }
+
+    .tab {
+      padding: 12px 24px;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .tab.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .form-section {
+      background: var(--card);
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 600;
+      color: var(--accent-2);
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--bg);
+      color: #e6eef6;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+
+    .checkbox-group {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .products-table {
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    th {
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+      color: white;
+    }
+
+    td {
+      padding: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    tbody tr:hover {
+      background: rgba(124, 58, 237, 0.1);
+    }
+
+    .product-img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .badge-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .badge-featured {
+      background: var(--warning);
+      color: white;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+    }
+
+    .spinner {
+      border: 3px solid rgba(255,255,255,0.1);
+      border-top: 3px solid var(--accent);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .alert {
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .alert-success {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid var(--success);
+      color: var(--success);
+    }
+
+    .alert-error {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+    }
+
+    .search-filter {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-filter input,
+    .search-filter select {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .stat-card h3 {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .stat-card .value {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .close-modal:hover {
+      color: white;
+    }
+
+    .tag-input {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      background: var(--bg);
+      min-height: 60px;
+    }
+
+    .tag {
+      background: var(--accent);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag-remove {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 0;
+    }
+
+    .tag-input input {
+      border: none;
+      background: none;
+      flex: 1;
+      min-width: 150px;
+      padding: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🛠️ Smart Buy Admin Panel</h1>
+      <div>
+        <button class="btn btn-secondary" onclick="window.location.href='/HomePage/Homepage.html'">
+          ← Back to Site
+        </button>
+        <button class="btn btn-danger" id="logoutBtn">Logout</button>
+      </div>
+    </header>
+
+    <div id="alertContainer"></div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Products</h3>
+        <div class="value" id="totalProducts">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Active Products</h3>
+        <div class="value" id="activeProducts">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Categories</h3>
+        <div class="value" id="totalCategories">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Brands</h3>
+        <div class="value" id="totalBrands">0</div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="add">Add Product</button>
+      <button class="tab" data-tab="manage">Manage Products</button>
+      <button class="tab" data-tab="categories">Categories & Brands</button>
+    </div>
+
+    <!-- Add Product Tab -->
+    <div class="tab-content active" id="tab-add">
+      <div class="form-section">
+        <h2 style="margin-bottom: 20px;">Add New Product</h2>
+        <form id="addProductForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="productName">Product Name *</label>
+              <input type="text" id="productName" required />
+            </div>
+            
+            <div class="form-group">
+              <label for="productSlug">Slug (URL-friendly) *</label>
+              <input type="text" id="productSlug" required placeholder="product-name-here" />
+            </div>
+            
+            <div class="form-group">
+              <label for="productPrice">Price (₹) *</label>
+              <input type="number" id="productPrice" required min="0" step="0.01" />
+            </div>
+            
+            <div class="form-group">
+              <label for="productOriginalPrice">Original Price (₹)</label>
+              <input type="number" id="productOriginalPrice" min="0" step="0.01" />
+            </div>
+            
+            <div class="form-group">
+              <label for="productCategory">Category *</label>
+              <select id="productCategory" required>
+                <option value="">Select Category</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="productBrand">Brand</label>
+              <select id="productBrand">
+                <option value="">Select Brand</option>
+              </select>
+            </div>
+            
+            <div class="form-group full-width">
+              <label for="productShortDesc">Short Description</label>
+              <textarea id="productShortDesc" rows="2"></textarea>
+            </div>
+            
+            <div class="form-group full-width">
+              <label for="productDescription">Full Description</label>
+              <textarea id="productDescription" rows="4"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="productImage">Image URL *</label>
+              <input type="text" id="productImage" required placeholder="/Images/category/product.jpg" />
+            </div>
+            
+            <div class="form-group">
+              <label for="productAmazonUrl">Amazon URL</label>
+              <input type="url" id="productAmazonUrl" placeholder="https://amazon.in/product" />
+            </div>
+            
+            <div class="form-group">
+              <label for="productFlipkartUrl">Flipkart URL</label>
+              <input type="url" id="productFlipkartUrl" placeholder="https://flipkart.com/product" />
+            </div>
+            
+            <div class="form-group">
+              <label for="productModelNumber">Model Number</label>
+              <input type="text" id="productModelNumber" />
+            </div>
+            
+            <div class="form-group">
+              <label for="productSKU">SKU</label>
+              <input type="text" id="productSKU" />
+            </div>
+            
+            <div class="form-group">
+              <label for="productStock">Stock Quantity</label>
+              <input type="number" id="productStock" min="0" value="0" />
+            </div>
+            
+            <div class="form-group full-width">
+              <label for="productFeatures">Features (comma-separated)</label>
+              <textarea id="productFeatures" rows="2" placeholder="Feature 1, Feature 2, Feature 3"></textarea>
+            </div>
+            
+            <div class="form-group full-width">
+              <label for="productTags">Tags (comma-separated)</label>
+              <textarea id="productTags" rows="2" placeholder="tag1, tag2, tag3"></textarea>
+            </div>
+            
+            <div class="form-group full-width">
+              <label>Status</label>
+              <div class="checkbox-group">
+                <div class="checkbox-item">
+                  <input type="checkbox" id="productActive" checked />
+                  <label for="productActive">Active</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="productInStock" checked />
+                  <label for="productInStock">In Stock</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="productFeatured" />
+                  <label for="productFeatured">Featured</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="productTrending" />
+                  <label for="productTrending">Trending</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="display: flex; gap: 15px; justify-content: flex-end; margin-top: 20px;">
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('addProductForm').reset()">
+              Clear Form
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Add Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Manage Products Tab -->
+    <div class="tab-content" id="tab-manage">
+      <div class="search-filter">
+        <input type="text" id="searchProducts" placeholder="Search products..." />
+        <select id="filterCategory">
+          <option value="">All Categories</option>
+        </select>
+        <select id="filterBrand">
+          <option value="">All Brands</option>
+        </select>
+        <select id="filterStatus">
+          <option value="">All Status</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+
+      <div class="products-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Brand</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="productsTableBody">
+            <tr>
+              <td colspan="7" class="loading">
+                <div class="spinner"></div>
+                Loading products...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Categories & Brands Tab -->
+    <div class="tab-content" id="tab-categories">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="form-section">
+          <h2 style="margin-bottom: 20px;">Add Category</h2>
+          <form id="addCategoryForm">
+            <div class="form-group">
+              <label for="categoryName">Name *</label>
+              <input type="text" id="categoryName" required />
+            </div>
+            <div class="form-group">
+              <label for="categorySlug">Slug *</label>
+              <input type="text" id="categorySlug" required />
+            </div>
+            <div class="form-group">
+              <label for="categoryDescription">Description</label>
+              <textarea id="categoryDescription" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Category</button>
+          </form>
+        </div>
+
+        <div class="form-section">
+          <h2 style="margin-bottom: 20px;">Add Brand</h2>
+          <form id="addBrandForm">
+            <div class="form-group">
+              <label for="brandName">Name *</label>
+              <input type="text" id="brandName" required />
+            </div>
+            <div class="form-group">
+              <label for="brandSlug">Slug *</label>
+              <input type="text" id="brandSlug" required />
+            </div>
+            <div class="form-group">
+              <label for="brandWebsite">Website URL</label>
+              <input type="url" id="brandWebsite" />
+            </div>
+            <button type="submit" class="btn btn-primary">Add Brand</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Product Modal -->
+  <div class="modal" id="editModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Product</h2>
+        <button class="close-modal" onclick="closeEditModal()">&times;</button>
+      </div>
+      <form id="editProductForm">
+        <input type="hidden" id="editProductId" />
+        <div class="form-group">
+          <label for="editProductName">Product Name *</label>
+          <input type="text" id="editProductName" required />
+        </div>
+        <div class="form-group">
+          <label for="editProductPrice">Price (₹) *</label>
+          <input type="number" id="editProductPrice" required min="0" step="0.01" />
+        </div>
+        <div class="form-group">
+          <label for="editProductDescription">Description</label>
+          <textarea id="editProductDescription" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="editProductActive" />
+              <label for="editProductActive">Active</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="editProductFeatured" />
+              <label for="editProductFeatured">Featured</label>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+          <button type="submit" class="btn btn-success">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/admin/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>All Products - Smart Buy</title>
+  <link rel="icon" type="image/png" href="/Images/fevicon.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #101a29;
+      --card: #0b1220;
+      --accent: #7c3aed;
+      --accent-2: #06b6d4;
+      --muted: #9aa6b2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      background: var(--bg); 
+      color: #e6eef6; 
+      font-family: Inter, Arial, sans-serif; 
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Header Styles */
+    header {
+      padding: 24px;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ff6a00, #ff4081, #8c52ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .logo img {
+      width: 125%;
+      height: 125%;
+      object-fit: contain;
+      border-radius: 20px;
+    }
+    .brand-text {
+      font-family: 'Monoton', cursive;
+      font-size: 38px;
+      color: #8c52ff;
+      letter-spacing: 1px;
+      cursor: pointer;
+      margin: 0;
+    }
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    nav a, nav button {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: color 0.2s, transform 0.2s;
+      cursor: pointer;
+      font-family: 'Poppins', Arial, sans-serif;
+      background: transparent;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+    nav a:hover, nav button:hover {
+      color: #06b6d4;
+      transform: scale(1.05);
+    }
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.938rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      border: none;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+    }
+    .btn-outline:hover {
+      background: rgb(73, 155, 226);
+      color: whitesmoke;
+    }
+    .btn-gradient {
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      color: #fff;
+      border: none;
+    }
+    .btn-gradient:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+    }
+    
+    /* Main Content */
+    .container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 2rem;
+      flex: 1;
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 2rem 0;
+    }
+    .page-header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #7c3aed, #06b6d4);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+    .search-filter { 
+      display: flex; 
+      gap: 1rem; 
+      margin-bottom: 2rem; 
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    input, select { 
+      padding: 0.75rem 1.25rem; 
+      border-radius: 8px; 
+      border: 1px solid #7c3aed; 
+      font-size: 1rem;
+      background: var(--card);
+      color: #e6eef6;
+      min-width: 200px;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #06b6d4;
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+    }
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+      gap: 2rem; 
+    }
+    .card { 
+      background: #74b2ec; 
+      color: #000; 
+      border-radius: 14px; 
+      padding: 1.5rem; 
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 16px 48px rgba(124, 58, 237, 0.3);
+    }
+    .card-image { 
+      height: 180px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      margin-bottom: 1rem;
+      background: #f3f4f6;
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .card-image img { 
+      max-width: 100%; 
+      max-height: 100%; 
+      object-fit: contain; 
+      border-radius: 10px; 
+    }
+    .card h3 { 
+      font-family: 'Poppins', sans-serif; 
+      font-size: 1.25rem; 
+      font-weight: bold; 
+      text-align: center; 
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+    }
+    .card p { 
+      text-align: center; 
+      color: #000; 
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+    .no-results { 
+      text-align: center; 
+      color: var(--muted); 
+      margin-top: 3rem;
+      font-size: 1.2rem;
+    }
+    
+    /* Footer */
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      background: var(--card);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      margin: 0 8px;
+      transition: color 0.2s;
+    }
+    footer a:hover {
+      color: whitesmoke;
+      text-decoration: underline;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 16px;
+      }
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      .search-filter {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      input, select {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">
+        <img src="/Images/generated-image.png" alt="Smart Buy Logo">
+      </div>
+      <div>
+        <h1 class="brand-text" onclick="window.location.href='/HomePage/Homepage.html'">Smart Buy</h1>
+        <p class="lead">Your feedback shapes better choices — curated for shoppers</p>
+      </div>
+    </div>
+    <nav>
+      <button onclick="window.location.href='/HomePage/Homepage.html'" class="btn btn-outline">Home</button>
+      <button onclick="window.location.href='/HomePage/allproducts.html'" class="btn btn-outline">All Products</button>
+      <button onclick="window.location.href='/amazon/amazonproducts.html'" class="btn btn-outline">Amazon</button>
+      <button onclick="window.location.href='/auth/signup.html'" class="btn btn-gradient">Sign In</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>All Products</h1>
+      <p>Browse our complete collection of products with reviews and ratings</p>
+    </div>
+    
+    <div class="search-filter">
+      <input type="text" id="searchInput" placeholder="🔍 Search products..." />
+      <select id="categoryFilter">
+        <option value="">All Categories</option>
+      </select>
+    </div>
+    <div class="grid" id="productsGrid"></div>
+    <div class="no-results" id="noResults" style="display:none;">No products found.</div>
+  </div>
+
+  <footer>
+    <p>
+      <a href="#">About</a> | 
+      <a href="#">Privacy</a> | 
+      <a href="#">Terms</a> | 
+      <a href="#">Contact</a>
+    </p>
+    Made with — Smart♥Buy. Try writing a review to see it live!<br><br>
+    &copy; 2025 SmartBuy. All rights reserved.
+  </footer>
+
+  <script>
+    async function fetchProducts() {
+      const res = await fetch('/product.json');
+      return res.json();
+    }
+    function getUniqueCategories(products) {
+      const cats = new Set();
+      products.forEach(p => p.category && cats.add(p.category));
+      return Array.from(cats);
+    }
+    function renderProducts(products) {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = '';
+      if (products.length === 0) {
+        document.getElementById('noResults').style.display = 'block';
+        return;
+      }
+      document.getElementById('noResults').style.display = 'none';
+      products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-image">
+            <img src="${product.image || '/Images/default.png'}" alt="${product.name}" />
+          </div>
+          <h3>${product.title}</h3>
+          <p>${product.description || ''}</p>
+          <p><b>Category:</b> ${product.type || 'N/A'}</p>
+          <p><b>Price:</b> ${product.price ? '₹' + product.price : 'N/A'}</p>
+        `;
+        grid.appendChild(card);
+      });
+    }
+    let allProducts = [];
+    fetchProducts().then(products => {
+      allProducts = products;
+      renderProducts(products);
+      // Populate categories
+      const categories = getUniqueCategories(products);
+      const filter = document.getElementById('categoryFilter');
+      categories.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = cat;
+        filter.appendChild(opt);
+      });
+    });
+    document.getElementById('searchInput').addEventListener('input', function() {
+      filterProducts();
+    });
+    document.getElementById('categoryFilter').addEventListener('change', function() {
+      filterProducts();
+    });
+    function filterProducts() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const category = document.getElementById('categoryFilter').value;
+      let filtered = allProducts.filter(p => {
+        const matchesSearch = p.name.toLowerCase().includes(search) || (p.description && p.description.toLowerCase().includes(search));
+        const matchesCategory = !category || p.category === category;
+        return matchesSearch && matchesCategory;
+      });
+      renderProducts(filtered);
+    }
+  </script>
+</body>
+</html>

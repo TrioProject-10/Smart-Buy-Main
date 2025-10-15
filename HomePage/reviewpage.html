@@ -6,6 +6,9 @@
   <title>Smart Buy - Creative Product Review Hub</title>
   <link rel="icon" type="image/png" href="/Images/fevicon.png" rect width="2000%" height="2000%" fill="white"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&display=swap" rel="stylesheet">
+  
+  <!-- Supabase Client Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
       --bg: #101a29;
@@ -605,9 +608,16 @@
     &copy; 2025 SmartBuy. All rights reserved.
   </footer>
 </div>
-<script>
- // ✅ Product data
-    const productImages = {
+<script type="module">
+ // Import Supabase configuration
+ import { SUPABASE_CONFIG } from '../config.js';
+
+ // Initialize Supabase client
+ const { createClient } = supabase;
+ const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+
+ // ✅ Product data with IDs for database
+ const productImages = {
       "Nike AirZoom": "../Images/Shoes/Nike-AirZoom.webp",
       "Adidas Runner": "../Images/adidas runner.avif",
       "Iphone-16": "../Images/iphone-16.jpg",
@@ -627,31 +637,210 @@
       " Reebok Classic": "../Images/shoes/Reebok-Classic.webp"
  };
 
+ // Generate product ID from name (simple hash)
+ function generateProductId(productName) {
+   let hash = 0;
+   for (let i = 0; i < productName.length; i++) {
+     const char = productName.charCodeAt(i);
+     hash = ((hash << 5) - hash) + char;
+     hash = hash & hash;
+   }
+   return Math.abs(hash);
+ }
+
     const productSelect = document.getElementById("productSelect");
     const productImg = document.getElementById("productImg");
 
+    // Track selected rating
+    let selectedRating = 0;
 
-
-// Populate dropdown dynamically from keys of productImages
-Object.keys(productImages).forEach(name => {
-  const option = document.createElement("option");
-  option.textContent = name;        // visible product name
-  option.value = name;              // value attribute (can customize)
-  productSelect.appendChild(option);
-});
+    // Populate dropdown dynamically from keys of productImages
+    Object.keys(productImages).forEach(name => {
+      const option = document.createElement("option");
+      option.textContent = name;        // visible product name
+      option.value = name;              // value attribute (can customize)
+      productSelect.appendChild(option);
+    });
 
     // Change image dynamically on selection
     productSelect.addEventListener("change", () => {
       const selected = productSelect.value;
       productImg.src = productImages[selected] || "../Images/default.avif";
+      // Load reviews for selected product
+      loadReviewsForProduct(selected);
     });
 
     // Star rating system
     const stars = document.querySelectorAll(".star");
     stars.forEach((star, index) => {
       star.addEventListener("click", () => {
+        selectedRating = index + 1;
         stars.forEach((s, i) => s.classList.toggle("active", i <= index));
       });
+    });
+
+    // Check authentication status
+    async function checkAuth() {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      return session;
+    }
+
+    // Submit review to Supabase
+    async function submitReview(reviewData) {
+      try {
+        const session = await checkAuth();
+        
+        if (!session) {
+          alert('Please log in to submit a review');
+          window.location.href = '../auth/login.html';
+          return;
+        }
+
+        const { data, error } = await supabaseClient
+          .from('reviews')
+          .insert([
+            {
+              user_id: session.user.id,
+              product_id: reviewData.productId,
+              product_name: reviewData.productName,
+              rating: reviewData.rating,
+              review_text: reviewData.reviewText
+            }
+          ])
+          .select();
+
+        if (error) throw error;
+
+        console.log('✅ Review submitted successfully:', data);
+        alert('Thank you! Your review has been submitted successfully.');
+        
+        // Clear form
+        document.getElementById('name').value = '';
+        document.getElementById('review').value = '';
+        selectedRating = 0;
+        stars.forEach(s => s.classList.remove('active'));
+        
+        // Reload reviews
+        loadReviewsForProduct(reviewData.productName);
+        
+        return data;
+      } catch (error) {
+        console.error('❌ Error submitting review:', error);
+        alert('Failed to submit review. Please try again.');
+        throw error;
+      }
+    }
+
+    // Load reviews for a specific product
+    async function loadReviewsForProduct(productName) {
+      try {
+        const productId = generateProductId(productName);
+        
+        const { data, error } = await supabaseClient
+          .from('reviews')
+          .select('*')
+          .eq('product_id', productId)
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        console.log(`✅ Loaded ${data.length} reviews for ${productName}`);
+        displayReviews(data);
+        
+        return data;
+      } catch (error) {
+        console.error('❌ Error loading reviews:', error);
+        return [];
+      }
+    }
+
+    // Display reviews on the page
+    function displayReviews(reviews) {
+      let reviewsContainer = document.getElementById('reviewsContainer');
+      
+      // Create container if it doesn't exist
+      if (!reviewsContainer) {
+        reviewsContainer = document.createElement('div');
+        reviewsContainer.id = 'reviewsContainer';
+        reviewsContainer.style.cssText = 'max-width: 900px; margin: 40px auto; padding: 0 20px;';
+        
+        const container = document.querySelector('.container');
+        if (container && container.parentNode) {
+          container.parentNode.insertBefore(reviewsContainer, container.nextSibling);
+        }
+      }
+
+      if (reviews.length === 0) {
+        reviewsContainer.innerHTML = '<p style="text-align: center; color: var(--muted);">No reviews yet. Be the first to review this product!</p>';
+        return;
+      }
+
+      reviewsContainer.innerHTML = `
+        <h2 style="text-align: center; margin-bottom: 30px; color: #e6eef6;">Customer Reviews</h2>
+        ${reviews.map(review => `
+          <div style="background: var(--card); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid rgba(124, 58, 237, 0.2);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <div style="color: gold; font-size: 18px;">
+                  ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                </div>
+                <span style="color: var(--muted); font-size: 14px;">
+                  ${new Date(review.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                </span>
+              </div>
+            </div>
+            <p style="color: #e6eef6; line-height: 1.6; margin: 0;">${review.review_text}</p>
+          </div>
+        `).join('')}
+      `;
+    }
+
+    // Handle form submission
+    document.querySelector('.submit-btn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      const productName = productSelect.value;
+      const userName = document.getElementById('name').value.trim();
+      const reviewText = document.getElementById('review').value.trim();
+
+      // Validation
+      if (!productName) {
+        alert('Please select a product');
+        return;
+      }
+
+      if (selectedRating === 0) {
+        alert('Please select a rating');
+        return;
+      }
+
+      if (!userName) {
+        alert('Please enter your name');
+        return;
+      }
+
+      if (!reviewText) {
+        alert('Please write a review');
+        return;
+      }
+
+      // Submit review
+      await submitReview({
+        productId: generateProductId(productName),
+        productName: productName,
+        rating: selectedRating,
+        reviewText: reviewText
+      });
+    });
+
+    // Handle cancel button
+    document.querySelector('.cancel-btn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to cancel? All entered data will be lost.')) {
+        document.getElementById('name').value = '';
+        document.getElementById('review').value = '';
+        selectedRating = 0;
+        stars.forEach(s => s.classList.remove('active'));
+      }
     });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -696,18 +885,23 @@ productsMenu.addEventListener("mouseleave", () => {
   }, 1500);
 });
 
-// User Authentication Simulation
-const isAuthenticated = false; // Change to true to simulate logged-in state  
-document.addEventListener("DOMContentLoaded", () => {
+// User Authentication - Real Supabase Integration
+document.addEventListener("DOMContentLoaded", async () => {
   const authElements = document.querySelectorAll("[data-auth='logout']");
   const guestElements = document.querySelectorAll("[data-auth='login']");
+
+  // Check actual auth status from Supabase
+  const session = await checkAuth();
+  const isAuthenticated = !!session;
 
   if (isAuthenticated) {
     authElements.forEach(el => el.style.display = "flex");
     guestElements.forEach(el => el.style.display = "none");
+    console.log('✅ User authenticated:', session.user.email);
   } else {
     authElements.forEach(el => el.style.display = "none");
     guestElements.forEach(el => el.style.display = "flex");
+    console.log('ℹ️ User not authenticated');
   }
 });
 
