@@ -6,6 +6,8 @@
   <title>Smart Buy - Creative Product Review Hub</title>
   <link rel="icon" type="image/png" href="/Images/fevicon.png" rect width="2000%" height="2000%" fill="white"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Monoton&display=swap" rel="stylesheet">
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <style>
     :root {
       --bg: #101a29;
@@ -462,6 +464,209 @@
       text-align: center;
     }
 
+    /* Reviews Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      overflow: auto;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: linear-gradient(135deg, #0b1220, #1a2332);
+      margin: 2rem auto;
+      padding: 0;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .close-modal {
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.3s;
+    }
+
+    .close-modal:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
+    .modal-body {
+      padding: 2rem;
+      max-height: calc(90vh - 180px);
+      overflow-y: auto;
+    }
+
+    .review-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s;
+    }
+
+    .review-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--accent-2);
+      transform: translateY(-2px);
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .reviewer-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .reviewer-details h4 {
+      margin: 0;
+      color: #e6eef6;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .reviewer-details p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .review-rating {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .review-rating .star {
+      color: #fbbf24;
+      font-size: 1.125rem;
+    }
+
+    .review-rating .star.empty {
+      color: #4b5563;
+    }
+
+    .review-text {
+      color: #e6eef6;
+      line-height: 1.6;
+      margin-top: 1rem;
+    }
+
+    .no-reviews {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+    }
+
+    .no-reviews svg {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .review-summary {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .summary-rating {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .summary-rating .big-number {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fbbf24;
+      line-height: 1;
+    }
+
+    .summary-rating .rating-stars {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .summary-rating .stars {
+      display: flex;
+      gap: 0.125rem;
+    }
+
+    .summary-rating .total-reviews {
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
     /* Image Showcase */
     .showcase {
       background: #fff;
@@ -771,7 +976,7 @@
     </div>
     <button onclick="window.location.href='#About'" class="btn btn-outline">About</button>
     <button onclick="window.location.href='#Contact'" class="btn btn-outline">Contact</button>&nbsp;
-    <button onclick="window.location.href='/auth/signup.html'" class="btn btn-gradient">Sign In</button>
+  <button id="signInBtn" onclick="window.location.href='/auth/signup.html'" class="btn btn-gradient">Sign In</button>
     </nav>
         
         <!-- User Profile Section -->
@@ -859,7 +1064,7 @@
           </div>
           <p>Top-rated for sound quality and comfort.</p>
           <p class="reviews">1,247 reviews</p>
-          <button class="btn-card">Read Reviews</button>
+          <button class="btn-card" data-product-id="boat-wireless-headphones" data-product-name="boAt Wireless Headphones">Read Reviews</button>
         </div>
 
         <div class="card">
@@ -879,7 +1084,7 @@
           </div>
           <p>Top choice for gamers and professionals alike.</p>
           <p class="reviews">892 reviews</p>
-          <button class="btn-card">Read Reviews</button>
+          <button class="btn-card" data-product-id="acer-nitro-5-gaming-laptop" data-product-name="Acer Nitro 5 Gaming Laptop">Read Reviews</button>
         </div>
 
         <div class="card">
@@ -899,7 +1104,7 @@
           </div>
           <p>Highly rated for accuracy and features.</p>
           <p class="reviews">654 reviews</p>
-          <button class="btn-card">Read Reviews</button>
+          <button class="btn-card" data-product-id="lunar-vista-fitness-tracker" data-product-name="Lunar Vista Fitness Tracker">Read Reviews</button>
         </div>
       </div>
 
@@ -949,6 +1154,62 @@
   </div>
   </div>
   </section>
+  <!-- Reviews Modal -->
+  <div id="reviewsModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalProductName">Product Reviews</h2>
+        <button class="close-modal" onclick="closeReviewsModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Reviews will be loaded here -->
+        <div style="text-align: center; padding: 2rem;">
+          <div class="loading" style="display: inline-block; width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: var(--accent-2); animation: spin 1s linear infinite;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Write Review Modal -->
+  <div id="writeReviewModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Write a Review</h2>
+        <button class="close-modal" onclick="closeWriteReviewModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="writeReviewForm" style="display:flex; flex-direction: column; gap: 14px;">
+          <div>
+            <label for="reviewProduct" style="display:block; margin-bottom:6px; color:#e6eef6;">Product</label>
+            <select id="reviewProduct" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:#0f172a; color:#e6eef6;">
+              <!-- Options injected by JS -->
+            </select>
+          </div>
+          <div>
+            <label for="reviewRating" style="display:block; margin-bottom:6px; color:#e6eef6;">Rating</label>
+            <select id="reviewRating" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:#0f172a; color:#e6eef6;">
+              <option value="">Select rating</option>
+              <option value="5">★★★★★ (5)</option>
+              <option value="4">★★★★☆ (4)</option>
+              <option value="3">★★★☆☆ (3)</option>
+              <option value="2">★★☆☆☆ (2)</option>
+              <option value="1">★☆☆☆☆ (1)</option>
+            </select>
+          </div>
+          <div>
+            <label for="reviewText" style="display:block; margin-bottom:6px; color:#e6eef6;">Your Review</label>
+            <textarea id="reviewText" rows="5" required placeholder="Share your experience..." style="width:100%; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:#0f172a; color:#e6eef6; resize:vertical;"></textarea>
+          </div>
+          <div id="writeReviewMessage" style="min-height:18px; font-size:0.9rem;"></div>
+          <div style="display:flex; gap:10px; justify-content:flex-end;">
+            <button type="button" class="btn btn-outline" onclick="closeWriteReviewModal()">Cancel</button>
+            <button type="submit" id="submitReviewBtn" class="btn btn-gradient">Submit Review</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <footer>
       <p>
       <a href="#">About</a> | 
@@ -1020,6 +1281,550 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+</script>
+
+<script type="module">
+  // Initialize Supabase
+  import { SUPABASE_CONFIG } from '../config.js';
+  
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_CONFIG.url,
+    SUPABASE_CONFIG.anonKey
+  );
+
+  // ===== Auth-aware Navbar =====
+  function getDisplayInfo(user) {
+    const email = user?.email || '';
+    const fullName = user?.user_metadata?.full_name || user?.user_metadata?.fullName || '';
+    const name = fullName || (email ? email.split('@')[0] : 'User');
+    const initial = name?.charAt(0)?.toUpperCase() || 'U';
+    return { name, email, initial };
+  }
+
+  async function syncAuthUI(session) {
+    try {
+      // Resolve session if not provided
+      if (!session) {
+        const { data } = await supabaseClient.auth.getSession();
+        session = data?.session || null;
+      }
+
+      const signInBtn = document.getElementById('signInBtn');
+      const authContainer = document.querySelector('[data-auth="logout"]');
+      const userNameEl = document.getElementById('userName');
+      const userEmailEl = document.getElementById('userEmail');
+      const userAvatarEl = document.getElementById('userAvatar');
+      const logoutBtn = document.getElementById('logoutBtn');
+
+      if (session && session.user) {
+        // Show profile, hide sign in
+        if (authContainer) authContainer.style.display = 'flex';
+        if (signInBtn) signInBtn.style.display = 'none';
+
+        const { name, email, initial } = getDisplayInfo(session.user);
+        if (userNameEl) userNameEl.textContent = name;
+        if (userEmailEl) userEmailEl.textContent = email;
+        if (userAvatarEl) userAvatarEl.textContent = initial;
+
+        // Wire logout (once)
+        if (logoutBtn && !logoutBtn.dataset.bound) {
+          logoutBtn.addEventListener('click', async () => {
+            await supabaseClient.auth.signOut();
+            await syncAuthUI(null);
+          }, { once: false });
+          logoutBtn.dataset.bound = 'true';
+        }
+      } else {
+        // Not logged in: hide profile, show sign in
+        if (authContainer) authContainer.style.display = 'none';
+        if (signInBtn) signInBtn.style.display = '';
+      }
+    } catch (e) {
+      console.error('Auth UI sync error:', e);
+    }
+  }
+
+  // Initial sync and subscribe to auth changes
+  (async () => {
+    await syncAuthUI(null);
+    supabaseClient.auth.onAuthStateChange((_event, session) => {
+      syncAuthUI(session);
+    });
+  })();
+
+  // Product data with IDs matching your database
+  const products = [
+    {
+      id: 'boat-wireless-headphones',
+      name: 'boAt Wireless Headphones',
+      selector: '.card:nth-child(1)'
+    },
+    {
+      id: 'acer-nitro-5-gaming-laptop',
+      name: 'Acer Nitro 5 Gaming Laptop',
+      selector: '.card:nth-child(2)'
+    },
+    {
+      id: 'lunar-vista-fitness-tracker',
+      name: 'Lunar Vista Fitness Tracker',
+      selector: '.card:nth-child(3)'
+    }
+  ];
+
+  // Dummy reviews fallback (used if Supabase has no data or is unavailable)
+  const DUMMY_REVIEWS = {
+    'boat-wireless-headphones': [
+      {
+        user_name: 'Aarav',
+        rating: 5,
+        review_text: 'Amazing sound and battery life. Super comfy for long sessions!',
+        created_at: '2025-01-10T10:00:00Z'
+      },
+      {
+        user_name: 'Meera',
+        rating: 4,
+        review_text: 'Great overall. Bluetooth drops once in a while but still worth it.',
+        created_at: '2025-01-14T12:30:00Z'
+      },
+      {
+        user_name: 'Kabir',
+        rating: 5,
+        review_text: 'Best in this price segment. Clear highs and punchy bass.',
+        created_at: '2025-01-18T09:20:00Z'
+      }
+    ],
+    'acer-nitro-5-gaming-laptop': [
+      {
+        user_name: 'Priya',
+        rating: 5,
+        review_text: 'Plays AAA titles smoothly. Cooling is solid and the keyboard feels great.',
+        created_at: '2024-12-12T16:20:00Z'
+      },
+      {
+        user_name: 'Rohan',
+        rating: 4,
+        review_text: 'Powerful and reliable. A bit heavy to carry, but performance is top-notch.',
+        created_at: '2024-12-28T11:00:00Z'
+      },
+      {
+        user_name: 'Sara',
+        rating: 5,
+        review_text: 'Exceeded expectations for both gaming and work tasks.',
+        created_at: '2025-01-08T13:30:00Z'
+      }
+    ],
+    'lunar-vista-fitness-tracker': [
+      {
+        user_name: 'Vikram',
+        rating: 4,
+        review_text: 'Accurate tracking and comfortable to wear. Battery lasts almost a week.',
+        created_at: '2024-12-18T08:45:00Z'
+      },
+      {
+        user_name: 'Nia',
+        rating: 4,
+        review_text: 'Syncs well with phone. Would love a few more sport modes.',
+        created_at: '2025-01-02T15:20:00Z'
+      },
+      {
+        user_name: 'Dev',
+        rating: 5,
+        review_text: 'Waterproofing is excellent and notifications are timely.',
+        created_at: '2025-01-12T10:00:00Z'
+      }
+    ]
+  };
+
+  // Fetch reviews for a specific product
+  async function fetchProductReviews(productId) {
+    try {
+      const { data, error } = await supabaseClient
+        .from('reviews')
+        .select('*')
+        .eq('product_id', productId)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching reviews:', error);
+        // Fall back to dummy if available
+        const dummy = DUMMY_REVIEWS[productId] || [];
+        if (dummy.length) {
+          const avgRating = (dummy.reduce((s, r) => s + Number(r.rating || 0), 0) / dummy.length).toFixed(1);
+          return { reviews: dummy, avgRating: parseFloat(avgRating), totalReviews: dummy.length };
+        }
+        return { reviews: [], avgRating: 0, totalReviews: 0 };
+      }
+
+      // Calculate average rating
+      let useData = data;
+      if (!useData || useData.length === 0) {
+        // No data in DB, try dummy
+        const dummy = DUMMY_REVIEWS[productId] || [];
+        useData = dummy;
+      }
+      const avgRating = useData.length > 0
+        ? (useData.reduce((sum, review) => sum + Number(review.rating || 0), 0) / useData.length).toFixed(1)
+        : 0;
+
+      return {
+        reviews: useData,
+        avgRating: parseFloat(avgRating),
+        totalReviews: useData.length
+      };
+    } catch (error) {
+      console.error('Error:', error);
+      const dummy = DUMMY_REVIEWS[productId] || [];
+      if (dummy.length) {
+        const avgRating = (dummy.reduce((s, r) => s + Number(r.rating || 0), 0) / dummy.length).toFixed(1);
+        return { reviews: dummy, avgRating: parseFloat(avgRating), totalReviews: dummy.length };
+      }
+      return { reviews: [], avgRating: 0, totalReviews: 0 };
+    }
+  }
+
+  // Update product card with real review data
+  function updateProductCard(selector, reviewData) {
+    const card = document.querySelector(selector);
+    if (!card) return;
+
+    const { avgRating, totalReviews } = reviewData;
+
+    // Update rating display
+    const ratingSpan = card.querySelector('.rating span');
+    if (ratingSpan) {
+      ratingSpan.textContent = avgRating > 0 ? avgRating : '0.0';
+    }
+
+    // Update stars
+    const starsContainer = card.querySelector('.stars');
+    if (starsContainer) {
+      const fullStars = Math.floor(avgRating);
+      const hasHalfStar = avgRating % 1 >= 0.5;
+      
+      starsContainer.innerHTML = '';
+      
+      // Add full stars
+      for (let i = 0; i < fullStars; i++) {
+        starsContainer.innerHTML += '<span class="star">★</span>';
+      }
+      
+      // Add half star if needed
+      if (hasHalfStar && fullStars < 5) {
+        starsContainer.innerHTML += '<span class="star">★</span>';
+      }
+      
+      // Add empty stars
+      const emptyStars = 5 - Math.ceil(avgRating);
+      for (let i = 0; i < emptyStars; i++) {
+        starsContainer.innerHTML += '<span class="star empty">★</span>';
+      }
+    }
+
+    // Update review count
+    const reviewsText = card.querySelector('.reviews');
+    if (reviewsText) {
+      reviewsText.textContent = `${totalReviews} ${totalReviews === 1 ? 'review' : 'reviews'}`;
+    }
+  }
+
+  // Fetch and update all product reviews
+  async function loadAllReviews() {
+    for (const product of products) {
+      const reviewData = await fetchProductReviews(product.id);
+      updateProductCard(product.selector, reviewData);
+    }
+  }
+
+  // Load reviews when page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    loadAllReviews();
+  });
+
+  // Modal functions
+  window.openReviewsModal = async function(productId, productName) {
+    const modal = document.getElementById('reviewsModal');
+    const modalBody = document.getElementById('modalBody');
+    const modalProductName = document.getElementById('modalProductName');
+    
+    // Set product name
+    modalProductName.textContent = `${productName} - Reviews`;
+    
+    // Show modal with loading state
+    modal.classList.add('active');
+    modalBody.innerHTML = '<div style="text-align: center; padding: 2rem;"><div class="loading" style="display: inline-block; width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: var(--accent-2); animation: spin 1s linear infinite;"></div></div>';
+    
+    // Fetch reviews
+    const reviewData = await fetchProductReviews(productId);
+    
+    // Build reviews HTML
+    let html = '';
+    
+    if (reviewData.totalReviews > 0) {
+      // Summary section
+      html += `
+        <div class="review-summary">
+          <div class="summary-rating">
+            <div class="big-number">${reviewData.avgRating}</div>
+            <div class="rating-stars">
+              <div class="stars">
+                ${generateStarsHTML(reviewData.avgRating)}
+              </div>
+              <div class="total-reviews">${reviewData.totalReviews} ${reviewData.totalReviews === 1 ? 'review' : 'reviews'}</div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Individual reviews
+      reviewData.reviews.forEach(review => {
+        const reviewDate = new Date(review.created_at).toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'short', 
+          day: 'numeric' 
+        });
+        
+        const userInitial = review.user_name ? review.user_name.charAt(0).toUpperCase() : 'U';
+        
+        html += `
+          <div class="review-item">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar">${userInitial}</div>
+                <div class="reviewer-details">
+                  <h4>${review.user_name || 'Anonymous User'}</h4>
+                  <p>${reviewDate}</p>
+                </div>
+              </div>
+              <div class="review-rating">
+                ${generateStarsHTML(review.rating)}
+              </div>
+            </div>
+            <div class="review-text">${review.review_text || 'No review text provided.'}</div>
+          </div>
+        `;
+      });
+    } else {
+      html = `
+        <div class="no-reviews">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+          </svg>
+          <h3>No Reviews Yet</h3>
+          <p>Be the first to review this product!</p>
+        </div>
+      `;
+    }
+    
+    modalBody.innerHTML = html;
+  }
+
+  window.closeReviewsModal = function() {
+    const modal = document.getElementById('reviewsModal');
+    modal.classList.remove('active');
+  }
+
+  // Generate stars HTML helper
+  function generateStarsHTML(rating) {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - Math.ceil(rating);
+    
+    let html = '';
+    
+    for (let i = 0; i < fullStars; i++) {
+      html += '<span class="star">★</span>';
+    }
+    
+    if (hasHalfStar && fullStars < 5) {
+      html += '<span class="star">★</span>';
+    }
+    
+    for (let i = 0; i < emptyStars; i++) {
+      html += '<span class="star empty">★</span>';
+    }
+    
+    return html;
+  }
+
+  // Add event listeners to Read Reviews buttons
+  document.addEventListener('DOMContentLoaded', () => {
+    const reviewButtons = document.querySelectorAll('.btn-card');
+    reviewButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const productId = button.getAttribute('data-product-id');
+        const productName = button.getAttribute('data-product-name');
+        if (productId && productName) {
+          openReviewsModal(productId, productName);
+        }
+      });
+    });
+    
+    // Wire Write Review button
+    const writeBtn = document.getElementById('openReview');
+    if (writeBtn) {
+      writeBtn.addEventListener('click', async () => {
+        await openWriteReviewModal();
+      });
+    }
+
+    // Close modal when clicking outside
+    const modal = document.getElementById('reviewsModal');
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeReviewsModal();
+      }
+    });
+    
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeReviewsModal();
+        closeWriteReviewModal();
+      }
+    });
+
+    // Handle write review submission
+    const writeForm = document.getElementById('writeReviewForm');
+    if (writeForm) {
+      writeForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const msg = document.getElementById('writeReviewMessage');
+        const productSelect = document.getElementById('reviewProduct');
+        const ratingSelect = document.getElementById('reviewRating');
+        const reviewTextEl = document.getElementById('reviewText');
+        const submitBtn = document.getElementById('submitReviewBtn');
+
+        msg.textContent = '';
+        submitBtn.disabled = true;
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Submitting...';
+
+        try {
+          const productId = productSelect.value;
+          const rating = parseInt(ratingSelect.value, 10);
+          const reviewText = reviewTextEl.value.trim();
+
+          if (!productId || !rating || !reviewText) {
+            msg.style.color = '#ff8a8a';
+            msg.textContent = 'Please select a product, choose a rating, and write your review.';
+            return;
+          }
+
+          const product = products.find(p => p.id === productId);
+          const productName = product ? product.name : productId;
+
+          const { data: { session } } = await supabaseClient.auth.getSession();
+          if (!session) {
+            msg.style.color = '#ffcc66';
+            msg.textContent = 'Please sign in to write a review.';
+            // Optionally redirect
+            // window.location.href = '/auth/signup.html';
+            return;
+          }
+
+          const { error } = await supabaseClient
+            .from('reviews')
+            .insert([
+              {
+                user_id: session.user.id,
+                product_id: productId,
+                product_name: productName,
+                rating: rating,
+                review_text: reviewText
+              }
+            ]);
+
+          if (error) {
+            console.error('Insert error:', error);
+            msg.style.color = '#ff8a8a';
+            msg.textContent = 'Could not submit review. Please try again.';
+            return;
+          }
+
+          msg.style.color = '#67e8f9';
+          msg.textContent = 'Review submitted! Updating...';
+
+          // Refresh product card with latest data
+          const data = await fetchProductReviews(productId);
+          if (product) {
+            updateProductCard(product.selector, data);
+          }
+
+          // Reset form and close after a short delay
+          writeForm.reset();
+          setTimeout(() => {
+            closeWriteReviewModal();
+            msg.textContent = '';
+          }, 900);
+
+        } catch (err) {
+          console.error('Unexpected error:', err);
+          msg.style.color = '#ff8a8a';
+          msg.textContent = 'Unexpected error occurred.';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+<script type="module">
+  // Write Review modal helpers
+  function openWriteReviewModalPrefillOptions(defaultProductId = '') {
+    const modal = document.getElementById('writeReviewModal');
+    const select = document.getElementById('reviewProduct');
+    const msg = document.getElementById('writeReviewMessage');
+    const ratingSelect = document.getElementById('reviewRating');
+    const reviewTextEl = document.getElementById('reviewText');
+
+    if (msg) msg.textContent = '';
+    if (ratingSelect) ratingSelect.value = '';
+    if (reviewTextEl) reviewTextEl.value = '';
+
+    // Fill product options
+    if (select) {
+      select.innerHTML = '';
+      products.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = p.name;
+        if (defaultProductId && p.id === defaultProductId) {
+          opt.selected = true;
+        }
+        select.appendChild(opt);
+      });
+    }
+    if (modal) modal.classList.add('active');
+  }
+
+  // Expose to other handlers
+  window.openWriteReviewModal = async function(defaultProductId = '') {
+    try {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (!session) {
+        // If not logged in, direct to sign-in
+        window.location.href = '/auth/signup.html';
+        return;
+      }
+      openWriteReviewModalPrefillOptions(defaultProductId);
+    } catch (e) {
+      console.error('Open write modal error:', e);
+      openWriteReviewModalPrefillOptions(defaultProductId);
+    }
+  }
+
+  window.closeWriteReviewModal = function() {
+    const modal = document.getElementById('writeReviewModal');
+    if (modal) modal.classList.remove('active');
+  }
 </script>
 
 </body>
